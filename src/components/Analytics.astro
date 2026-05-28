@@ -1,7 +1,9 @@
 ---
-const gaId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID;
-const clarityId = import.meta.env.PUBLIC_CLARITY_PROJECT_ID;
-const enabled = import.meta.env.PROD && Boolean(gaId || clarityId);
+import { CLARITY_PROJECT_ID, GA4_MEASUREMENT_ID } from '../lib/constants';
+
+const gaId = GA4_MEASUREMENT_ID;
+const clarityId = CLARITY_PROJECT_ID;
+const enabled = import.meta.env.PROD;
 ---
 
 {

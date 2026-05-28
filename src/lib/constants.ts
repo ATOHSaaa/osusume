@@ -8,6 +8,12 @@ export const SITE_URL = 'https://first-books.tadeku.net';
 export const SITE_DESCRIPTION =
   'Web上のおすすめ記事を分析し、言及頻度の高い本をランキング形式で紹介するサイト';
 
+/** Google Analytics 4 測定 ID */
+export const GA4_MEASUREMENT_ID = 'G-XMEE7RT3CE';
+
+/** Microsoft Clarity プロジェクト ID */
+export const CLARITY_PROJECT_ID = 'wy0c6r5yuk';
+
 /** RSS フィードのパス */
 export const RSS_PATH = '/rss.xml';
 
@@ -37,7 +43,7 @@ export const PRIVACY_PATH = '/privacy/';
 export const CONTACT_PATH = '/contact/';
 
 /** お問い合わせ先メールアドレス */
-export const CONTACT_EMAIL = 'contact@tadeku.net';
+export const CONTACT_EMAIL = 'info@tadeku.net';
 
 /** 作家記事で分析する検索結果の件数 */
 export const AUTHOR_SEARCH_LIMIT = 10;
