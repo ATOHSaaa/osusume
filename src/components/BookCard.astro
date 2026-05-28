@@ -1,0 +1,123 @@
+---
+interface Props {
+  rank: number;
+  title: string;
+  count: number;
+  amazonUrl?: string;
+  imageUrl?: string;
+  price?: string;
+  author?: string;
+  /** ジャンル記事など、著者名を常に表示する */
+  showAuthor?: boolean;
+}
+
+const { rank, title, count, amazonUrl, imageUrl, price, author, showAuthor = false } =
+  Astro.props;
+---
+
+<a
+  href={amazonUrl}
+  class="book-card"
+  target="_blank"
+  rel="noopener noreferrer sponsored"
+>
+  <div class="book-card__rank">{rank}</div>
+  {imageUrl && (
+    <div class="book-card__image">
+      <img src={imageUrl} alt={title} loading="lazy" width="120" height="180" />
+    </div>
+  )}
+  <div class="book-card__body">
+    <h3 class="book-card__title">{title}</h3>
+    {
+      (showAuthor || author) && (
+        <p class="book-card__author">{author ?? '著者情報なし'}</p>
+      )
+    }
+    <p class="book-card__meta">{count}件の記事で言及</p>
+    {price && <p class="book-card__price">{price}</p>}
+    <span class="book-card__cta">Amazonで見る →</span>
+  </div>
+</a>
+
+<style>
+  .book-card {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .book-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .book-card__rank {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--color-accent);
+    color: white;
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.75rem;
+    border-bottom-right-radius: 8px;
+  }
+
+  .book-card__image {
+    flex-shrink: 0;
+    margin-top: 1.5rem;
+  }
+
+  .book-card__image img {
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    object-fit: cover;
+  }
+
+  .book-card__body {
+    flex: 1;
+    padding-top: 1.5rem;
+  }
+
+  .book-card__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    line-height: 1.4;
+  }
+
+  .book-card__author {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin: 0 0 0.5rem;
+  }
+
+  .book-card__meta {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    margin: 0 0 0.5rem;
+  }
+
+  .book-card__price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin: 0 0 0.75rem;
+  }
+
+  .book-card__cta {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+</style>

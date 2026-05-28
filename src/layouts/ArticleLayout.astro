@@ -1,0 +1,150 @@
+---
+import Layout from './Layout.astro';
+import ArticleBooks from '../components/ArticleBooks.astro';
+import ArticleNavSidebar from '../components/ArticleNavSidebar.astro';
+import ArticleShareBar from '../components/ArticleShareBar.astro';
+import RelatedArticles from '../components/RelatedArticles.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { buildArticlePageJsonLd } from '../lib/structured-data';
+import { getArticleOgImagePath } from '../lib/og-image';
+import { getRelatedArticles } from '../lib/related-articles';
+import { absoluteUrl } from '../lib/site-url';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+
+const { article } = Astro.props;
+const { title, description, published_at, updated_at, books, sources, kind } =
+  article.data;
+
+const articles = await getCollection('articles');
+const authorArticles = articles.filter((a) => a.data.kind !== 'genre');
+const genreArticles = articles.filter((a) => a.data.kind === 'genre');
+const relatedArticles = getRelatedArticles(article, articles);
+
+const articlePath = `/articles/${article.slug}/`;
+const shareUrl = absoluteUrl(articlePath, Astro.site);
+const ogImagePath = getArticleOgImagePath(article.slug);
+const jsonLd = buildArticlePageJsonLd({
+  site: Astro.site,
+  title,
+  description,
+  author: article.data.author,
+  path: articlePath,
+  publishedAt: published_at,
+  updatedAt: updated_at,
+  kind,
+  books,
+});
+
+const dateOptions: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
+
+const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', dateOptions);
+---
+
+<Layout
+  title={title}
+  description={description}
+  wide
+  ogType="article"
+  ogImage={ogImagePath}
+  ogImageAlt={title}
+  jsonLd={jsonLd}
+>
+  <div class="article-layout">
+    <article class="article">
+      <header class="article__header">
+        <h1>{title}</h1>
+        <div class="article__dates">
+          <time datetime={published_at.toISOString()}>
+            公開: {formatDate(published_at)}
+          </time>
+          <time datetime={updated_at.toISOString()}>
+            更新: {formatDate(updated_at)}
+          </time>
+        </div>
+      </header>
+
+      <ArticleShareBar url={shareUrl} title={title} position="top" />
+
+      <div class="article__content">
+        <slot />
+      </div>
+
+      <ArticleBooks books={books} sources={sources} kind={kind} />
+
+      <ArticleShareBar url={shareUrl} title={title} position="bottom" />
+
+      <RelatedArticles articles={relatedArticles} />
+    </article>
+
+    <ArticleNavSidebar
+      authorArticles={authorArticles}
+      genreArticles={genreArticles}
+      currentSlug={article.slug}
+    />
+  </div>
+</Layout>
+
+<script>
+  import { bindArticleShareCopyButtons } from '../scripts/init-article-share';
+
+  bindArticleShareCopyButtons();
+</script>
+
+<style>
+  .article-layout {
+    display: block;
+  }
+
+  .article-layout :global(.article-nav-sidebar) {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 200px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .article-layout :global(.article-nav-sidebar) {
+      display: block;
+      position: sticky;
+      top: calc(var(--site-header-height) + 1.5rem);
+    }
+  }
+
+  .article {
+    padding: 0;
+    min-width: 0;
+  }
+
+  .article__header {
+    margin-bottom: 2rem;
+  }
+
+  .article h1 {
+    font-size: 1.75rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .article__dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .article__content :global(p) {
+    margin-bottom: 1rem;
+  }
+</style>

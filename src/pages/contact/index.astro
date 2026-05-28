@@ -1,0 +1,36 @@
+---
+import InfoPageLayout from '../../layouts/InfoPageLayout.astro';
+import { CONTACT_EMAIL, SITE_NAME } from '../../lib/constants';
+---
+
+<InfoPageLayout
+  title="お問い合わせ"
+  description={`${SITE_NAME}へのお問い合わせ方法`}
+>
+  <p>
+    {SITE_NAME}に関するご意見・ご質問・不具合の報告などは、下記メールアドレスまでお問い合わせください。
+  </p>
+
+  <p>
+    <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+  </p>
+
+  <h2>お問い合わせの際にお願いしたいこと</h2>
+  <ul>
+    <li>件名に「First Books」とお書き添えください。</li>
+    <li>該当する記事のURLがある場合は、あわせてお知らせください。</li>
+    <li>リンク切れや情報の誤りについては、具体的な内容をご記載ください。</li>
+  </ul>
+
+  <h2>返信について</h2>
+  <p>
+    内容を確認のうえ、順次ご返信いたします。お問い合わせの内容によっては、回答までにお時間をいただく場合や、回答できない場合があります。
+    あらかじめご了承ください。
+  </p>
+
+  <p>
+    プライバシーに関するお問い合わせは、
+    <a href="/privacy/">プライバシーポリシー</a>
+    もあわせてご確認ください。
+  </p>
+</InfoPageLayout>

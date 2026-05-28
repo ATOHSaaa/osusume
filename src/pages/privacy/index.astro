@@ -1,0 +1,120 @@
+---
+import InfoPageLayout from '../../layouts/InfoPageLayout.astro';
+import { CONTACT_EMAIL, SITE_NAME, SITE_URL } from '../../lib/constants';
+---
+
+<InfoPageLayout
+  title="プライバシーポリシー"
+  description={`${SITE_NAME}における個人情報の取り扱いについて`}
+>
+  <p>
+    {SITE_NAME}（{SITE_URL}、以下「当サイト」）は、利用者のプライバシーを尊重し、個人情報の保護に努めます。
+    本ポリシーは、当サイトにおける情報の取り扱いについて説明するものです。
+  </p>
+
+  <h2>収集する情報</h2>
+  <p>当サイトでは、以下の情報を取得する場合があります。</p>
+  <ul>
+    <li>アクセスログ（IPアドレス、ブラウザ種別、アクセス日時、参照元など）</li>
+    <li>お問い合わせの際にご提供いただいた情報（メールアドレス、お問い合わせ内容など）</li>
+    <li>
+      アクセス解析ツールにより取得される情報（閲覧ページ、滞在時間、クリック・スクロール等の操作、端末情報、Cookie識別子など）
+    </li>
+  </ul>
+  <p>
+    当サイト自体に会員登録やコメント機能はありませんが、アクセス解析ツールの利用により、通常の閲覧時にも上記の情報が自動的に取得される場合があります。
+  </p>
+
+  <h2>アクセス解析ツール</h2>
+  <p>
+    当サイトでは、利用状況の把握およびサイト改善のため、以下のアクセス解析ツールを使用しています。
+    これらのツールはCookie等を用いて情報を収集し、各サービス提供者のサーバーに送信されます。
+  </p>
+
+  <h3>Google Analytics（Google Analytics 4）</h3>
+  <ul>
+    <li>提供元: Google LLC</li>
+    <li>利用目的: アクセス数・閲覧傾向の分析、コンテンツ改善</li>
+    <li>
+      収集される情報の例: 閲覧ページ、参照元、ブラウザ・OS・端末の種類、IPアドレス（Google側で匿名化処理される場合があります）、Cookie識別子
+    </li>
+    <li>
+      プライバシーポリシー:
+      <a href="https://policies.google.com/privacy?hl=ja" rel="noopener noreferrer" target="_blank">
+        Google プライバシーポリシー
+      </a>
+    </li>
+    <li>
+      オプトアウト:
+      <a href="https://tools.google.com/dlpage/gaoptout?hl=ja" rel="noopener noreferrer" target="_blank">
+        Google Analytics オプトアウト アドオン
+      </a>
+      またはブラウザのCookie設定
+    </li>
+  </ul>
+
+  <h3>Microsoft Clarity</h3>
+  <ul>
+    <li>提供元: Microsoft Corporation</li>
+    <li>利用目的: ページの表示・操作性の分析、ユーザー体験の改善</li>
+    <li>
+      収集される情報の例: クリック、スクロール、マウス操作、閲覧ページ、端末・ブラウザ情報、Cookie識別子、セッションの録画データ
+    </li>
+    <li>
+      プライバシーポリシー:
+      <a href="https://privacy.microsoft.com/ja-jp/privacystatement" rel="noopener noreferrer" target="_blank">
+        Microsoft プライバシー ステートメント
+      </a>
+    </li>
+    <li>オプトアウト: ブラウザのCookie設定、または各種広告・トラッキング拒否設定</li>
+  </ul>
+  <p>
+    これらのツールで収集されたデータは、各サービス提供者のプライバシーポリシーに従って管理されます。
+    当サイトがこれらの情報から、お問い合わせ等でご提供いただいた情報と直接紐づけて利用することはありません。
+  </p>
+
+  <h2>利用目的</h2>
+  <ul>
+    <li>サイトの運営・改善、不正アクセスの防止</li>
+    <li>お問い合わせへの対応</li>
+    <li>アクセス状況の分析、ページ表示・操作性の改善（Google Analytics、Microsoft Clarity を含む）</li>
+  </ul>
+
+  <h2>第三者への提供</h2>
+  <p>
+    法令に基づく場合を除き、本人の同意なく個人情報を第三者に提供することはありません。
+  </p>
+
+  <h2>外部サービス・リンク</h2>
+  <ul>
+    <li>
+      書籍リンク先の Amazon.co.jp では、Amazon独自のプライバシーポリシーおよびCookieが適用されます。
+    </li>
+    <li>
+      当サイトでは Google Fonts によりフォントを読み込んでいます。Googleのプライバシーポリシーが適用される場合があります。
+    </li>
+    <li>
+      Google Analytics（GA4）および Microsoft Clarity については、上記「アクセス解析ツール」をご確認ください。
+    </li>
+    <li>
+      参考として掲載している外部サイトへのリンクから離れた場合、当サイトのプライバシーポリシーは適用されません。
+    </li>
+  </ul>
+
+  <h2>Cookieについて</h2>
+  <p>
+    当サイトでは、Google Analytics（GA4）および Microsoft Clarity によりCookieが使用されます。
+    これらはアクセス解析のために利用され、閲覧履歴や操作情報の取得に用いられます。
+  </p>
+  <p>
+    また、Amazon等の外部サービスへのリンクを経由した場合、各サービスがCookieを設定することがあります。
+    ブラウザの設定によりCookieを無効にできますが、一部機能が利用できなくなる場合があります。
+  </p>
+
+  <h2>お問い合わせ</h2>
+  <p>
+    本ポリシーに関するお問い合わせは、
+    <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+    までご連絡ください。
+  </p>
+</InfoPageLayout>

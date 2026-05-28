@@ -1,0 +1,30 @@
+{
+  "name": "osusume",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "fix:book-counts": "tsx scripts/fix-book-counts.ts",
+    "generate:genre": "tsx scripts/generate-article.ts --genre",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/rss": "^4.0.18",
+    "@fontsource/noto-sans-jp": "^5.2.9",
+    "@phukon/duckduckgo-search": "^1.2.0",
+    "amazon-creator-api-sdk": "^1.2.0",
+    "astro": "^5.8.0",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.5.0",
+    "satori": "^0.26.0",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
+  }
+}

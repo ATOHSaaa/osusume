@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { AUTHOR_LIST_PATH, GENRE_LIST_PATH, SITE_NAME } from '../lib/constants';
+---
+
+<Layout title="ページが見つかりません" description="お探しのページは見つかりませんでした。">
+  <section class="not-found">
+    <p class="not-found__code" aria-hidden="true">404</p>
+    <h1 class="not-found__title">ページが見つかりません</h1>
+    <p class="not-found__message">
+      リンク切れか、ページが移動・削除された可能性があります。下のリンクから探してみてください。
+    </p>
+    <nav class="not-found__nav" aria-label="404 ページの案内">
+      <a href="/" class="not-found__link not-found__link--primary">トップページへ</a>
+      <a href={AUTHOR_LIST_PATH} class="not-found__link">作家別のおすすめ</a>
+      <a href={GENRE_LIST_PATH} class="not-found__link">ジャンル別のおすすめ</a>
+    </nav>
+    <p class="not-found__hint">
+      {SITE_NAME} では、Web上のおすすめ記事をもとに本のランキングを掲載しています。
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .not-found {
+    text-align: center;
+    padding: 2rem 0 3rem;
+    max-width: 36rem;
+    margin: 0 auto;
+  }
+
+  .not-found__code {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-site-title);
+    font-size: clamp(4rem, 18vw, 6rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    color: rgba(194, 65, 12, 0.18);
+  }
+
+  .not-found__title {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+  }
+
+  .not-found__message {
+    margin: 0 0 2rem;
+    color: var(--color-muted);
+  }
+
+  .not-found__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .not-found__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 14rem;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+  }
+
+  .not-found__link:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+    color: var(--color-accent);
+  }
+
+  .not-found__link--primary {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+  }
+
+  .not-found__link--primary:hover {
+    color: #fff;
+    background: #9a3412;
+    border-color: #9a3412;
+  }
+
+  .not-found__hint {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+</style>

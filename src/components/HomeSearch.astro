@@ -1,0 +1,286 @@
+---
+import { ABOUT_PATH, SITE_NAME } from '../lib/constants';
+---
+
+<section class="home-search" aria-label="記事検索">
+  <div class="home-search__inner">
+    <p class="home-search__intro">
+      {SITE_NAME}は、Web上の書籍おすすめ記事を分析し、言及頻度によっておすすめ作品を紹介するサイトです。<br
+      />
+      詳細は<a href={ABOUT_PATH}>このサイトについて</a>をご覧ください
+    </p>
+    <p class="home-search__copy">作家名・ジャンルで検索</p>
+    <label class="home-search__label" for="home-search-input">作家名・ジャンルで検索</label>
+    <div class="home-search__field">
+      <input
+        id="home-search-input"
+        class="home-search__input"
+        type="search"
+        name="q"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button type="button" class="home-search__submit" aria-label="検索">
+        <svg
+          class="home-search__icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="M20 20l-3.5-3.5"></path>
+        </svg>
+      </button>
+    </div>
+    <p class="home-search__empty" hidden data-search-empty>該当する記事がありません</p>
+  </div>
+</section>
+
+<style>
+  .home-search {
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .home-search__inner {
+    width: 100%;
+    max-width: var(--site-width);
+    margin: 0 auto;
+    padding: 1.5rem var(--layout-padding-x) 1.75rem;
+  }
+
+  .home-search__intro {
+    margin: 0 0 1.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    text-align: center;
+    color: var(--color-text);
+  }
+
+  .home-search__intro a {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .home-search__intro a:hover {
+    color: var(--color-accent);
+  }
+
+  .home-search__copy {
+    margin: 0 0 1.25rem;
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--color-text);
+  }
+
+  .home-search__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .home-search__field {
+    display: flex;
+    align-items: stretch;
+    margin: 0.75rem 1.25rem 1.25rem;
+    border: 1px solid var(--color-text);
+    border-radius: 10px;
+    background: var(--color-surface);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .home-search__field:focus-within {
+    border-color: var(--color-text);
+    box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.08);
+  }
+
+  .home-search__input {
+    display: block;
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 1.125rem 0.75rem 1.125rem 1.25rem;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+
+  .home-search__input:focus {
+    outline: none;
+  }
+
+  .home-search__input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .home-search__submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0 1.125rem;
+    border: none;
+    border-left: 1px solid var(--color-text);
+    background: transparent;
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+
+  .home-search__submit:hover {
+    color: var(--color-text);
+  }
+
+  .home-search__submit:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: -2px;
+    border-radius: 4px;
+  }
+
+  .home-search__icon {
+    display: block;
+  }
+
+  .home-search__empty {
+    margin: 0.75rem 0 0;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .home-search__inner {
+      padding: 1.75rem var(--layout-padding-x) 2rem;
+    }
+
+    .home-search__intro {
+      font-size: 1rem;
+      line-height: 2;
+      margin-bottom: 1.75rem;
+    }
+
+    .home-search__copy {
+      font-size: 1.625rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .home-search__field {
+      margin: 1rem 2rem 1.5rem;
+    }
+
+    .home-search__input {
+      padding: 1.25rem 0.75rem 1.25rem 1.5rem;
+      font-size: 1.25rem;
+    }
+
+    .home-search__submit {
+      padding: 0 1.375rem;
+    }
+  }
+</style>
+
+<script>
+  import { HOME_SEARCH_QUERY_PARAM } from '../lib/constants';
+
+  function initHomeSearch() {
+    const input = document.getElementById('home-search-input');
+    if (!(input instanceof HTMLInputElement) || input.dataset.bound === 'true') return;
+    input.dataset.bound = 'true';
+
+    const homeDefault = document.querySelector('[data-home-default]');
+    const searchResults = document.querySelector('[data-search-results]');
+    const emptyMessage = document.querySelector('[data-search-empty]');
+    const resultItems = searchResults?.querySelectorAll('[data-search-item]') ?? [];
+
+    const filter = () => {
+      const query = input.value.trim().toLowerCase();
+      const isSearching = query.length > 0;
+
+      if (!isSearching) {
+        if (homeDefault instanceof HTMLElement) {
+          homeDefault.hidden = false;
+        }
+        if (searchResults instanceof HTMLElement) {
+          searchResults.hidden = true;
+        }
+        if (emptyMessage instanceof HTMLElement) {
+          emptyMessage.hidden = true;
+        }
+        return;
+      }
+
+      let visibleCount = 0;
+
+      resultItems.forEach((item) => {
+        if (!(item instanceof HTMLElement)) return;
+
+        const text = item.dataset.search?.toLowerCase() ?? '';
+        const match = text.includes(query);
+
+        item.hidden = !match;
+        if (match) visibleCount += 1;
+      });
+
+      const hasResults = visibleCount > 0;
+
+      if (homeDefault instanceof HTMLElement) {
+        homeDefault.hidden = hasResults;
+      }
+
+      if (searchResults instanceof HTMLElement) {
+        searchResults.hidden = !hasResults;
+      }
+
+      if (emptyMessage instanceof HTMLElement) {
+        emptyMessage.hidden = hasResults;
+      }
+    };
+
+    const initialQuery = new URLSearchParams(window.location.search).get(
+      HOME_SEARCH_QUERY_PARAM
+    );
+    if (initialQuery) {
+      input.value = initialQuery;
+    } else {
+      input.value = '';
+    }
+
+    const submitButton = document.querySelector('.home-search__submit');
+
+    input.addEventListener('input', filter);
+    input.addEventListener('search', filter);
+
+    if (submitButton instanceof HTMLButtonElement) {
+      submitButton.addEventListener('click', () => {
+        input.focus();
+        filter();
+      });
+    }
+
+    filter();
+  }
+
+  initHomeSearch();
+  document.addEventListener('astro:page-load', initHomeSearch);
+</script>

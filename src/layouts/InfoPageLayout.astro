@@ -1,0 +1,60 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <article class="info-page">
+    <h1 class="info-page__title">{title}</h1>
+    <div class="info-page__content">
+      <slot />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .info-page__title {
+    font-size: 1.75rem;
+    margin: 0 0 2rem;
+    line-height: 1.3;
+  }
+
+  .info-page__content :global(h2) {
+    font-size: 1.125rem;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .info-page__content :global(h3) {
+    font-size: 1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .info-page__content :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .info-page__content :global(p),
+  .info-page__content :global(ul),
+  .info-page__content :global(ol) {
+    margin: 0 0 1rem;
+  }
+
+  .info-page__content :global(ul),
+  .info-page__content :global(ol) {
+    padding-left: 1.25rem;
+  }
+
+  .info-page__content :global(li + li) {
+    margin-top: 0.35rem;
+  }
+
+  .info-page__content :global(a) {
+    word-break: break-all;
+  }
+</style>

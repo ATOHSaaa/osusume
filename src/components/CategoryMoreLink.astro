@@ -1,0 +1,35 @@
+---
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+---
+
+<a href={href} class:list={['category-more', className]}>すべて見る</a>
+
+<style>
+  .category-more {
+    display: block;
+    width: 100%;
+    margin-top: 1.25rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+    color: var(--color-muted);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: color 0.15s, border-color 0.15s, background-color 0.15s;
+  }
+
+  .category-more:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: rgba(194, 65, 12, 0.04);
+  }
+</style>

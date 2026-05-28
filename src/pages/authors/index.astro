@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { AUTHOR_LIST_PATH, SITE_NAME } from '../../lib/constants';
+import { getAuthorArticles } from '../../lib/articles';
+import { buildCategoryPageJsonLd } from '../../lib/structured-data';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articles');
+const authorArticles = getAuthorArticles(articles);
+const pageTitle = '作家別のおすすめ';
+const pageDescription = '作家別のおすすめ作品ランキング記事一覧';
+const jsonLd = buildCategoryPageJsonLd({
+  site: Astro.site,
+  title: pageTitle,
+  description: pageDescription,
+  path: AUTHOR_LIST_PATH,
+});
+---
+
+<Layout
+  title={`${pageTitle} — ${SITE_NAME}`}
+  description={pageDescription}
+  wide
+  jsonLd={jsonLd}
+>
+  {
+    authorArticles.length === 0 ? (
+      <p class="category-empty">まだ記事がありません。</p>
+    ) : (
+      <div class="category-page">
+        <h1 class="category-page__heading">{pageTitle}</h1>
+        <ul class="article-list">
+          {authorArticles.map((article) => (
+            <ArticleCard article={article} />
+          ))}
+        </ul>
+      </div>
+    )
+  }
+</Layout>
+
+<style>
+  .category-page__heading {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem;
+    line-height: 1.3;
+  }
+
+  .category-empty {
+    color: var(--color-muted);
+    text-align: center;
+    padding: 4rem 0;
+    margin: 0;
+  }
+
+  .article-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 1024px) {
+    .article-list {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+  }
+</style>
