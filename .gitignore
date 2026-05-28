@@ -19,5 +19,10 @@ pnpm-debug.log*
 # macOS
 .DS_Store
 
+# Cursor（エディタ・エージェント向けのローカル設定・指示）
+.cursor/
+AGENTS.md
+.cursorrules
+
 # generated content (optional - uncomment if you don't want to commit articles)
 # src/content/articles/*.mdx
