@@ -280,16 +280,6 @@ async function renderOgPng(element: SatoriNode): Promise<Buffer> {
   return sharp(Buffer.from(svg)).png().toBuffer();
 }
 
-export async function generateDefaultOgImage(): Promise<Buffer> {
-  return renderOgPng(
-    buildBaseLayout({
-      title: '本のおすすめランキング',
-      subtitle: SITE_DESCRIPTION,
-      footer: new URL(SITE_URL).host,
-    })
-  );
-}
-
 export async function generateArticleOgImage(options: {
   title: string;
   description: string;
