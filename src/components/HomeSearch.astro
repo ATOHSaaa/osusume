@@ -4,6 +4,7 @@ import { ABOUT_PATH, SITE_NAME } from '../lib/constants';
 
 <section class="home-search" aria-label="記事検索">
   <div class="home-search__inner">
+    <h1 class="home-search__title">おすすめ小説をランキング形式で紹介</h1>
     <p class="home-search__intro">
       {SITE_NAME}は、Web上の書籍おすすめ記事を分析し、言及頻度によっておすすめ作品を紹介するサイトです。<br
       />
@@ -53,6 +54,15 @@ import { ABOUT_PATH, SITE_NAME } from '../lib/constants';
     max-width: var(--site-width);
     margin: 0 auto;
     padding: 1.5rem var(--layout-padding-x) 1.75rem;
+  }
+
+  .home-search__title {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--color-text);
   }
 
   .home-search__intro {
@@ -172,6 +182,11 @@ import { ABOUT_PATH, SITE_NAME } from '../lib/constants';
   @media (min-width: 768px) {
     .home-search__inner {
       padding: 1.75rem var(--layout-padding-x) 2rem;
+    }
+
+    .home-search__title {
+      font-size: 1.875rem;
+      margin-bottom: 1.25rem;
     }
 
     .home-search__intro {
