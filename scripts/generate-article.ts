@@ -12,6 +12,7 @@ import { join } from 'node:path';
 import {
   buildAuthorSubject,
   buildGenreSubject,
+  buildMangaSubject,
   getArticleBody,
   getArticleDescription,
   getArticleTags,
@@ -90,7 +91,7 @@ function buildFrontmatter(
       if (b.amazonUrl) fields.push(`      amazonUrl: "${b.amazonUrl}"`);
       if (b.imageUrl) fields.push(`      imageUrl: "${b.imageUrl}"`);
       if (b.price) fields.push(`      price: "${escapeYamlString(b.price)}"`);
-      if (b.author || article.kind === 'genre') {
+      if (b.author || article.kind === 'genre' || article.kind === 'manga') {
         fields.push(`      author: "${escapeYamlString(b.author ?? '')}"`);
       }
       return fields.join('\n');
@@ -133,6 +134,19 @@ function parseCliArgs(argv: string[]): {
     return { subject: buildGenreSubject(genreInput), slugBase };
   }
 
+  if (argv[0] === '--manga') {
+    const mangaInput = argv[1];
+    const slugBase = argv[2];
+
+    if (!mangaInput) {
+      throw new Error(
+        '漫画カテゴリ名を指定してください: npx tsx scripts/generate-article.ts --manga "サッカー漫画" [slug]'
+      );
+    }
+
+    return { subject: buildMangaSubject(mangaInput), slugBase };
+  }
+
   const authorName = argv[0];
   const slugBase = argv[1];
 
@@ -140,7 +154,8 @@ function parseCliArgs(argv: string[]): {
     throw new Error(
       '使い方:\n' +
         '  作家: npm run generate -- "伊坂幸太郎" [slug]\n' +
-        '  ジャンル: npm run generate -- --genre "百合" [slug]'
+        '  ジャンル: npm run generate -- --genre "百合" [slug]\n' +
+        '  漫画: npx tsx scripts/generate-article.ts --manga "サッカー漫画" [slug]'
     );
   }
 
@@ -148,13 +163,14 @@ function parseCliArgs(argv: string[]): {
 }
 
 async function generateArticle(subject: ArticleSubject, slugBase?: string): Promise<string> {
-  const kindLabel = subject.kind === 'genre' ? 'ジャンル' : '作家';
+  const kindLabel =
+    subject.kind === 'genre' ? 'ジャンル' : subject.kind === 'manga' ? '漫画' : '作家';
   console.log(`\n📚 「${subject.label}」のおすすめ記事を生成中（${kindLabel}）...\n`);
 
   console.log(`🔍 DuckDuckGo 検索: "${subject.searchQuery}"`);
 
   const searchLimit =
-    subject.kind === 'genre' ? GENRE_SEARCH_LIMIT : AUTHOR_SEARCH_LIMIT;
+    subject.kind === 'author' ? AUTHOR_SEARCH_LIMIT : GENRE_SEARCH_LIMIT;
   const searchResults = await searchWeb(subject.searchQuery, searchLimit);
   console.log(`✅ ${searchResults.length}件の検索結果を取得（上限 ${searchLimit}）\n`);
 
@@ -186,7 +202,9 @@ async function generateArticle(subject: ArticleSubject, slugBase?: string): Prom
 
   console.log('🛒 Amazon Creators API で商品情報を取得中（照合成功のみ採用）...');
 
-  const enrichedBooks = await enrichBooksWithAmazon(books, amazonAuthor);
+  const enrichedBooks = await enrichBooksWithAmazon(books, amazonAuthor, MAX_BOOKS, {
+    allowManga: subject.kind === 'manga',
+  });
 
   if (enrichedBooks.length === 0) {
     throw new Error(

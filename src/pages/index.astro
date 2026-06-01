@@ -13,6 +13,7 @@ import {
 import {
   getAuthorArticles,
   getGenreArticles,
+  getMangaArticles,
   sortArticlesByUpdated,
 } from '../lib/articles';
 import { buildWebSiteJsonLd } from '../lib/structured-data';
@@ -21,6 +22,7 @@ import { getCollection } from 'astro:content';
 const articles = await getCollection('articles');
 const authorArticles = getAuthorArticles(articles);
 const genreArticles = getGenreArticles(articles);
+const mangaArticles = getMangaArticles(articles);
 const allArticles = [...articles].sort(sortArticlesByUpdated);
 const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
 ---
@@ -80,6 +82,20 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
                   <CategoryMoreLink href={GENRE_LIST_PATH} />
                 )
               }
+            </section>
+          )
+        }
+        {
+          mangaArticles.length > 0 && (
+            <section class="home-section" aria-labelledby="manga-heading">
+              <h2 id="manga-heading" class="home-section__heading">
+                漫画のおすすめ
+              </h2>
+              <ul class="article-list" data-random-list data-random-limit={ARTICLE_LIST_LIMIT}>
+                {mangaArticles.map((article) => (
+                  <ArticleCard article={article} />
+                ))}
+              </ul>
             </section>
           )
         }

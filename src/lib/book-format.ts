@@ -206,7 +206,8 @@ export function isLaterSeriesVolume(title: string): boolean {
 export function pickPreferredSearchItem<T extends FormatSource>(
   items: T[],
   searchTitle: string,
-  expectedAuthor?: string
+  expectedAuthor?: string,
+  options?: { preferManga?: boolean }
 ): T | null {
   const relevant = items.filter(
     (item) => item.title && isRelevantBookResult(searchTitle, item.title)
@@ -216,7 +217,12 @@ export function pickPreferredSearchItem<T extends FormatSource>(
   let bestScore = Infinity;
 
   for (const item of relevant) {
-    if (isMangaProduct(item)) continue;
+    const manga = isMangaProduct(item);
+    if (options?.preferManga) {
+      if (!manga) continue;
+    } else if (manga) {
+      continue;
+    }
     if (isGuideOrCommentaryProduct(item)) continue;
     if (isForeignEditionProduct(item)) continue;
     if (isYouthAbridgedProduct(item)) continue;

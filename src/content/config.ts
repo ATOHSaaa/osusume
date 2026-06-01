@@ -4,7 +4,7 @@ const articles = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    kind: z.enum(['author', 'genre']).default('author'),
+    kind: z.enum(['author', 'genre', 'manga']).default('author'),
     author: z.string(),
     description: z.string(),
     published_at: z.coerce.date(),

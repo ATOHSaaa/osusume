@@ -4,7 +4,7 @@ import Sources from '../components/Sources.astro';
 import { MAX_BOOKS } from '../lib/constants';
 
 interface Props {
-  kind?: 'author' | 'genre';
+  kind?: 'author' | 'genre' | 'manga';
   books: Array<{
     title: string;
     count: number;
@@ -21,7 +21,7 @@ interface Props {
 }
 
 const { books, sources, kind = 'author' } = Astro.props;
-const showBookAuthor = kind === 'genre';
+const showBookAuthor = kind === 'genre' || kind === 'manga';
 const rankedBooks = books.slice(0, MAX_BOOKS);
 ---
 

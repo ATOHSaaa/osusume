@@ -20,7 +20,12 @@ export interface AmazonProduct {
   amazonUrl: string;
 }
 
-export type ArticleKind = 'author' | 'genre';
+export type ArticleKind = 'author' | 'genre' | 'manga';
+
+export interface AmazonEnrichOptions {
+  /** 漫画記事ではコミックス商品を採用する */
+  allowManga?: boolean;
+}
 
 export interface GeneratedArticle {
   kind: ArticleKind;

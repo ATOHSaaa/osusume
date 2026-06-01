@@ -24,7 +24,7 @@ import {
   isExcludedBook,
   resolveCanonicalBookTitle,
 } from './book-extractor';
-import type { AmazonProduct, BookMention } from './types';
+import type { AmazonEnrichOptions, AmazonProduct, BookMention } from './types';
 
 let apiClient: DefaultApi | null = null;
 
@@ -151,7 +151,8 @@ function parseSearchItem(
 
 export async function searchAmazonBook(
   bookTitle: string,
-  authorName?: string
+  authorName?: string,
+  options?: AmazonEnrichOptions
 ): Promise<AmazonProduct | null> {
   const config = getConfig();
   const api = getApi();
@@ -159,15 +160,22 @@ export async function searchAmazonBook(
   if (!config || !api) return null;
 
   const canonicalTitle = resolveCanonicalBookTitle(bookTitle);
-  const keywords = cleanBookTitleForSearch(canonicalTitle);
+  let keywords = cleanBookTitleForSearch(canonicalTitle);
   if (!keywords) return null;
+  if (
+    options?.allowManga &&
+    !/[（(【\[]?\s*\d+\s*[）)\]】]?|第\s*\d+\s*巻|\d+\s*巻/.test(keywords)
+  ) {
+    keywords = `${keywords} 1`;
+  }
 
   let product = await searchAmazonByKeywords(
     api,
     config,
     keywords,
     canonicalTitle,
-    authorName
+    authorName,
+    options
   );
 
   if (authorName) {
@@ -177,20 +185,24 @@ export async function searchAmazonBook(
       config,
       `${keywords} ${authorName}`,
       bookTitle,
-      authorName
+      authorName,
+      options
     );
-    product = pickBetterProduct(product, withAuthor, authorName);
+    product = pickBetterProduct(product, withAuthor, authorName, options);
   }
 
-  return product && isProductAcceptable(product, authorName) ? product : null;
+  return product && isProductAcceptable(product, authorName, options)
+    ? product
+    : null;
 }
 
 function isProductAcceptable(
   product: AmazonProduct,
-  expectedAuthor?: string
+  expectedAuthor?: string,
+  options?: AmazonEnrichOptions
 ): boolean {
   if (isAdultContent({ title: product.title })) return false;
-  if (isMangaProduct({ title: product.title })) return false;
+  if (!options?.allowManga && isMangaProduct({ title: product.title })) return false;
   if (isGuideOrCommentaryProduct({ title: product.title })) return false;
   if (isYouthAbridgedProduct({ title: product.title })) return false;
   if (isForeignEditionProduct({ title: product.title })) return false;
@@ -202,21 +214,31 @@ function isProductAcceptable(
 function pickBetterProduct(
   a: AmazonProduct | null,
   b: AmazonProduct | null,
-  expectedAuthor?: string
+  expectedAuthor?: string,
+  options?: AmazonEnrichOptions
 ): AmazonProduct | null {
-  const priorityA = a ? productScore(a, expectedAuthor) : Infinity;
-  const priorityB = b ? productScore(b, expectedAuthor) : Infinity;
+  const priorityA = a ? productScore(a, expectedAuthor, options) : Infinity;
+  const priorityB = b ? productScore(b, expectedAuthor, options) : Infinity;
 
   if (priorityA === Infinity && priorityB === Infinity) return null;
   if (priorityA <= priorityB) return a;
   return b;
 }
 
-function productScore(product: AmazonProduct, expectedAuthor?: string): number {
+function productScore(
+  product: AmazonProduct,
+  expectedAuthor?: string,
+  options?: AmazonEnrichOptions
+): number {
   if (isAdultContent({ title: product.title })) return Infinity;
   const format = detectBookFormat({ title: product.title });
   if (format === 'excluded' || format === 'bundle') return Infinity;
-  if (isMangaProduct({ title: product.title })) return Infinity;
+  const manga = isMangaProduct({ title: product.title });
+  if (options?.allowManga) {
+    if (!manga) return Infinity;
+  } else if (manga) {
+    return Infinity;
+  }
   if (isGuideOrCommentaryProduct({ title: product.title })) return Infinity;
   if (isYouthAbridgedProduct({ title: product.title })) return Infinity;
   if (isForeignEditionProduct({ title: product.title })) return Infinity;
@@ -231,7 +253,8 @@ async function searchAmazonByKeywords(
   config: NonNullable<ReturnType<typeof getConfig>>,
   keywords: string,
   bookTitle: string,
-  expectedAuthor?: string
+  expectedAuthor?: string,
+  options?: AmazonEnrichOptions
 ): Promise<AmazonProduct | null> {
   const request = new SearchItemsRequestContent();
   request.partnerTag = config.partnerTag;
@@ -259,7 +282,15 @@ async function searchAmazonByKeywords(
       ...toFormatSource(item),
     }));
 
-    const preferred = pickPreferredSearchItem(candidates, bookTitle, expectedAuthor);
+    let preferred = pickPreferredSearchItem(
+      candidates,
+      bookTitle,
+      expectedAuthor,
+      options?.allowManga ? { preferManga: true } : undefined
+    );
+    if (!preferred && options?.allowManga) {
+      preferred = pickPreferredSearchItem(candidates, bookTitle, expectedAuthor);
+    }
     if (!preferred) return null;
 
     return parseSearchItem(preferred.item, config.partnerTag);
@@ -274,7 +305,8 @@ async function searchAmazonByKeywords(
 export async function enrichBooksWithAmazon(
   books: BookMention[],
   authorName: string | undefined,
-  limit = MAX_BOOKS
+  limit = MAX_BOOKS,
+  options?: AmazonEnrichOptions
 ): Promise<Array<BookMention & Partial<AmazonProduct>>> {
   const config = getConfig();
 
@@ -295,16 +327,16 @@ export async function enrichBooksWithAmazon(
     const expectedAuthor = authorName ?? getKnownBookAuthor(book.title);
 
     process.stdout.write(`  Amazon検索: ${book.title}\n`);
-    let product = await searchAmazonBook(book.title, expectedAuthor);
+    let product = await searchAmazonBook(book.title, expectedAuthor, options);
     if (
       product &&
       (isExcludedBook(product.title) ||
         isLaterSeriesVolume(product.title) ||
         isAdultContent(product.title) ||
-        isMangaProduct({ title: product.title }) ||
+        (!options?.allowManga && isMangaProduct({ title: product.title })) ||
         isGuideOrCommentaryProduct({ title: product.title }) ||
         isYouthAbridgedProduct({ title: product.title }) ||
-        !isProductAcceptable(product, expectedAuthor))
+        !isProductAcceptable(product, expectedAuthor, options))
     ) {
       product = null;
     }

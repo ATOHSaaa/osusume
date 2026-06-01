@@ -227,6 +227,23 @@ function extractFromText(text: string): string[] {
 }
 
 function buildOpenAIPrompt(subject: ArticleSubject, combined: string): string {
+  if (subject.kind === 'manga') {
+    return `「${subject.label}」のおすすめ漫画に関する記事テキストです。この中で紹介されている漫画・コミックスのタイトルをすべて抽出してください。
+
+出力形式:
+{"books": ["タイトル1", "タイトル2", ...]}
+
+ルール:
+- ${subject.label}関連の漫画・コミックスタイトルのみ
+- 成人向け・官能・R18・アダルト漫画は含めない
+- シリーズ名や副題は含めてよい
+- 重複は除く
+- 記事の見出しやサイト名は含めない
+
+テキスト:
+${combined}`;
+  }
+
   if (subject.kind === 'genre') {
     return `ジャンル「${subject.label}」のおすすめ小説に関する記事テキストです。この中で紹介されている小説・書籍のタイトルをすべて抽出してください。
 

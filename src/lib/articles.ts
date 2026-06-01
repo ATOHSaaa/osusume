@@ -9,9 +9,13 @@ export const sortArticlesByAuthor = (a: ArticleEntry, b: ArticleEntry) =>
   a.data.author.localeCompare(b.data.author, 'ja');
 
 export function getAuthorArticles(articles: ArticleEntry[]) {
-  return articles.filter((a) => a.data.kind !== 'genre').sort(sortArticlesByUpdated);
+  return articles.filter((a) => a.data.kind === 'author').sort(sortArticlesByUpdated);
 }
 
 export function getGenreArticles(articles: ArticleEntry[]) {
   return articles.filter((a) => a.data.kind === 'genre').sort(sortArticlesByUpdated);
+}
+
+export function getMangaArticles(articles: ArticleEntry[]) {
+  return articles.filter((a) => a.data.kind === 'manga').sort(sortArticlesByUpdated);
 }

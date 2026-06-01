@@ -8,6 +8,10 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import { buildArticlePageJsonLd } from '../lib/structured-data';
 import { getArticleOgImagePath } from '../lib/og-image';
+import {
+  getAuthorArticles,
+  getGenreArticles,
+} from '../lib/articles';
 import { getRelatedArticles } from '../lib/related-articles';
 import { absoluteUrl } from '../lib/site-url';
 
@@ -20,8 +24,8 @@ const { title, description, published_at, updated_at, books, sources, kind } =
   article.data;
 
 const articles = await getCollection('articles');
-const authorArticles = articles.filter((a) => a.data.kind !== 'genre');
-const genreArticles = articles.filter((a) => a.data.kind === 'genre');
+const authorArticles = getAuthorArticles(articles);
+const genreArticles = getGenreArticles(articles);
 const relatedArticles = getRelatedArticles(article, articles);
 
 const articlePath = `/articles/${article.slug}/`;

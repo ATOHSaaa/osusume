@@ -140,11 +140,21 @@ export function buildArticlePageJsonLd(options: {
   path: string;
   publishedAt: Date;
   updatedAt: Date;
-  kind: 'author' | 'genre';
+  kind: 'author' | 'genre' | 'manga';
   books: ArticleBook[];
 }): JsonLd[] {
-  const categoryPath = options.kind === 'genre' ? GENRE_LIST_PATH : AUTHOR_LIST_PATH;
-  const categoryName = options.kind === 'genre' ? 'ジャンル別のおすすめ' : '作家別のおすすめ';
+  const categoryPath =
+    options.kind === 'genre'
+      ? GENRE_LIST_PATH
+      : options.kind === 'manga'
+        ? '/'
+        : AUTHOR_LIST_PATH;
+  const categoryName =
+    options.kind === 'genre'
+      ? 'ジャンル別のおすすめ'
+      : options.kind === 'manga'
+        ? '漫画のおすすめ'
+        : '作家別のおすすめ';
   const slug = options.path.replace(/^\/articles\//, '').replace(/\/$/, '');
   const ogImageUrl = absoluteUrl(getArticleOgImagePath(slug), options.site);
 
