@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { AUTHOR_LIST_PATH, GENRE_LIST_PATH, SITE_NAME } from '../lib/constants';
+import { AUTHOR_LIST_PATH, GENRE_LIST_PATH, MANGA_LIST_PATH, SITE_NAME } from '../lib/constants';
 ---
 
 <Layout title="ページが見つかりません" description="お探しのページは見つかりませんでした。">
@@ -14,6 +14,7 @@ import { AUTHOR_LIST_PATH, GENRE_LIST_PATH, SITE_NAME } from '../lib/constants';
       <a href="/" class="not-found__link not-found__link--primary">トップページへ</a>
       <a href={AUTHOR_LIST_PATH} class="not-found__link">作家別のおすすめ</a>
       <a href={GENRE_LIST_PATH} class="not-found__link">ジャンル別のおすすめ</a>
+      <a href={MANGA_LIST_PATH} class="not-found__link">漫画のおすすめ</a>
     </nav>
     <p class="not-found__hint">
       {SITE_NAME} では、Web上のおすすめ記事をもとに本のランキングを掲載しています。

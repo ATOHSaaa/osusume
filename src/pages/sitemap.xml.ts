@@ -2,6 +2,7 @@ import { getCollection } from 'astro:content';
 import {
   AUTHOR_LIST_PATH,
   GENRE_LIST_PATH,
+  MANGA_LIST_PATH,
   SITE_URL,
 } from '../lib/constants';
 import { sortArticlesByUpdated } from '../lib/articles';
@@ -30,6 +31,7 @@ export async function GET(context: APIContext) {
     { path: '/', lastmod: latestUpdate },
     { path: AUTHOR_LIST_PATH, lastmod: latestUpdate },
     { path: GENRE_LIST_PATH, lastmod: latestUpdate },
+    { path: MANGA_LIST_PATH, lastmod: latestUpdate },
   ];
 
   const urls = [

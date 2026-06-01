@@ -1,6 +1,7 @@
 import {
   AUTHOR_LIST_PATH,
   GENRE_LIST_PATH,
+  MANGA_LIST_PATH,
   MAX_BOOKS,
   SITE_NAME,
 } from './constants';
@@ -147,7 +148,7 @@ export function buildArticlePageJsonLd(options: {
     options.kind === 'genre'
       ? GENRE_LIST_PATH
       : options.kind === 'manga'
-        ? '/'
+        ? MANGA_LIST_PATH
         : AUTHOR_LIST_PATH;
   const categoryName =
     options.kind === 'genre'

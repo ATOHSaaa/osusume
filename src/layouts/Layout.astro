@@ -6,6 +6,7 @@ import {
   AUTHOR_LIST_PATH,
   CONTACT_PATH,
   GENRE_LIST_PATH,
+  MANGA_LIST_PATH,
   NOTO_SANS_JP_FONT_URL,
   PRIVACY_PATH,
   RSS_PATH,
@@ -64,12 +65,18 @@ const navItems = [
     label: 'ジャンル別',
     match: (path: string) => path.startsWith(GENRE_LIST_PATH),
   },
+  {
+    href: MANGA_LIST_PATH,
+    label: '漫画',
+    match: (path: string) => path.startsWith(MANGA_LIST_PATH),
+  },
 ];
 
 const footerLinks = [
   { href: '/', label: 'ホーム' },
   { href: AUTHOR_LIST_PATH, label: '作家別のおすすめ' },
   { href: GENRE_LIST_PATH, label: 'ジャンル別のおすすめ' },
+  { href: MANGA_LIST_PATH, label: '漫画のおすすめ' },
   { href: RSS_PATH, label: 'RSS' },
   { href: ABOUT_PATH, label: 'このサイトについて' },
   { href: PRIVACY_PATH, label: 'プライバシーポリシー' },

@@ -7,6 +7,7 @@ import {
   ARTICLE_LIST_LIMIT,
   AUTHOR_LIST_PATH,
   GENRE_LIST_PATH,
+  MANGA_LIST_PATH,
   SITE_DESCRIPTION,
   SITE_NAME,
 } from '../lib/constants';
@@ -96,6 +97,11 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
                   <ArticleCard article={article} />
                 ))}
               </ul>
+              {
+                mangaArticles.length > ARTICLE_LIST_LIMIT && (
+                  <CategoryMoreLink href={MANGA_LIST_PATH} />
+                )
+              }
             </section>
           )
         }

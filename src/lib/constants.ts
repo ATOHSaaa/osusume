@@ -33,9 +33,10 @@ export const MAX_BOOKS = 10;
 /** 一覧セクションの初期表示件数（超過分は「すべて見る」） */
 export const ARTICLE_LIST_LIMIT = 12;
 
-/** 作家別・ジャンル別の記事一覧ページ */
+/** 作家別・ジャンル別・漫画の記事一覧ページ */
 export const AUTHOR_LIST_PATH = '/authors/';
 export const GENRE_LIST_PATH = '/genres/';
+export const MANGA_LIST_PATH = '/manga/';
 
 /** サイト情報ページ */
 export const ABOUT_PATH = '/about/';
