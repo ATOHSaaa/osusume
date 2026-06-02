@@ -63,7 +63,10 @@ function genreProseLabel(label: string): string {
     label.endsWith('文庫本') ||
     label.endsWith('大賞') ||
     label.endsWith('ノベル') ||
-    label.endsWith('ラノベ')
+    label.endsWith('ラノベ') ||
+    label.endsWith('エッセイ') ||
+    label.endsWith('返し') ||
+    label.endsWith('べき本')
   ) {
     return label;
   }
