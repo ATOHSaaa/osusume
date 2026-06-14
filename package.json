@@ -7,7 +7,12 @@
     "build": "astro build",
     "preview": "astro preview",
     "fix:book-counts": "tsx scripts/fix-book-counts.ts",
+    "fetch:akutagawa-prize": "tsx scripts/fetch-akutagawa-prize-data.ts",
+    "enrich:akutagawa-prize-amazon": "tsx scripts/enrich-akutagawa-prize-amazon.ts",
+    "fetch:naoki-prize": "tsx scripts/fetch-naoki-prize-data.ts",
+    "enrich:naoki-prize-amazon": "tsx scripts/enrich-naoki-prize-amazon.ts",
     "generate:genre": "tsx scripts/generate-article.ts --genre",
+    "generate:naoki-winners": "tsx scripts/generate-naoki-winner-articles.ts",
     "astro": "astro"
   },
   "dependencies": {

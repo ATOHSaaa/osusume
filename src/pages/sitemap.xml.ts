@@ -1,5 +1,7 @@
 import { getCollection } from 'astro:content';
 import {
+  AKUTAGAWA_PRIZE_PATH,
+  NAOKI_PRIZE_PATH,
   AUTHOR_LIST_PATH,
   GENRE_LIST_PATH,
   MANGA_LIST_PATH,
@@ -32,6 +34,8 @@ export async function GET(context: APIContext) {
     { path: AUTHOR_LIST_PATH, lastmod: latestUpdate },
     { path: GENRE_LIST_PATH, lastmod: latestUpdate },
     { path: MANGA_LIST_PATH, lastmod: latestUpdate },
+    { path: AKUTAGAWA_PRIZE_PATH, lastmod: latestUpdate },
+    { path: NAOKI_PRIZE_PATH, lastmod: latestUpdate },
   ];
 
   const urls = [

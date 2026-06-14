@@ -162,7 +162,7 @@ function parseCliArgs(argv: string[]): {
   return { subject: buildAuthorSubject(authorName), slugBase };
 }
 
-async function generateArticle(subject: ArticleSubject, slugBase?: string): Promise<string> {
+export async function generateArticle(subject: ArticleSubject, slugBase?: string): Promise<string> {
   const kindLabel =
     subject.kind === 'genre' ? 'ジャンル' : subject.kind === 'manga' ? '漫画' : '作家';
   console.log(`\n📚 「${subject.label}」のおすすめ記事を生成中（${kindLabel}）...\n`);
@@ -253,9 +253,13 @@ async function generateArticle(subject: ArticleSubject, slugBase?: string): Prom
   return filePath;
 }
 
-const { subject, slugBase } = parseCliArgs(process.argv.slice(2));
+const isCli = process.argv[1]?.includes('generate-article');
 
-generateArticle(subject, slugBase).catch((err) => {
-  console.error('❌ エラー:', err instanceof Error ? err.message : err);
-  process.exit(1);
-});
+if (isCli) {
+  const { subject, slugBase } = parseCliArgs(process.argv.slice(2));
+
+  generateArticle(subject, slugBase).catch((err) => {
+    console.error('❌ エラー:', err instanceof Error ? err.message : err);
+    process.exit(1);
+  });
+}

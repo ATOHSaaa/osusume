@@ -207,7 +207,8 @@ function isProductAcceptable(
   if (isYouthAbridgedProduct({ title: product.title })) return false;
   if (isForeignEditionProduct({ title: product.title })) return false;
   if (/レンタル落ち|中古品/.test(product.title)) return false;
-  if (!expectedAuthor || !product.author) return true;
+  if (!expectedAuthor) return true;
+  if (!product.author?.trim()) return false;
   return isMatchingAuthor(expectedAuthor, product.author);
 }
 
@@ -242,7 +243,10 @@ function productScore(
   if (isGuideOrCommentaryProduct({ title: product.title })) return Infinity;
   if (isYouthAbridgedProduct({ title: product.title })) return Infinity;
   if (isForeignEditionProduct({ title: product.title })) return Infinity;
-  if (expectedAuthor && product.author && !isMatchingAuthor(expectedAuthor, product.author)) {
+  if (
+    expectedAuthor &&
+    (!product.author?.trim() || !isMatchingAuthor(expectedAuthor, product.author))
+  ) {
     return Infinity;
   }
   return getFormatPriority(format) + getSeriesVolumePenalty(product.title);
@@ -344,7 +348,9 @@ export async function enrichBooksWithAmazon(
     if (!isValidAmazonProduct(product)) {
       const skipReason = isAdultContent(book.title)
         ? '成人向け'
-        : 'Amazon商品未検出';
+        : expectedAuthor
+          ? 'Amazon商品未検出または著者不一致'
+          : 'Amazon商品未検出';
       console.warn(`  スキップ（${skipReason}）: ${book.title}`);
       await sleep(1100);
       continue;

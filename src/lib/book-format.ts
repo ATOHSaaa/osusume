@@ -231,12 +231,10 @@ export function pickPreferredSearchItem<T extends FormatSource>(
     const format = detectBookFormat(item);
     if (format === 'excluded' || format === 'bundle') continue;
 
-    if (
-      expectedAuthor &&
-      item.author &&
-      !isMatchingAuthor(expectedAuthor, item.author)
-    ) {
-      continue;
+    if (expectedAuthor) {
+      if (!item.author?.trim() || !isMatchingAuthor(expectedAuthor, item.author)) {
+        continue;
+      }
     }
 
     const priority =
