@@ -1,13 +1,13 @@
 /**
- * 直木賞受賞者のおすすめ記事を一括生成する。
+ * 芥川賞受賞者のおすすめ記事を一括生成する。
  *
  * 実行例:
- *   npx tsx scripts/generate-naoki-winner-articles.ts --dry-run
- *   npx tsx scripts/generate-naoki-winner-articles.ts --limit 5
- *   npx tsx scripts/generate-naoki-winner-articles.ts --limit 10 --order oldest
- *   npx tsx scripts/generate-naoki-winner-articles.ts --regenerate
- *   npx tsx scripts/generate-naoki-winner-articles.ts --all --regenerate --reset-failed
- *   npx tsx scripts/generate-naoki-winner-articles.ts --author "池波正太郎"
+ *   npx tsx scripts/generate-akutagawa-winner-articles.ts --dry-run
+ *   npx tsx scripts/generate-akutagawa-winner-articles.ts --limit 5
+ *   npx tsx scripts/generate-akutagawa-winner-articles.ts --limit 10 --order oldest
+ *   npx tsx scripts/generate-akutagawa-winner-articles.ts --regenerate
+ *   npx tsx scripts/generate-akutagawa-winner-articles.ts --all --regenerate --reset-failed
+ *   npx tsx scripts/generate-akutagawa-winner-articles.ts --author "九段理江"
  */
 import 'dotenv/config';
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
@@ -17,11 +17,11 @@ import {
   buildAuthorArticleSlug,
   resolveAuthorSlugBase,
 } from '../src/lib/author-slug-from-wikidata';
+import { normalizeAuthorName } from '../src/lib/akutagawa-prize';
 import { ARTICLE_SLUG_SUFFIX } from '../src/lib/constants';
-import { normalizeAuthorName } from '../src/lib/naoki-prize';
 import { generateArticle } from './generate-article';
 
-interface NaokiData {
+interface AkutagawaData {
   entries: Array<{ session: number; author: string }>;
 }
 
@@ -32,8 +32,8 @@ interface ProgressLog {
 }
 
 const ARTICLES_DIR = join(process.cwd(), 'src/content/articles');
-const DATA_PATH = join(process.cwd(), 'src/data/naoki-prize.json');
-const LOG_PATH = join(process.cwd(), 'scripts/naoki-winner-article-progress.json');
+const DATA_PATH = join(process.cwd(), 'src/data/akutagawa-prize.json');
+const LOG_PATH = join(process.cwd(), 'scripts/akutagawa-winner-article-progress.json');
 
 function sleep(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
@@ -105,7 +105,7 @@ function parseArgs(argv: string[]): {
 
 /** 各作家の最新受賞回で並べ替えた作家名リスト */
 function sortAuthorsByLatestSession(
-  entries: NaokiData['entries'],
+  entries: AkutagawaData['entries'],
   order: 'newest' | 'oldest'
 ): string[] {
   const latestSession = new Map<string, number>();
@@ -137,7 +137,7 @@ async function main(): Promise<void> {
     all,
     resetFailed,
   } = parseArgs(process.argv.slice(2));
-  const data = JSON.parse(readFileSync(DATA_PATH, 'utf-8')) as NaokiData;
+  const data = JSON.parse(readFileSync(DATA_PATH, 'utf-8')) as AkutagawaData;
   const authors = sortAuthorsByLatestSession(data.entries, order);
   const existingArticles = loadExistingAuthorArticles();
   const progress = loadProgress();
@@ -148,10 +148,10 @@ async function main(): Promise<void> {
   }
 
   const failedAuthors = new Set(progress.failed.map((f) => f.author));
-  const naokiWithArticle = authors.filter((name) =>
+  const withArticle = authors.filter((name) =>
     existingArticles.has(normalizeAuthorName(name))
   );
-  const naokiWithoutArticle = authors.filter(
+  const withoutArticle = authors.filter(
     (name) => !existingArticles.has(normalizeAuthorName(name))
   );
 
@@ -160,13 +160,13 @@ async function main(): Promise<void> {
   if (singleAuthor) {
     targets = [singleAuthor];
   } else if (regenerate && !all) {
-    targets = naokiWithArticle;
+    targets = withArticle;
   } else if (all && regenerate) {
     targets = authors.filter((name) => !failedAuthors.has(name));
   } else if (all) {
-    targets = naokiWithoutArticle.filter((name) => !failedAuthors.has(name));
+    targets = withoutArticle.filter((name) => !failedAuthors.has(name));
   } else {
-    targets = naokiWithoutArticle.filter((name) => !failedAuthors.has(name));
+    targets = withoutArticle.filter((name) => !failedAuthors.has(name));
   }
 
   if (limit !== undefined && limit > 0 && !all) {
@@ -182,8 +182,8 @@ async function main(): Promise<void> {
       ? '未作成分を全員'
       : '未作成分';
 
-  console.log(`直木賞受賞者: ${authors.length}人`);
-  console.log(`記事あり: ${naokiWithArticle.length}人 / 未作成: ${naokiWithoutArticle.length}人`);
+  console.log(`芥川賞受賞者: ${authors.length}人`);
+  console.log(`記事あり: ${withArticle.length}人 / 未作成: ${withoutArticle.length}人`);
   console.log(`モード: ${modeLabel}`);
   console.log(`並び順: ${orderLabel}`);
   console.log(`生成対象: ${targets.length}人${dryRun ? '（dry-run）' : ''}\n`);

@@ -13,6 +13,7 @@
     "enrich:naoki-prize-amazon": "tsx scripts/enrich-naoki-prize-amazon.ts",
     "generate:genre": "tsx scripts/generate-article.ts --genre",
     "generate:naoki-winners": "tsx scripts/generate-naoki-winner-articles.ts",
+    "generate:akutagawa-winners": "tsx scripts/generate-akutagawa-winner-articles.ts",
     "astro": "astro"
   },
   "dependencies": {

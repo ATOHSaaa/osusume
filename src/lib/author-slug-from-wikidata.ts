@@ -25,7 +25,7 @@ export function englishLabelToSlugBase(label: string): string {
   return romanizeForSlug(label);
 }
 
-async function wikipediaFetch<T>(params: Record<string, string>): Promise<T> {
+async function wikipediaFetch<T>(params: Record<string, string>, attempt = 0): Promise<T> {
   const url = new URL('https://ja.wikipedia.org/w/api.php');
   for (const [key, value] of Object.entries(params)) {
     url.searchParams.set(key, value);
@@ -33,6 +33,11 @@ async function wikipediaFetch<T>(params: Record<string, string>): Promise<T> {
   const res = await fetch(url, {
     headers: { 'User-Agent': 'osusume-bot/1.0 (book recommendation site)' },
   });
+  if (res.status === 429 && attempt < 4) {
+    const waitMs = 2000 * 2 ** attempt;
+    await new Promise((r) => setTimeout(r, waitMs));
+    return wikipediaFetch<T>(params, attempt + 1);
+  }
   if (!res.ok) throw new Error(`Wikipedia API HTTP ${res.status}`);
   return res.json() as Promise<T>;
 }
