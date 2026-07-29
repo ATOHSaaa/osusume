@@ -4,6 +4,8 @@ export function normalizeAuthorName(name: string): string {
   return name
     .replace(/\s+/g, '')
     .replace(/國/g, '国')
+    .replace(/䡄/g, '軌')
+    .replace(/Ｋ/g, 'K')
     .toLowerCase();
 }
 

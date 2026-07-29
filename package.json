@@ -11,6 +11,7 @@
     "enrich:akutagawa-prize-amazon": "tsx scripts/enrich-akutagawa-prize-amazon.ts",
     "fetch:naoki-prize": "tsx scripts/fetch-naoki-prize-data.ts",
     "enrich:naoki-prize-amazon": "tsx scripts/enrich-naoki-prize-amazon.ts",
+    "enrich:prize-amazon": "tsx scripts/enrich-prize-amazon.ts",
     "generate:genre": "tsx scripts/generate-article.ts --genre",
     "generate:naoki-winners": "tsx scripts/generate-naoki-winner-articles.ts",
     "generate:akutagawa-winners": "tsx scripts/generate-akutagawa-winner-articles.ts",

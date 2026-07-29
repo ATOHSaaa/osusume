@@ -186,7 +186,10 @@
       "session": 25,
       "period": "1951年上半期",
       "author": "安部公房",
-      "title": "壁 S・カルマ氏の犯罪"
+      "title": "壁 S・カルマ氏の犯罪",
+      "asin": "B0CVN9JZKZ",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0CVN9JZKZ?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥663"
     },
     {
       "session": 25,
@@ -210,19 +213,26 @@
       "session": 28,
       "period": "1952年下半期",
       "author": "五味康祐",
-      "title": "喪神"
+      "title": "喪神",
+      "asin": "4093523940",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4093523940?tag=osusume-tadeku-22"
     },
     {
       "session": 28,
       "period": "1952年下半期",
       "author": "松本清張",
-      "title": "或る『小倉日記』伝"
+      "title": "或る『小倉日記』伝",
+      "asin": "B00CL6MWRU",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00CL6MWRU?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥792"
     },
     {
       "session": 29,
       "period": "1953年上半期",
       "author": "安岡章太郎",
-      "title": "悪い仲間」「陰気な愉しみ"
+      "title": "悪い仲間」「陰気な愉しみ",
+      "asin": "B00ISQDTTM",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00ISQDTTM?tag=osusume-tadeku-22"
     },
     {
       "session": 31,
@@ -1621,5 +1631,5 @@
       "price": "￥1,683"
     }
   ],
-  "amazonEnrichedAt": "2026-06-11"
+  "amazonEnrichedAt": "2026-07-29"
 }

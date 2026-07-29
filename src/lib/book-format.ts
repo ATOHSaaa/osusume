@@ -79,8 +79,12 @@ export function cleanBookTitleForSearch(title: string): string {
 
 export function normalizeBookTitleForMatch(title: string): string {
   return title
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, (ch) =>
+      String.fromCharCode(ch.charCodeAt(0) - 0xfee0)
+    )
+    .replace(/[!！]/g, '')
     .replace(/\s+/g, '')
-    .replace(/[（(【\[][^）)\]】]*[）)\]】]/g, '')
+    .replace(/[（(【\[「『][^）)\]】」』]*[）)\]】」』]/g, '')
     .replace(/[:：].*$/, '')
     .replace(/[／/|].*$/, '');
 }
@@ -92,16 +96,24 @@ export function isRelevantBookResult(
   const query = normalizeBookTitleForMatch(searchTitle);
   const result = normalizeBookTitleForMatch(resultTitle);
 
-  if (query.length < 2 || result.length < 2) return false;
+  // 1文字タイトル（『流』『斬』『恋』など）も完全一致なら採用
+  if (query.length < 1 || result.length < 1) return false;
 
   if (result === query || query === result) return true;
+
+  if (query.length < 2 || result.length < 2) return false;
 
   if (result.startsWith(query)) {
     const remainder = result.slice(query.length);
     if (remainder.length === 0) return true;
-    if (/^[（(【\[]/.test(remainder)) return true;
+    // 括弧・鉤括弧・中黒などで続く副題は同一作品とみなす
+    if (/^[（(【\[「『・\-−–—:]/.test(remainder)) return true;
     // 「デューク」が「デューク更家の…」に誤マッチするのを防ぐ
-    if (query.length <= 8 && /^[\u4e00-\u9faf\u3040-\u30ffァ-ヴ]/.test(remainder)) {
+    // 短いクエリで、区切りなしに漢字・ひらがなが続く場合のみ拒否（カタカナ副題は許可）
+    if (
+      query.length <= 4 &&
+      /^[\u4e00-\u9faf\u3040-\u309f]/.test(remainder)
+    ) {
       return false;
     }
     return true;
@@ -114,7 +126,6 @@ export function isRelevantBookResult(
   }
 
   const prefixLength = Math.min(6, query.length);
-  const queryPrefix = query.slice(0, prefixLength);
   return query.includes(result.slice(0, prefixLength));
 }
 
@@ -136,7 +147,11 @@ export function detectBookFormat(source: FormatSource): BookFormat {
     return 'excluded';
   }
 
-  if (/シリーズ|セット|全\d+巻|\d+巻(?:セット|コンプリート)|コンプリート/i.test(text)) {
+  if (
+    /シリーズ\s*セット|セット|全\d+巻|\d+巻(?:セット|コンプリート)|コンプリート/i.test(
+      text
+    )
+  ) {
     return 'bundle';
   }
 

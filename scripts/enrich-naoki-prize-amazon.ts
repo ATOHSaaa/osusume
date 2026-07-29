@@ -6,6 +6,7 @@ import 'dotenv/config';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { isAmazonConfigured, searchAmazonBook } from '../src/lib/amazon.ts';
+import { buildPrizeSearchTitles } from '../src/lib/prize-amazon.ts';
 
 interface PrizeEntry {
   session: number;
@@ -30,10 +31,6 @@ function sleep(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-function searchTitle(title: string): string {
-  return title.replace(/\s+他$/, '').trim();
-}
-
 async function main(): Promise<void> {
   if (!isAmazonConfigured()) {
     throw new Error('Amazon Creators API が未設定です (.env)');
@@ -53,7 +50,13 @@ async function main(): Promise<void> {
     }
 
     process.stdout.write(`[${i + 1}/${data.entries.length}] ${label}\n`);
-    const product = await searchAmazonBook(searchTitle(entry.title), entry.author);
+    let product = null;
+    for (const title of buildPrizeSearchTitles(entry.title)) {
+      console.log(`  検索: ${title}`);
+      product = await searchAmazonBook(title, entry.author);
+      if (product?.asin && product.amazonUrl) break;
+      await sleep(700);
+    }
 
     if (product?.asin && product.amazonUrl) {
       entry.asin = product.asin;
