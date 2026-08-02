@@ -5,6 +5,7 @@
  *   npx tsx scripts/enrich-prize-amazon.ts --akutagawa
  *   npx tsx scripts/enrich-prize-amazon.ts --naoki
  *   npx tsx scripts/enrich-prize-amazon.ts --naoki-nominee
+ *   npx tsx scripts/enrich-prize-amazon.ts --akutagawa-nominee
  *   npx tsx scripts/enrich-prize-amazon.ts --all
  */
 import 'dotenv/config';
@@ -38,6 +39,7 @@ const PRIZES = {
   akutagawa: resolve('src/data/akutagawa-prize.json'),
   naoki: resolve('src/data/naoki-prize.json'),
   'naoki-nominee': resolve('src/data/naoki-nominee.json'),
+  'akutagawa-nominee': resolve('src/data/akutagawa-nominee.json'),
 } as const;
 
 function normalizePrizeKey(session: number, author: string, title: string): string {
@@ -52,8 +54,11 @@ function normalizeAuthorTitleKey(author: string, title: string): string {
   return `${norm(author)}|${norm(title)}`;
 }
 
-function seedNaokiNomineeFromWinners(data: PrizeData): number {
-  const winners: PrizeData = JSON.parse(readFileSync(PRIZES.naoki, 'utf-8'));
+function seedNomineeFromWinners(
+  data: PrizeData,
+  winnersPath: string
+): number {
+  const winners: PrizeData = JSON.parse(readFileSync(winnersPath, 'utf-8'));
   const winnerByKey = new Map<string, PrizeEntry>();
 
   for (const entry of winners.entries) {
@@ -79,21 +84,29 @@ function sleep(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-function parseArgs(argv: string[]): Array<keyof typeof PRIZES> {
+function parseArgs(argv: string[]): {
+  targets: Array<keyof typeof PRIZES>;
+  upgradeAsin: boolean;
+} {
   const all = argv.includes('--all');
   const targets: Array<keyof typeof PRIZES> = [];
   if (all || argv.includes('--akutagawa')) targets.push('akutagawa');
   if (all || argv.includes('--naoki')) targets.push('naoki');
-  if (all || argv.includes('--naoki-nominee')) targets.push('naoki-nominee');
+  if (argv.includes('--naoki-nominee')) targets.push('naoki-nominee');
+  if (argv.includes('--akutagawa-nominee')) targets.push('akutagawa-nominee');
   if (targets.length === 0) {
     throw new Error(
-      '使い方: npx tsx scripts/enrich-prize-amazon.ts --akutagawa|--naoki|--naoki-nominee|--all'
+      '使い方: npx tsx scripts/enrich-prize-amazon.ts --akutagawa|--naoki|--naoki-nominee|--akutagawa-nominee|--all [--upgrade-asin]'
     );
   }
-  return targets;
+  return { targets, upgradeAsin: argv.includes('--upgrade-asin') };
 }
 
-async function enrichFile(key: keyof typeof PRIZES, path: string): Promise<void> {
+async function enrichFile(
+  key: keyof typeof PRIZES,
+  path: string,
+  upgradeAsin: boolean
+): Promise<void> {
   const data: PrizeData = JSON.parse(readFileSync(path, 'utf-8'));
   const partnerTag = getAmazonPartnerTag();
   if (!partnerTag) {
@@ -119,7 +132,7 @@ async function enrichFile(key: keyof typeof PRIZES, path: string): Promise<void>
   }
 
   if (key === 'naoki-nominee') {
-    const seeded = seedNaokiNomineeFromWinners(data);
+    const seeded = seedNomineeFromWinners(data, PRIZES.naoki);
     if (seeded > 0) {
       for (const entry of data.entries) {
         if (!entry.amazonUrl) continue;
@@ -134,6 +147,22 @@ async function enrichFile(key: keyof typeof PRIZES, path: string): Promise<void>
     }
   }
 
+  if (key === 'akutagawa-nominee') {
+    const seeded = seedNomineeFromWinners(data, PRIZES.akutagawa);
+    if (seeded > 0) {
+      for (const entry of data.entries) {
+        if (!entry.amazonUrl) continue;
+        productByAuthorTitle.set(normalizeAuthorTitleKey(entry.author, entry.title), {
+          asin: entry.asin,
+          amazonUrl: entry.amazonUrl,
+          price: entry.price,
+        });
+      }
+      writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+      console.log(`\n=== akutagawa-nominee: 受賞作データから ${seeded}件をコピー ===`);
+    }
+  }
+
   const missing = data.entries.filter((e) => !e.amazonUrl || !e.asin);
   console.log(`\n=== ${key}: 未リンク ${missing.length}件 / 全${data.entries.length}件 ===\n`);
 
@@ -144,7 +173,11 @@ async function enrichFile(key: keyof typeof PRIZES, path: string): Promise<void>
       continue;
     }
 
-    if (entry.amazonUrl && key === 'naoki-nominee') {
+    if (
+      entry.amazonUrl &&
+      !upgradeAsin &&
+      (key === 'naoki-nominee' || key === 'akutagawa-nominee')
+    ) {
       matched++;
       continue;
     }
@@ -185,7 +218,7 @@ async function enrichFile(key: keyof typeof PRIZES, path: string): Promise<void>
       matched++;
       newlyMatched++;
       console.log(`  ✓ ${product.asin} ${product.title}`);
-    } else if (key === 'naoki-nominee') {
+    } else if (key === 'naoki-nominee' || key === 'akutagawa-nominee') {
       entry.amazonUrl = buildAmazonSearchAffiliateUrl(
         entry.title,
         entry.author,
@@ -223,8 +256,10 @@ async function main(): Promise<void> {
     throw new Error('Amazon Creators API が未設定です (.env)');
   }
 
-  for (const key of parseArgs(process.argv.slice(2))) {
-    await enrichFile(key, PRIZES[key]);
+  const { targets, upgradeAsin } = parseArgs(process.argv.slice(2));
+
+  for (const key of targets) {
+    await enrichFile(key, PRIZES[key], upgradeAsin);
   }
 }
 

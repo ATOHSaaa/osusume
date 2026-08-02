@@ -6,6 +6,7 @@ import HomeSearch from '../components/HomeSearch.astro';
 import {
   ARTICLE_LIST_LIMIT,
   AUTHOR_LIST_PATH,
+  AKUTAGAWA_NOMINEE_PATH,
   AKUTAGAWA_PRIZE_PATH,
   GENRE_LIST_PATH,
   MANGA_LIST_PATH,
@@ -20,6 +21,7 @@ import {
   getMangaArticles,
   sortArticlesByUpdated,
 } from '../lib/articles';
+import { groupAkutagawaNomineeBySession } from '../lib/akutagawa-nominee';
 import { groupAkutagawaPrizeBySession } from '../lib/akutagawa-prize';
 import { groupNaokiPrizeBySession } from '../lib/naoki-prize';
 import { groupNaokiNomineeBySession } from '../lib/naoki-nominee';
@@ -32,6 +34,7 @@ const genreArticles = getGenreArticles(articles);
 const mangaArticles = getMangaArticles(articles);
 const allArticles = [...articles].sort(sortArticlesByUpdated);
 const akutagawaSessions = groupAkutagawaPrizeBySession();
+const akutagawaNomineeSessions = groupAkutagawaNomineeBySession();
 const naokiSessions = groupNaokiPrizeBySession();
 const naokiNomineeSessions = groupNaokiNomineeBySession();
 const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
@@ -127,6 +130,17 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
                 </span>
                 <span class="award-link__desc">
                   純文学の新人・無名作家に贈られる芥川賞の歴代受賞作
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={AKUTAGAWA_NOMINEE_PATH} class="award-link">
+                <span class="award-link__title">芥川賞候補作一覧</span>
+                <span class="award-link__meta">
+                  第{akutagawaNomineeSessions[akutagawaNomineeSessions.length - 1]?.session ?? '—'}回〜第{akutagawaNomineeSessions[0]?.session ?? '—'}回 · {akutagawaNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
+                </span>
+                <span class="award-link__desc">
+                  芥川賞の最終候補作（受賞作を含む）を回別に一覧化
                 </span>
               </a>
             </li>

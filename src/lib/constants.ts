@@ -41,6 +41,9 @@ export const MANGA_LIST_PATH = '/manga/';
 /** 芥川賞受賞作一覧 */
 export const AKUTAGAWA_PRIZE_PATH = '/awards/akutagawa/';
 
+/** 芥川賞候補作一覧 */
+export const AKUTAGAWA_NOMINEE_PATH = '/awards/akutagawa/nominees/';
+
 /** 直木賞受賞作一覧 */
 export const NAOKI_PRIZE_PATH = '/awards/naoki/';
 

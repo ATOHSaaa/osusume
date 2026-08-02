@@ -1,6 +1,6 @@
 {
   "source": "https://ja.wikipedia.org/wiki/%E8%8A%A5%E5%B7%9D%E8%B3%9E",
-  "fetchedAt": "2026-06-11",
+  "fetchedAt": "2026-08-02",
   "entries": [
     {
       "session": 1,
@@ -1629,7 +1629,16 @@
       "asin": "B0G6D1JL9N",
       "amazonUrl": "https://www.amazon.co.jp/dp/B0G6D1JL9N?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
       "price": "￥1,683"
+    },
+    {
+      "session": 175,
+      "period": "2026年上半期",
+      "author": "小砂川チト",
+      "title": "ゾンビ回収婦",
+      "asin": "B0H6W23HZP",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0H6W23HZP?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,980"
     }
   ],
-  "amazonEnrichedAt": "2026-07-29"
+  "amazonEnrichedAt": "2026-08-02"
 }

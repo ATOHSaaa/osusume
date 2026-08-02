@@ -1,6 +1,6 @@
 {
   "source": "https://ja.wikipedia.org/wiki/%E7%9B%B4%E6%9C%A8%E8%B3%9E",
-  "fetchedAt": "2026-06-11",
+  "fetchedAt": "2026-08-02",
   "entries": [
     {
       "session": 1,
@@ -1825,7 +1825,16 @@
       "asin": "B0FWQS9CX8",
       "amazonUrl": "https://www.amazon.co.jp/dp/B0FWQS9CX8?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
       "price": "￥1,620"
+    },
+    {
+      "session": 175,
+      "period": "2026年上半期",
+      "author": "朝倉かすみ",
+      "title": "けんぐゎい",
+      "asin": "B0FK1Y4788",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0FK1Y4788?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,980"
     }
   ],
-  "amazonEnrichedAt": "2026-07-29"
+  "amazonEnrichedAt": "2026-08-02"
 }
