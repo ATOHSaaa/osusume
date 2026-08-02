@@ -44,6 +44,9 @@ export const AKUTAGAWA_PRIZE_PATH = '/awards/akutagawa/';
 /** 直木賞受賞作一覧 */
 export const NAOKI_PRIZE_PATH = '/awards/naoki/';
 
+/** 直木賞候補作一覧 */
+export const NAOKI_NOMINEE_PATH = '/awards/naoki/nominees/';
+
 /** サイト情報ページ */
 export const ABOUT_PATH = '/about/';
 export const PRIVACY_PATH = '/privacy/';

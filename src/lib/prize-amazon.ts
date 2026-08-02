@@ -81,3 +81,16 @@ export function buildPrizeSearchTitles(title: string): string[] {
 
   return candidates;
 }
+
+export function buildAmazonSearchAffiliateUrl(
+  title: string,
+  author: string,
+  partnerTag: string
+): string {
+  const primaryTitle = buildPrizeSearchTitles(title)[0] ?? title;
+  const keywords = `${author} ${primaryTitle}`.trim();
+  const url = new URL('https://www.amazon.co.jp/s');
+  url.searchParams.set('k', keywords);
+  url.searchParams.set('tag', partnerTag);
+  return url.toString();
+}

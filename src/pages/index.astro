@@ -10,6 +10,7 @@ import {
   GENRE_LIST_PATH,
   MANGA_LIST_PATH,
   NAOKI_PRIZE_PATH,
+  NAOKI_NOMINEE_PATH,
   SITE_DESCRIPTION,
   SITE_NAME,
 } from '../lib/constants';
@@ -21,6 +22,7 @@ import {
 } from '../lib/articles';
 import { groupAkutagawaPrizeBySession } from '../lib/akutagawa-prize';
 import { groupNaokiPrizeBySession } from '../lib/naoki-prize';
+import { groupNaokiNomineeBySession } from '../lib/naoki-nominee';
 import { buildWebSiteJsonLd } from '../lib/structured-data';
 import { getCollection } from 'astro:content';
 
@@ -31,6 +33,7 @@ const mangaArticles = getMangaArticles(articles);
 const allArticles = [...articles].sort(sortArticlesByUpdated);
 const akutagawaSessions = groupAkutagawaPrizeBySession();
 const naokiSessions = groupNaokiPrizeBySession();
+const naokiNomineeSessions = groupNaokiNomineeBySession();
 const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
 ---
 
@@ -135,6 +138,17 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
                 </span>
                 <span class="award-link__desc">
                   大衆文学の優れた作品に贈られる直木三十五賞の歴代受賞作
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={NAOKI_NOMINEE_PATH} class="award-link">
+                <span class="award-link__title">直木賞候補作一覧</span>
+                <span class="award-link__meta">
+                  第{naokiNomineeSessions[naokiNomineeSessions.length - 1]?.session ?? '—'}回〜第{naokiNomineeSessions[0]?.session ?? '—'}回 · {naokiNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
+                </span>
+                <span class="award-link__desc">
+                  直木賞の最終候補作（受賞作を含む）を回別に一覧化
                 </span>
               </a>
             </li>

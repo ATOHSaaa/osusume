@@ -1,17 +1,17 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import { NAOKI_PRIZE_PATH, NAOKI_NOMINEE_PATH, SITE_NAME } from '../../../lib/constants';
+import Layout from '../../../../layouts/Layout.astro';
+import { NAOKI_NOMINEE_PATH, NAOKI_PRIZE_PATH, SITE_NAME } from '../../../../lib/constants';
 import {
-  groupNaokiPrizeBySession,
+  groupNaokiNomineeBySession,
   normalizeAuthorName,
-} from '../../../lib/naoki-prize';
-import { buildCategoryPageJsonLd } from '../../../lib/structured-data';
+} from '../../../../lib/naoki-nominee';
+import { buildCategoryPageJsonLd } from '../../../../lib/structured-data';
 import { getCollection } from 'astro:content';
 
-const pageTitle = '直木賞受賞作一覧';
+const pageTitle = '直木賞候補作一覧';
 const pageDescription =
-  '直木賞（直木三十五賞）の歴代受賞作を回別に一覧化。受賞者と作品名を新しい回から掲載しています。';
-const sessions = groupNaokiPrizeBySession();
+  '直木賞（直木三十五賞）の歴代候補作を回別に一覧化。受賞作を含む最終候補作品を新しい回から掲載しています。';
+const sessions = groupNaokiNomineeBySession();
 
 const articles = await getCollection('articles');
 const authorSlugByName = new Map<string, string>();
@@ -24,7 +24,7 @@ const jsonLd = buildCategoryPageJsonLd({
   site: Astro.site,
   title: pageTitle,
   description: pageDescription,
-  path: NAOKI_PRIZE_PATH,
+  path: NAOKI_NOMINEE_PATH,
 });
 ---
 
@@ -38,9 +38,9 @@ const jsonLd = buildCategoryPageJsonLd({
     <header class="prize-page__header">
       <h1 class="prize-page__heading">{pageTitle}</h1>
       <p class="prize-page__lead">
-        大衆文学に贈られる直木賞（通称）の受賞作を、第{sessions[0]?.session ?? '—'}回から第{sessions[sessions.length - 1]?.session ?? '—'}回まで一覧にしました。
-        同一回に複数の受賞作がある場合も、そのまま掲載しています。
-        <a href={NAOKI_NOMINEE_PATH}>候補作一覧</a>もあわせてご覧ください。
+        直木賞の最終候補作（受賞作を含む）を、第{sessions[0]?.session ?? '—'}回から第{sessions[sessions.length - 1]?.session ?? '—'}回まで一覧にしました。
+        同一回に複数作品が候補となった場合や、受賞作が複数ある場合もそのまま掲載しています。
+        <a href={NAOKI_PRIZE_PATH}>受賞作一覧</a>もあわせてご覧ください。
       </p>
     </header>
 
@@ -50,27 +50,27 @@ const jsonLd = buildCategoryPageJsonLd({
           <tr>
             <th scope="col">回</th>
             <th scope="col">対象期間</th>
-            <th scope="col">受賞者</th>
-            <th scope="col">受賞作</th>
+            <th scope="col">候補者</th>
+            <th scope="col">候補作</th>
           </tr>
         </thead>
         <tbody>
           {
             sessions.map((session) =>
-              session.winners.map((winner, index) => {
-                const authorKey = normalizeAuthorName(winner.author);
+              session.nominees.map((nominee, index) => {
+                const authorKey = normalizeAuthorName(nominee.author);
                 const authorSlug = authorSlugByName.get(authorKey);
                 const authorHref = authorSlug ? `/articles/${authorSlug}/` : undefined;
 
                 return (
-                  <tr>
+                  <tr class:list={{ 'prize-table__row--winner': nominee.won }}>
                     {
                       index === 0 && (
                         <>
-                          <th scope="row" rowspan={session.winners.length} class="prize-table__session">
+                          <th scope="row" rowspan={session.nominees.length} class="prize-table__session">
                             第{session.session}回
                           </th>
-                          <td rowspan={session.winners.length} class="prize-table__period">
+                          <td rowspan={session.nominees.length} class="prize-table__period">
                             {session.period}
                           </td>
                         </>
@@ -79,24 +79,29 @@ const jsonLd = buildCategoryPageJsonLd({
                     <td class="prize-table__author">
                       {
                         authorHref ? (
-                          <a href={authorHref}>{winner.author}</a>
+                          <a href={authorHref}>{nominee.author}</a>
                         ) : (
-                          winner.author
+                          nominee.author
+                        )
+                      }
+                      {
+                        nominee.won && (
+                          <span class="prize-table__badge">受賞</span>
                         )
                       }
                     </td>
                     <td class="prize-table__title">
                       {
-                        winner.amazonUrl ? (
+                        nominee.amazonUrl ? (
                           <a
-                            href={winner.amazonUrl}
+                            href={nominee.amazonUrl}
                             rel="noopener noreferrer sponsored"
                             target="_blank"
                           >
-                            『{winner.title}』
+                            『{nominee.title}』
                           </a>
                         ) : (
-                          <>『{winner.title}』</>
+                          <>『{nominee.title}』</>
                         )
                       }
                     </td>
@@ -182,8 +187,30 @@ const jsonLd = buildCategoryPageJsonLd({
     text-decoration-color: var(--color-accent);
   }
 
+  .prize-table__badge {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.125rem 0.375rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--color-accent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
+    border-radius: 0.25rem;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .prize-table__row--winner {
+    background: color-mix(in srgb, var(--color-accent) 6%, transparent);
+  }
+
   .prize-table tbody tr:hover {
     background: color-mix(in srgb, var(--color-border) 35%, transparent);
+  }
+
+  .prize-table__row--winner:hover {
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
   }
 
   @media (max-width: 640px) {

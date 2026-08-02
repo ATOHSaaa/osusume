@@ -379,3 +379,7 @@ function sleep(ms: number): Promise<void> {
 export function isAmazonConfigured(): boolean {
   return getConfig() !== null;
 }
+
+export function getAmazonPartnerTag(): string | null {
+  return getConfig()?.partnerTag ?? null;
+}
