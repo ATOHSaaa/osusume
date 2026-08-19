@@ -49,28 +49,49 @@ function cleanAuthor(author: string): string {
     .trim();
 }
 
-function parseAuthorTitleSegments(text: string): Array<{ author: string; title: string }> {
-  const normalized = cleanText(text);
+function parseAuthorTitlePairs(text: string): Array<{ author: string; title: string }> {
+  const normalized = cleanText(text).replace(/（\d{4}年）/g, ' ');
   const blocks = normalized.includes('/') ? normalized.split(/\s*\/\s*/) : [normalized];
   const results: Array<{ author: string; title: string }> = [];
 
-  for (const block of blocks) {
-    const firstQuote = block.indexOf('『');
-    if (firstQuote < 0) continue;
+  for (let block of blocks) {
+    block = block
+      .replace(/などを中心とした.*$/, '')
+      .replace(/ならびに.*$/, '')
+      .replace(/その他.*$/, '')
+      .replace(/に対して.*$/, '')
+      .trim();
 
-    const author = cleanAuthor(block.slice(0, firstQuote));
-    if (!author) continue;
+    const titleMatches = [...block.matchAll(/『([^』]+)』/g)];
+    if (titleMatches.length === 0) continue;
 
-    const titleRegex = /『([^』]+)』/g;
-    let match: RegExpExecArray | null;
-    while ((match = titleRegex.exec(block)) !== null) {
+    const firstQuoteIdx = block.indexOf('『');
+    let currentAuthor = cleanAuthor(block.slice(0, firstQuoteIdx));
+
+    for (const match of titleMatches) {
       const title = cleanTitle(match[1]);
       if (!title || title.length < 2) continue;
-      results.push({ author, title });
+
+      const beforeQuote = block.slice(0, match.index ?? 0);
+      const afterPrevTitle = beforeQuote.split('』').pop() ?? beforeQuote;
+      const authorMatch = afterPrevTitle.match(/([^『』/、,]+)$/);
+      if (authorMatch) {
+        const candidate = cleanAuthor(authorMatch[1]);
+        if (candidate && candidate.length >= 2) {
+          currentAuthor = candidate;
+        }
+      }
+
+      if (!currentAuthor) continue;
+      results.push({ author: currentAuthor, title });
     }
   }
 
   return results;
+}
+
+function parseAuthorTitleSegments(text: string): Array<{ author: string; title: string }> {
+  return parseAuthorTitlePairs(text);
 }
 
 function parseCandidateText(text: string): Array<{ author: string; title: string }> {
@@ -93,9 +114,13 @@ function parseWinnerLine(
 
   const session = Number(sessionMatch[1]);
   const period = sessionToPeriod(session);
-  const body = text.replace(/第\d+回\s*/, '');
+  const body = text
+    .replace(/第\d+回\s*/, '')
+    .replace(/（\d{4}年）/g, '')
+    .trim();
+  const winnerBody = body.split(/候補作/)[0]?.trim() ?? body;
 
-  const works = parseAuthorTitleSegments(body);
+  const works = parseAuthorTitlePairs(winnerBody);
   return works.map((work) => ({
     session,
     period,
@@ -106,7 +131,15 @@ function parseWinnerLine(
 
 function parseWinners($: cheerio.CheerioAPI): YoshikawaEijiWork[] {
   const winners: YoshikawaEijiWork[] = [];
+  const seen = new Set<string>();
   const table = $('table').first();
+
+  function addWinner(work: YoshikawaEijiWork): void {
+    const key = `${work.session}|${work.author}|${work.title}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    winners.push(work);
+  }
 
   table.find('tr').each((_, row) => {
     const decade = cleanText($(row).find('th').text());
@@ -117,11 +150,22 @@ function parseWinners($: cheerio.CheerioAPI): YoshikawaEijiWork[] {
       .each((__, li) => {
         const lineText = cleanText($(li).text());
         if (!lineText.startsWith('第')) return;
-        winners.push(...parseWinnerLine(lineText, decade));
+        for (const work of parseWinnerLine(lineText, decade)) {
+          addWinner(work);
+        }
       });
   });
 
-  return winners;
+  // 第51回以降など、表外のリスト形式（2024年〜）も取り込む
+  $('li').each((_, li) => {
+    const lineText = cleanText($(li).text());
+    if (!lineText.startsWith('第') || lineText.startsWith('候補作')) return;
+    for (const work of parseWinnerLine(lineText, '')) {
+      addWinner(work);
+    }
+  });
+
+  return winners.sort((a, b) => a.session - b.session || a.author.localeCompare(b.author));
 }
 
 function findSessionForAnchor(

@@ -167,16 +167,6 @@
     {
       "session": 14,
       "period": "1980年",
-      "author": "黒岩重吾",
-      "title": "天の川の太陽",
-      "won": true,
-      "asin": "B07PQFBHH9",
-      "amazonUrl": "https://www.amazon.co.jp/dp/B07PQFBHH9?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
-      "price": "￥1,257"
-    },
-    {
-      "session": 14,
-      "period": "1980年",
       "author": "渡辺淳一",
       "title": "遠き落日",
       "won": true,
@@ -193,6 +183,16 @@
       "asin": "B01IQL9YCE",
       "amazonUrl": "https://www.amazon.co.jp/dp/B01IQL9YCE?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
       "price": "￥803"
+    },
+    {
+      "session": 14,
+      "period": "1980年",
+      "author": "黒岩重吾",
+      "title": "天の川の太陽",
+      "won": true,
+      "asin": "B07PQFBHH9",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07PQFBHH9?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,257"
     },
     {
       "session": 15,
@@ -623,20 +623,22 @@
     {
       "session": 56,
       "period": "2022年",
+      "author": "中島京子",
+      "title": "やさしい猫",
+      "won": true,
+      "asin": "B0D9NQZFYN",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0D9NQZFYN?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥970"
+    },
+    {
+      "session": 56,
+      "period": "2022年",
       "author": "京極夏彦",
       "title": "遠巷説百物語",
       "won": true,
       "asin": "B0BV9J5K61",
       "amazonUrl": "https://www.amazon.co.jp/dp/B0BV9J5K61?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
       "price": "￥1,056"
-    },
-    {
-      "session": 56,
-      "period": "2022年",
-      "author": "京極夏彦",
-      "title": "やさしい猫",
-      "won": true,
-      "amazonUrl": "https://www.amazon.co.jp/s?k=%E4%BA%AC%E6%A5%B5%E5%A4%8F%E5%BD%A6+%E3%82%84%E3%81%95%E3%81%97%E3%81%84%E7%8C%AB&tag=osusume-tadeku-22"
     },
     {
       "session": 57,
@@ -647,6 +649,36 @@
       "asin": "B0D14JSKQG",
       "amazonUrl": "https://www.amazon.co.jp/dp/B0D14JSKQG?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
       "price": "￥1,012"
+    },
+    {
+      "session": 58,
+      "period": "2024年",
+      "author": "黒川博行",
+      "title": "悪逆",
+      "won": true,
+      "asin": "B0CKBGC3FM",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0CKBGC3FM?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,980"
+    },
+    {
+      "session": 59,
+      "period": "2025年",
+      "author": "角田光代",
+      "title": "方舟を燃やす",
+      "won": true,
+      "asin": "B0CQZTM648",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0CQZTM648?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,782"
+    },
+    {
+      "session": 60,
+      "period": "2026年",
+      "author": "朝井まかて",
+      "title": "どら蔵（ぞう）",
+      "won": true,
+      "asin": "B0FPC2B778",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0FPC2B778?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥2,343"
     },
     {
       "session": 8,
