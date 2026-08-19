@@ -16,6 +16,7 @@ import {
   buildAmazonSearchAffiliateUrl,
   buildPrizeSearchTitles,
 } from '../src/lib/prize-amazon.ts';
+import { findYoshikawaEijiPrizeOverride } from '../src/lib/yoshikawa-eiji-amazon-overrides.ts';
 
 interface PrizeEntry {
   session: number;
@@ -86,6 +87,83 @@ function seedNomineeFromWinners(
 
 function sleep(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
+}
+
+function buildAsinAffiliateUrl(asin: string, partnerTag: string): string {
+  const url = new URL(`https://www.amazon.co.jp/dp/${asin}`);
+  url.searchParams.set('tag', partnerTag);
+  url.searchParams.set('linkCode', 'osi');
+  url.searchParams.set('th', '1');
+  url.searchParams.set('psc', '1');
+  return url.toString();
+}
+
+function seedPrizeFromNominee(data: PrizeData, nomineePath: string): number {
+  const nominee: PrizeData = JSON.parse(readFileSync(nomineePath, 'utf-8'));
+  let seeded = 0;
+
+  for (const entry of data.entries) {
+    if (entry.amazonUrl) continue;
+    const match = nominee.entries.find(
+      (n) =>
+        normalizePrizeKey(n.session, n.author, n.title) ===
+        normalizePrizeKey(entry.session, entry.author, entry.title)
+    );
+    if (!match?.amazonUrl) continue;
+    entry.amazonUrl = match.amazonUrl;
+    entry.asin = match.asin;
+    entry.price = match.price;
+    seeded++;
+  }
+
+  return seeded;
+}
+
+async function searchAmazonBookWithRetry(
+  title: string,
+  author: string,
+  maxAttempts = 3
+): Promise<Awaited<ReturnType<typeof searchAmazonBook>> | null> {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const product = await searchAmazonBook(title, author);
+      if (product?.asin && product.amazonUrl) return product;
+      return product;
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      if (attempt === maxAttempts) {
+        console.log(`  ⚠ 検索エラー: ${message}`);
+        return null;
+      }
+      console.log(`  ⚠ 検索エラー — 再試行 (${attempt}/${maxAttempts})...`);
+      await sleep(1500 * attempt);
+    }
+  }
+  return null;
+}
+
+function buildEntrySearchTitles(entry: PrizeEntry): string[] {
+  const titles = buildPrizeSearchTitles(entry.title);
+  const override =
+    entry.session !== undefined
+      ? findYoshikawaEijiPrizeOverride(entry.session, entry.author, entry.title)
+      : undefined;
+  if (override?.searchTitles) {
+    for (const t of override.searchTitles) {
+      if (!titles.includes(t)) titles.push(t);
+    }
+  }
+  return titles;
+}
+
+function usesSearchFallback(key: keyof typeof PRIZES): boolean {
+  return (
+    key === 'naoki-nominee' ||
+    key === 'akutagawa-nominee' ||
+    key === 'honya-taisho-nominee' ||
+    key === 'yoshikawa-eiji-nominee' ||
+    key === 'yoshikawa-eiji'
+  );
 }
 
 function parseArgs(argv: string[]): {
@@ -203,6 +281,22 @@ async function enrichFile(
     }
   }
 
+  if (key === 'yoshikawa-eiji') {
+    const seeded = seedPrizeFromNominee(data, PRIZES['yoshikawa-eiji-nominee']);
+    if (seeded > 0) {
+      for (const entry of data.entries) {
+        if (!entry.amazonUrl) continue;
+        productByAuthorTitle.set(normalizeAuthorTitleKey(entry.author, entry.title), {
+          asin: entry.asin,
+          amazonUrl: entry.amazonUrl,
+          price: entry.price,
+        });
+      }
+      writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+      console.log(`\n=== yoshikawa-eiji: 候補作データから ${seeded}件をコピー ===`);
+    }
+  }
+
   const missing = data.entries.filter((e) => !e.amazonUrl || !e.asin);
   console.log(`\n=== ${key}: 未リンク ${missing.length}件 / 全${data.entries.length}件 ===\n`);
 
@@ -216,10 +310,7 @@ async function enrichFile(
     if (
       entry.amazonUrl &&
       !upgradeAsin &&
-      (key === 'naoki-nominee' ||
-        key === 'akutagawa-nominee' ||
-        key === 'honya-taisho-nominee' ||
-        key === 'yoshikawa-eiji-nominee')
+      usesSearchFallback(key)
     ) {
       matched++;
       continue;
@@ -239,12 +330,33 @@ async function enrichFile(
     const labelLine = `第${entry.session}回 ${entry.author}『${entry.title}』`;
     process.stdout.write(`[${i + 1}/${data.entries.length}] ${labelLine}\n`);
 
-    const titles = buildPrizeSearchTitles(entry.title);
+    const override = findYoshikawaEijiPrizeOverride(
+      entry.session,
+      entry.author,
+      entry.title
+    );
+    if (override?.asin && key === 'yoshikawa-eiji') {
+      entry.asin = override.asin;
+      entry.amazonUrl = buildAsinAffiliateUrl(override.asin, partnerTag);
+      delete entry.price;
+      productByAuthorTitle.set(authorTitleKey, {
+        asin: entry.asin,
+        amazonUrl: entry.amazonUrl,
+      });
+      matched++;
+      newlyMatched++;
+      console.log(`  ✓ (手動ASIN) ${override.asin}`);
+      writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+      await sleep(300);
+      continue;
+    }
+
+    const titles = buildEntrySearchTitles(entry);
     let product = null;
 
     for (const title of titles) {
       console.log(`  検索: ${title}`);
-      product = await searchAmazonBook(title, entry.author);
+      product = await searchAmazonBookWithRetry(title, entry.author);
       if (product?.asin && product.amazonUrl) break;
       await sleep(700);
     }
@@ -261,12 +373,7 @@ async function enrichFile(
       matched++;
       newlyMatched++;
       console.log(`  ✓ ${product.asin} ${product.title}`);
-    } else if (
-      key === 'naoki-nominee' ||
-      key === 'akutagawa-nominee' ||
-      key === 'honya-taisho-nominee' ||
-      key === 'yoshikawa-eiji-nominee'
-    ) {
+    } else if (usesSearchFallback(key)) {
       entry.amazonUrl = buildAmazonSearchAffiliateUrl(
         entry.title,
         entry.author,

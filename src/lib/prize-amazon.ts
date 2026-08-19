@@ -79,7 +79,35 @@ export function buildPrizeSearchTitles(title: string): string[] {
   push(cleaned.replace(/\s+他$/, '').trim());
   push(cleaned.replace(/[『「]|[』」]/g, '').replace(/\s+他$/, '').trim());
 
+  appendSeriesVolumeVariants(candidates, cleaned);
+
   return candidates;
+}
+
+/** 長編・全巻もの向けの検索語を追加する */
+function appendSeriesVolumeVariants(candidates: string[], baseTitle: string): void {
+  const push = (value: string) => {
+    const v = value.trim();
+    if (!v || candidates.includes(v)) return;
+    candidates.push(v);
+  };
+
+  const core = baseTitle.replace(/[『「]|[』」]/g, '').replace(/\s+他$/, '').trim();
+  if (core.length < 2 || core.length > 24) return;
+
+  const suffixes = [
+    '上',
+    '一',
+    '1',
+    '第一部',
+    '第一巻',
+    '風の巻',
+    '全',
+    '文庫',
+  ];
+  for (const suffix of suffixes) {
+    push(`${core} ${suffix}`);
+  }
 }
 
 export function buildAmazonSearchAffiliateUrl(
