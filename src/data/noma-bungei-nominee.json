@@ -1,0 +1,1320 @@
+{
+  "source": "https://ja.wikipedia.org/wiki/%E9%87%8E%E9%96%93%E6%96%87%E8%8A%B8%E8%B3%9E",
+  "fetchedAt": "2026-08-19",
+  "entries": [
+    {
+      "session": 6,
+      "period": "1953年",
+      "author": "丹羽文雄",
+      "title": "蛇と鳩",
+      "won": true,
+      "asin": "B000JBB72A",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000JBB72A?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,111"
+    },
+    {
+      "session": 7,
+      "period": "1954年",
+      "author": "川端康成",
+      "title": "山の音",
+      "won": true,
+      "asin": "B0FH6841YN",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0FH6841YN?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥733"
+    },
+    {
+      "session": 9,
+      "period": "1956年",
+      "author": "外村繁",
+      "title": "筏",
+      "won": true,
+      "asin": "4093524629",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4093524629?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥770"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "円地文子",
+      "title": "女坂",
+      "won": true,
+      "asin": "4101127026",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4101127026?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥605"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "宇野千代",
+      "title": "おはん",
+      "won": true,
+      "asin": "B0GFCB3YB5",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0GFCB3YB5?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥473"
+    },
+    {
+      "session": 11,
+      "period": "1958年",
+      "author": "小林秀雄",
+      "title": "近代絵画",
+      "won": true,
+      "asin": "B00CL6MTIC",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00CL6MTIC?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥693"
+    },
+    {
+      "session": 12,
+      "period": "1959年",
+      "author": "室生犀星",
+      "title": "かげろふの日記遺文",
+      "won": true,
+      "asin": "B000JAIQCU",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000JAIQCU?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥6,550"
+    },
+    {
+      "session": 13,
+      "period": "1960年",
+      "author": "大原富枝",
+      "title": "婉という女",
+      "won": true,
+      "asin": "B07NNG9WXT",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07NNG9WXT?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,650"
+    },
+    {
+      "session": 13,
+      "period": "1960年",
+      "author": "安岡章太郎",
+      "title": "海辺の光景",
+      "won": true,
+      "asin": "B088QXDMMY",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B088QXDMMY?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥660"
+    },
+    {
+      "session": 14,
+      "period": "1961年",
+      "author": "井上靖",
+      "title": "淀どの日記",
+      "won": true,
+      "asin": "B01AU9K0HS",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01AU9K0HS?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥720"
+    },
+    {
+      "session": 15,
+      "period": "1962年",
+      "author": "尾崎一雄",
+      "title": "まぼろしの記",
+      "won": true,
+      "asin": "B00JIMMXVU",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00JIMMXVU?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥990"
+    },
+    {
+      "session": 16,
+      "period": "1963年",
+      "author": "広津和郎",
+      "title": "年月のあしおと",
+      "won": true,
+      "asin": "B08DNT2X5D",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B08DNT2X5D?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,023"
+    },
+    {
+      "session": 17,
+      "period": "1964年",
+      "author": "中山義秀",
+      "title": "咲庵",
+      "won": true,
+      "asin": "412205608X",
+      "amazonUrl": "https://www.amazon.co.jp/dp/412205608X?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥181"
+    },
+    {
+      "session": 17,
+      "period": "1964年",
+      "author": "高見順",
+      "title": "死の淵より",
+      "won": true,
+      "asin": "4062901854",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4062901854?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,650"
+    },
+    {
+      "session": 19,
+      "period": "1966年",
+      "author": "井伏鱒二",
+      "title": "黒い雨",
+      "won": true,
+      "asin": "B00J861MRM",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00J861MRM?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥862"
+    },
+    {
+      "session": 20,
+      "period": "1967年",
+      "author": "中村光夫",
+      "title": "贋の偶像",
+      "won": true,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E4%B8%AD%E6%9D%91%E5%85%89%E5%A4%AB+%E8%B4%8B%E3%81%AE%E5%81%B6%E5%83%8F&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 20,
+      "period": "1967年",
+      "author": "舟橋聖一",
+      "title": "好きな女の胸飾り",
+      "won": true,
+      "asin": "4093524300",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4093524300?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥825"
+    },
+    {
+      "session": 21,
+      "period": "1968年",
+      "author": "河上徹太郎",
+      "title": "吉田松陰",
+      "won": true,
+      "asin": "4122006953",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4122006953?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥30"
+    },
+    {
+      "session": 22,
+      "period": "1969年",
+      "author": "中野重治",
+      "title": "甲乙丙丁",
+      "won": true,
+      "asin": "4061961233",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4061961233?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1"
+    },
+    {
+      "session": 23,
+      "period": "1970年",
+      "author": "吉田健一",
+      "title": "ヨオロッパの世紀末",
+      "won": true,
+      "asin": "4003319427",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4003319427?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥240"
+    },
+    {
+      "session": 23,
+      "period": "1970年",
+      "author": "江藤淳",
+      "title": "漱石とその時代",
+      "won": true,
+      "asin": "4106001268",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4106001268?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,870"
+    },
+    {
+      "session": 24,
+      "period": "1971年",
+      "author": "庄野潤三",
+      "title": "絵合せ",
+      "won": true,
+      "asin": "B00GY19G40",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00GY19G40?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,144"
+    },
+    {
+      "session": 25,
+      "period": "1972年",
+      "author": "佐多稲子",
+      "title": "樹影",
+      "won": true,
+      "asin": "B00GY19HHQ",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00GY19HHQ?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,463"
+    },
+    {
+      "session": 26,
+      "period": "1973年",
+      "author": "大江健三郎",
+      "title": "洪水はわが魂に及び",
+      "won": true,
+      "asin": "B00IP4BYZS",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00IP4BYZS?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥564"
+    },
+    {
+      "session": 27,
+      "period": "1974年",
+      "author": "大岡昇平",
+      "title": "中原中也",
+      "won": true,
+      "asin": "B00GY19I0M",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00GY19I0M?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,562"
+    },
+    {
+      "session": 28,
+      "period": "1975年",
+      "author": "尾崎一雄",
+      "title": "あの日この日",
+      "won": true,
+      "asin": "B07G26K4D9",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07G26K4D9?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥550"
+    },
+    {
+      "session": 28,
+      "period": "1975年",
+      "author": "平野謙",
+      "title": "さまざまな青春",
+      "won": true,
+      "asin": "4061961446",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4061961446?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥924"
+    },
+    {
+      "session": 29,
+      "period": "1976年",
+      "author": "三浦哲郎",
+      "title": "拳銃と十五の短篇",
+      "won": true,
+      "asin": "B00K1ZQLSO",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00K1ZQLSO?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,023"
+    },
+    {
+      "session": 29,
+      "period": "1976年",
+      "author": "武田泰淳",
+      "title": "目まいのする散歩",
+      "won": true,
+      "asin": "B07JN6QSLY",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07JN6QSLY?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥884"
+    },
+    {
+      "session": 30,
+      "period": "1977年",
+      "author": "中島健蔵",
+      "title": "回想の文学",
+      "won": true,
+      "asin": "4582364012",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4582364012?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥9"
+    },
+    {
+      "session": 31,
+      "period": "1978年",
+      "author": "吉行淳之介",
+      "title": "夕暮まで",
+      "won": true,
+      "asin": "B00J861M2W",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00J861M2W?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥440"
+    },
+    {
+      "session": 32,
+      "period": "1979年",
+      "author": "藤枝静男",
+      "title": "悲しいだけ",
+      "won": true,
+      "asin": "B00GY19GG8",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00GY19GG8?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,353"
+    },
+    {
+      "session": 33,
+      "period": "1980年",
+      "author": "遠藤周作",
+      "title": "侍",
+      "won": true,
+      "asin": "B00BIXNNVQ",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00BIXNNVQ?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,024"
+    },
+    {
+      "session": 34,
+      "period": "1981年",
+      "author": "山本健吉",
+      "title": "いのちとかたち",
+      "won": true,
+      "asin": "B08QJ1ZP81",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B08QJ1ZP81?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥3,960"
+    },
+    {
+      "session": 35,
+      "period": "1982年",
+      "author": "小島信夫",
+      "title": "別れる理由",
+      "won": true,
+      "asin": "4062001209",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4062001209?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥650"
+    },
+    {
+      "session": 36,
+      "period": "1983年",
+      "author": "丹羽文雄",
+      "title": "蓮如",
+      "won": true,
+      "asin": "4122030099",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4122030099?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥482"
+    },
+    {
+      "session": 38,
+      "period": "1985年",
+      "author": "丸谷才一",
+      "title": "忠臣蔵とは何か",
+      "won": true,
+      "asin": "B07WK4ZJV1",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07WK4ZJV1?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥34,900"
+    },
+    {
+      "session": 38,
+      "period": "1985年",
+      "author": "島尾敏雄",
+      "title": "魚雷艇学生",
+      "won": true,
+      "asin": "B00OJVMZ1S",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00OJVMZ1S?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥515"
+    },
+    {
+      "session": 39,
+      "period": "1986年",
+      "author": "上田三四二",
+      "title": "島木赤彦",
+      "won": true,
+      "asin": "4048840681",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4048840681?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥2,721"
+    },
+    {
+      "session": 39,
+      "period": "1986年",
+      "author": "大庭みな子",
+      "title": "啼く鳥の",
+      "won": true,
+      "asin": "B00LC9YBAS",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00LC9YBAS?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,210"
+    },
+    {
+      "session": 40,
+      "period": "1987年",
+      "author": "森敦",
+      "title": "われ逝くもののごとく",
+      "won": true,
+      "asin": "4061961136",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4061961136?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥2,420"
+    },
+    {
+      "session": 41,
+      "period": "1988年",
+      "author": "安岡章太郎",
+      "title": "僕の昭和史",
+      "won": true,
+      "asin": "B07G281CBS",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07G281CBS?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥3,025"
+    },
+    {
+      "session": 42,
+      "period": "1989年",
+      "author": "井上靖",
+      "title": "孔子",
+      "won": true,
+      "asin": "B00I2KLZ3Q",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00I2KLZ3Q?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥891"
+    },
+    {
+      "session": 43,
+      "period": "1990年",
+      "author": "佐々木基一",
+      "title": "私のチェーホフ",
+      "won": true,
+      "asin": "4062033623",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4062033623?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥140"
+    },
+    {
+      "session": 44,
+      "period": "1991年",
+      "author": "河野多恵子",
+      "title": "みいら採り猟奇譚",
+      "won": true,
+      "asin": "410116102X",
+      "amazonUrl": "https://www.amazon.co.jp/dp/410116102X?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥498"
+    },
+    {
+      "session": 45,
+      "period": "1992年",
+      "author": "坂上弘",
+      "title": "田園風景",
+      "won": true,
+      "asin": "B07TGGXW9J",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07TGGXW9J?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,672"
+    },
+    {
+      "session": 46,
+      "period": "1993年",
+      "author": "日野啓三",
+      "title": "台風の眼",
+      "won": true,
+      "asin": "B00JA0KFM4",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00JA0KFM4?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,562"
+    },
+    {
+      "session": 47,
+      "period": "1994年",
+      "author": "李恢成",
+      "title": "百年の旅人たち",
+      "won": true,
+      "asin": "4101172021",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4101172021?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥546"
+    },
+    {
+      "session": 47,
+      "period": "1994年",
+      "author": "阿川弘之",
+      "title": "志賀直哉",
+      "won": true,
+      "asin": "4101110158",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4101110158?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥679"
+    },
+    {
+      "session": 49,
+      "period": "1996年",
+      "author": "秋山駿",
+      "title": "信長",
+      "won": true,
+      "asin": "4022650788",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4022650788?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,155"
+    },
+    {
+      "session": 50,
+      "period": "1997年",
+      "author": "富岡多恵子",
+      "title": "ひべるにあ島紀行",
+      "won": true,
+      "asin": "4061983598",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4061983598?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥460"
+    },
+    {
+      "session": 50,
+      "period": "1997年",
+      "author": "田久保英夫",
+      "title": "木霊集",
+      "won": true,
+      "asin": "4103126078",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4103126078?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,100"
+    },
+    {
+      "session": 51,
+      "period": "1998年",
+      "author": "津島佑子",
+      "title": "火の山―山猿記",
+      "won": true,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E6%B4%A5%E5%B3%B6%E4%BD%91%E5%AD%90+%E7%81%AB%E3%81%AE%E5%B1%B1%E2%80%95%E5%B1%B1%E7%8C%BF%E8%A8%98&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 52,
+      "period": "1999年",
+      "author": "清岡卓行",
+      "title": "マロニエの花が言った",
+      "won": true,
+      "asin": "B08PBMBQVL",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B08PBMBQVL?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥3,850"
+    },
+    {
+      "session": 53,
+      "period": "2000年",
+      "author": "林京子",
+      "title": "長い時間をかけた人間の経験",
+      "won": true,
+      "asin": "4061984071",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4061984071?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,320"
+    },
+    {
+      "session": 54,
+      "period": "2001年",
+      "author": "瀬戸内寂聴",
+      "title": "場所",
+      "won": true,
+      "asin": "4101144362",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4101144362?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥57"
+    },
+    {
+      "session": 55,
+      "period": "2002年",
+      "author": "高井有一",
+      "title": "時の潮",
+      "won": true,
+      "asin": "B07V1GGXJZ",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07V1GGXJZ?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,463"
+    },
+    {
+      "session": 56,
+      "period": "2003年",
+      "author": "竹西寛子",
+      "title": "贈答のうた",
+      "won": true,
+      "asin": "B07MMRH7R5",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07MMRH7R5?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,672"
+    },
+    {
+      "session": 57,
+      "period": "2004年",
+      "author": "辻井喬",
+      "title": "父の肖像",
+      "won": true,
+      "asin": "4101025290",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4101025290?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥188"
+    },
+    {
+      "session": 58,
+      "period": "2005年",
+      "author": "村上龍",
+      "title": "半島を出よ",
+      "won": true,
+      "asin": "4344410009",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4344410009?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥796"
+    },
+    {
+      "session": 59,
+      "period": "2006年",
+      "author": "黒井千次",
+      "title": "一日 夢の柵",
+      "won": true,
+      "asin": "B00KCL6UYM",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00KCL6UYM?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,463"
+    },
+    {
+      "session": 60,
+      "period": "2007年",
+      "author": "佐伯一麦",
+      "title": "ノルゲ Norge",
+      "won": true,
+      "asin": "B01BD25TFO",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01BD25TFO?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥2,090"
+    },
+    {
+      "session": 61,
+      "period": "2008年",
+      "author": "町田康",
+      "title": "宿屋めぐり",
+      "won": true,
+      "asin": "B009SM0ZFQ",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B009SM0ZFQ?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,153"
+    },
+    {
+      "session": 62,
+      "period": "2009年",
+      "author": "奥泉光",
+      "title": "神器 軍艦『橿原",
+      "won": true,
+      "asin": "4101284229",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4101284229?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,388"
+    },
+    {
+      "session": 63,
+      "period": "2010年",
+      "author": "村田喜代子",
+      "title": "故郷のわが家",
+      "won": true,
+      "asin": "4104041033",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4104041033?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥449"
+    },
+    {
+      "session": 64,
+      "period": "2011年",
+      "author": "多和田葉子",
+      "title": "雪の練習生",
+      "won": true,
+      "asin": "B0FCRGH8CR",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0FCRGH8CR?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥624"
+    },
+    {
+      "session": 65,
+      "period": "2012年",
+      "author": "山田詠美",
+      "title": "ジェントルマン",
+      "won": true,
+      "asin": "B00M98XJ9A",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00M98XJ9A?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥616"
+    },
+    {
+      "session": 66,
+      "period": "2013年",
+      "author": "保坂和志",
+      "title": "未明の闘争",
+      "won": true,
+      "asin": "B01CE4DVKU",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01CE4DVKU?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥814"
+    },
+    {
+      "session": 67,
+      "period": "2014年",
+      "author": "笙野頼子",
+      "title": "未闘病記――膠原病、『混合性結合組織病",
+      "won": true,
+      "asin": "B00NOTKOFA",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00NOTKOFA?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,881"
+    },
+    {
+      "session": 68,
+      "period": "2015年",
+      "author": "長野まゆみ",
+      "title": "冥途あり",
+      "won": true,
+      "asin": "B07K6HHDWP",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07K6HHDWP?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥649"
+    },
+    {
+      "session": 69,
+      "period": "2016年",
+      "author": "堀江敏幸",
+      "title": "その姿の消し方",
+      "won": true,
+      "asin": "4101294771",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4101294771?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥572"
+    },
+    {
+      "session": 70,
+      "period": "2017年",
+      "author": "高村薫",
+      "title": "土の記",
+      "won": true,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E9%AB%98%E6%9D%91%E8%96%AB+%E5%9C%9F%E3%81%AE%E8%A8%98&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 71,
+      "period": "2018年",
+      "author": "橋本治",
+      "title": "草薙の剣",
+      "won": true,
+      "asin": "B08SJ7WZ1W",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B08SJ7WZ1W?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥825"
+    },
+    {
+      "session": 72,
+      "period": "2019年",
+      "author": "松浦寿輝",
+      "title": "人外",
+      "won": true,
+      "asin": "B07PB9DJ4G",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07PB9DJ4G?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥2,398"
+    },
+    {
+      "session": 73,
+      "period": "2020年",
+      "author": "小川洋子",
+      "title": "小箱",
+      "won": true,
+      "asin": "402265256X",
+      "amazonUrl": "https://www.amazon.co.jp/dp/402265256X?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥792"
+    },
+    {
+      "session": 74,
+      "period": "2021年",
+      "author": "リービ英雄",
+      "title": "天路",
+      "won": true,
+      "asin": "B09DCNQZYR",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B09DCNQZYR?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,771"
+    },
+    {
+      "session": 75,
+      "period": "2022年",
+      "author": "松浦理英子",
+      "title": "ヒカリ文集",
+      "won": true,
+      "asin": "B0F6MYPWBF",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0F6MYPWBF?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥792"
+    },
+    {
+      "session": 76,
+      "period": "2023年",
+      "author": "川上弘美",
+      "title": "恋ははかない、あるいは、プールの底のステーキ",
+      "won": true,
+      "asin": "4065324386",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4065324386?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,290"
+    },
+    {
+      "session": 77,
+      "period": "2024年",
+      "author": "中村文則",
+      "title": "列",
+      "won": true,
+      "asin": "4065333393",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4065333393?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,470"
+    },
+    {
+      "session": 78,
+      "period": "2025年",
+      "author": "村田沙耶香",
+      "title": "世界99",
+      "won": true,
+      "asin": "B0DYTN4MH8",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0DYTN4MH8?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥4,840"
+    },
+    {
+      "session": 6,
+      "period": "1953年",
+      "author": "宇野浩二",
+      "title": "芥川龍之介",
+      "won": false,
+      "asin": "4122010225",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4122010225?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥657"
+    },
+    {
+      "session": 7,
+      "period": "1954年",
+      "author": "舟橋聖一",
+      "title": "花の生涯",
+      "won": false,
+      "asin": "B017NG2FJ2",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B017NG2FJ2?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥801"
+    },
+    {
+      "session": 7,
+      "period": "1954年",
+      "author": "佐藤春夫",
+      "title": "晶子曼陀羅",
+      "won": false,
+      "asin": "4061962485",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4061962485?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,732"
+    },
+    {
+      "session": 9,
+      "period": "1956年",
+      "author": "幸田文",
+      "title": "流れる",
+      "won": false,
+      "asin": "B09TKHX83N",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B09TKHX83N?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥663"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "石川淳",
+      "title": "紫苑物語",
+      "won": false,
+      "asin": "B01GJGMQFK",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01GJGMQFK?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥544"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "三島由紀夫",
+      "title": "金閣寺",
+      "won": false,
+      "asin": "4101050457",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4101050457?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥880"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "野上弥生子",
+      "title": "迷路",
+      "won": false,
+      "asin": "4000022431",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4000022431?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥410"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "谷崎潤一郎",
+      "title": "鍵",
+      "won": false,
+      "asin": "B01HHMUU62",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01HHMUU62?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥0"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "井上靖",
+      "title": "射程",
+      "won": false,
+      "asin": "B00H7STP7M",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00H7STP7M?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥715"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "吉川英治",
+      "title": "新・平家物語",
+      "won": false,
+      "asin": "4061965476",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4061965476?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,045"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "きだみのる",
+      "title": "精神の玩具",
+      "won": false,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E3%81%8D%E3%81%A0%E3%81%BF%E3%81%AE%E3%82%8B+%E7%B2%BE%E7%A5%9E%E3%81%AE%E7%8E%A9%E5%85%B7&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "きだみのる",
+      "title": "日本文化の根底に潜むもの",
+      "won": false,
+      "asin": "B000JAU60U",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000JAU60U?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥4,829"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "平林たい子",
+      "title": "沙漠の花",
+      "won": false,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E5%B9%B3%E6%9E%97%E3%81%9F%E3%81%84%E5%AD%90+%E6%B2%99%E6%BC%A0%E3%81%AE%E8%8A%B1&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "霜多正次",
+      "title": "沖縄島",
+      "won": false,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E9%9C%9C%E5%A4%9A%E6%AD%A3%E6%AC%A1+%E6%B2%96%E7%B8%84%E5%B3%B6&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 14,
+      "period": "1961年",
+      "author": "藤枝静男",
+      "title": "凶徒津田三蔵",
+      "won": false,
+      "asin": "B07JZ8BC47",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07JZ8BC47?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥495"
+    },
+    {
+      "session": 14,
+      "period": "1961年",
+      "author": "吉行淳之介",
+      "title": "闇のなかの祝祭",
+      "won": false,
+      "asin": "B00QRBK5P6",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00QRBK5P6?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥495"
+    },
+    {
+      "session": 14,
+      "period": "1961年",
+      "author": "大岡昇平",
+      "title": "花影",
+      "won": false,
+      "asin": "B017ASFZFY",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B017ASFZFY?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥440"
+    },
+    {
+      "session": 14,
+      "period": "1961年",
+      "author": "山本周五郎",
+      "title": "青べか物語",
+      "won": false,
+      "asin": "B00CL6MYG4",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00CL6MYG4?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥572"
+    },
+    {
+      "session": 14,
+      "period": "1961年",
+      "author": "尾崎一雄",
+      "title": "まぼろしの記",
+      "won": false,
+      "asin": "B00JIMMXVU",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00JIMMXVU?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥990"
+    },
+    {
+      "session": 14,
+      "period": "1961年",
+      "author": "中谷孝雄",
+      "title": "梶井基次郎",
+      "won": false,
+      "asin": "B000JAMXRE",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000JAMXRE?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥4,250"
+    },
+    {
+      "session": 21,
+      "period": "1968年",
+      "author": "伊藤整",
+      "title": "変容",
+      "won": false,
+      "asin": "4003109627",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4003109627?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥320"
+    },
+    {
+      "session": 21,
+      "period": "1968年",
+      "author": "庄野潤三",
+      "title": "前途",
+      "won": false,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E5%BA%84%E9%87%8E%E6%BD%A4%E4%B8%89+%E5%89%8D%E9%80%94&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 21,
+      "period": "1968年",
+      "author": "獅子文六",
+      "title": "父の乳",
+      "won": false,
+      "asin": "448043996X",
+      "amazonUrl": "https://www.amazon.co.jp/dp/448043996X?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,760"
+    },
+    {
+      "session": 21,
+      "period": "1968年",
+      "author": "開高健",
+      "title": "輝ける闇",
+      "won": false,
+      "asin": "410112809X",
+      "amazonUrl": "https://www.amazon.co.jp/dp/410112809X?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥880"
+    },
+    {
+      "session": 21,
+      "period": "1968年",
+      "author": "滝井孝作",
+      "title": "野趣",
+      "won": false,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E6%BB%9D%E4%BA%95%E5%AD%9D%E4%BD%9C+%E9%87%8E%E8%B6%A3&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 21,
+      "period": "1968年",
+      "author": "有吉佐和子",
+      "title": "海暗",
+      "won": false,
+      "asin": "B00IP4BY1W",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00IP4BY1W?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥704"
+    },
+    {
+      "session": 21,
+      "period": "1968年",
+      "author": "川口松太郎",
+      "title": "窯ぐれ女",
+      "won": false,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E5%B7%9D%E5%8F%A3%E6%9D%BE%E5%A4%AA%E9%83%8E+%E7%AA%AF%E3%81%90%E3%82%8C%E5%A5%B3&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 24,
+      "period": "1971年",
+      "author": "福永武彦",
+      "title": "死の島",
+      "won": false,
+      "asin": "B01CSBIIDE",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01CSBIIDE?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥693"
+    },
+    {
+      "session": 24,
+      "period": "1971年",
+      "author": "倉橋由美子",
+      "title": "夢の浮橋",
+      "won": false,
+      "asin": "412200036X",
+      "amazonUrl": "https://www.amazon.co.jp/dp/412200036X?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥94"
+    },
+    {
+      "session": 24,
+      "period": "1971年",
+      "author": "藤枝静男",
+      "title": "或る年の冬 或る年の夏",
+      "won": false,
+      "asin": "B08CVGL4V9",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B08CVGL4V9?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,353"
+    },
+    {
+      "session": 24,
+      "period": "1971年",
+      "author": "大岡昇平",
+      "title": "レイテ戦記",
+      "won": false,
+      "asin": "B07TSHFKX5",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07TSHFKX5?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,294"
+    },
+    {
+      "session": 27,
+      "period": "1974年",
+      "author": "阿川弘之",
+      "title": "暗い波濤",
+      "won": false,
+      "asin": "B01IHG9Q1M",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01IHG9Q1M?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥921"
+    },
+    {
+      "session": 27,
+      "period": "1974年",
+      "author": "渋川驍",
+      "title": "宇野浩二論",
+      "won": false,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E6%B8%8B%E5%B7%9D%E9%A9%8D+%E5%AE%87%E9%87%8E%E6%B5%A9%E4%BA%8C%E8%AB%96&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 27,
+      "period": "1974年",
+      "author": "中野好夫",
+      "title": "蘆花徳冨健次郎",
+      "won": false,
+      "asin": "B00NPQ0DOY",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00NPQ0DOY?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥5,712"
+    },
+    {
+      "session": 27,
+      "period": "1974年",
+      "author": "和田芳恵",
+      "title": "接木の台",
+      "won": false,
+      "asin": "4087502406",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4087502406?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥5,437"
+    },
+    {
+      "session": 30,
+      "period": "1977年",
+      "author": "黒井千次",
+      "title": "五月巡歴",
+      "won": false,
+      "asin": "B00H1RH8SW",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00H1RH8SW?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,309"
+    },
+    {
+      "session": 30,
+      "period": "1977年",
+      "author": "大庭みな子",
+      "title": "浦島草",
+      "won": false,
+      "asin": "4061982222",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4061982222?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,911"
+    },
+    {
+      "session": 30,
+      "period": "1977年",
+      "author": "中上健次",
+      "title": "枯木灘",
+      "won": false,
+      "asin": "4309400027",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4309400027?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥380"
+    },
+    {
+      "session": 32,
+      "period": "1979年",
+      "author": "水上勉",
+      "title": "金閣炎上",
+      "won": false,
+      "asin": "B01LZXO15K",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01LZXO15K?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥644"
+    },
+    {
+      "session": 32,
+      "period": "1979年",
+      "author": "瀬戸内晴美",
+      "title": "比叡",
+      "won": false,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E7%80%AC%E6%88%B8%E5%86%85%E6%99%B4%E7%BE%8E+%E6%AF%94%E5%8F%A1&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 32,
+      "period": "1979年",
+      "author": "上田三四二",
+      "title": "うつしみ",
+      "won": false,
+      "asin": "4582760384",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4582760384?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥784"
+    },
+    {
+      "session": 32,
+      "period": "1979年",
+      "author": "野口冨士男",
+      "title": "徳田秋聲の文學",
+      "won": false,
+      "asin": "4480821163",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4480821163?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥7,764"
+    },
+    {
+      "session": 32,
+      "period": "1979年",
+      "author": "李恢成",
+      "title": "見果てぬ夢",
+      "won": false,
+      "asin": "4061128760",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4061128760?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥5,250"
+    },
+    {
+      "session": 34,
+      "period": "1981年",
+      "author": "野口冨士男",
+      "title": "風のない日々",
+      "won": false,
+      "asin": "4163064303",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4163064303?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥360"
+    },
+    {
+      "session": 34,
+      "period": "1981年",
+      "author": "大庭みな子",
+      "title": "霧の旅",
+      "won": false,
+      "asin": "B000J835Y6",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000J835Y6?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,474"
+    },
+    {
+      "session": 34,
+      "period": "1981年",
+      "author": "結城信一",
+      "title": "石榴抄",
+      "won": false,
+      "asin": "4103397012",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4103397012?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥3,796"
+    },
+    {
+      "session": 35,
+      "period": "1982年",
+      "author": "中里恒子",
+      "title": "家の中",
+      "won": false,
+      "asin": "4062000954",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4062000954?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,500"
+    },
+    {
+      "session": 6,
+      "period": "1953年",
+      "author": "木下順二",
+      "title": "本郷",
+      "won": false,
+      "asin": "B093GZNPBM",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B093GZNPBM?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,155"
+    },
+    {
+      "session": 6,
+      "period": "1953年",
+      "author": "井伏鱒二",
+      "title": "荻窪風土記",
+      "won": false,
+      "asin": "B00J861NLC",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00J861NLC?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥679"
+    },
+    {
+      "session": 38,
+      "period": "1985年",
+      "author": "田久保英夫",
+      "title": "海図",
+      "won": false,
+      "asin": "4062007223",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4062007223?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥299"
+    },
+    {
+      "session": 38,
+      "period": "1985年",
+      "author": "堀田善衛",
+      "title": "路上の人",
+      "won": false,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E5%A0%80%E7%94%B0%E5%96%84%E8%A1%9B+%E8%B7%AF%E4%B8%8A%E3%81%AE%E4%BA%BA&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 40,
+      "period": "1987年",
+      "author": "清岡卓行",
+      "title": "大連港にて",
+      "won": false,
+      "amazonUrl": "https://www.amazon.co.jp/s?k=%E6%B8%85%E5%B2%A1%E5%8D%93%E8%A1%8C+%E5%A4%A7%E9%80%A3%E6%B8%AF%E3%81%AB%E3%81%A6&tag=osusume-tadeku-22"
+    },
+    {
+      "session": 42,
+      "period": "1989年",
+      "author": "古井由吉",
+      "title": "仮往生伝試文",
+      "won": false,
+      "asin": "B08PV8T24W",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B08PV8T24W?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥2,090"
+    },
+    {
+      "session": 42,
+      "period": "1989年",
+      "author": "大岡信",
+      "title": "詩人・菅原道真 うつしの美学",
+      "won": false,
+      "asin": "B094Q11N1L",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B094Q11N1L?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥660"
+    }
+  ],
+  "amazonEnrichedAt": "2026-08-19"
+}

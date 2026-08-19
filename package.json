@@ -24,7 +24,8 @@
     "generate:akutagawa-winners": "tsx scripts/generate-akutagawa-winner-articles.ts",
     "generate:honya-taisho-authors": "tsx scripts/generate-honya-taisho-author-articles.ts",
     "fetch:yoshikawa-eiji": "tsx scripts/fetch-yoshikawa-eiji-data.ts",
-    "generate:yoshikawa-eiji-authors": "tsx scripts/generate-yoshikawa-eiji-author-articles.ts",
+    "fetch:noma-bungei": "tsx scripts/fetch-noma-bungei-data.ts",
+    "generate:noma-bungei-authors": "tsx scripts/generate-noma-bungei-author-articles.ts",
     "astro": "astro"
   },
   "dependencies": {

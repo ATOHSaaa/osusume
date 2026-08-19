@@ -14,6 +14,8 @@ import {
   HONYA_TAISHO_PRIZE_PATH,
   YOSHIKAWA_EIJI_NOMINEE_PATH,
   YOSHIKAWA_EIJI_PRIZE_PATH,
+  NOMA_BUNGEI_NOMINEE_PATH,
+  NOMA_BUNGEI_PRIZE_PATH,
   NAOKI_PRIZE_PATH,
   NAOKI_NOMINEE_PATH,
   SITE_DESCRIPTION,
@@ -31,6 +33,8 @@ import { groupYoshikawaEijiNomineeBySession } from '../lib/yoshikawa-eiji-nomine
 import { groupYoshikawaEijiPrizeBySession } from '../lib/yoshikawa-eiji-prize';
 import { groupHonyaTaishoNomineeBySession } from '../lib/honya-taisho-nominee';
 import { groupHonyaTaishoPrizeBySession } from '../lib/honya-taisho-prize';
+import { groupNomaBungeiNomineeBySession } from '../lib/noma-bungei-nominee';
+import { groupNomaBungeiPrizeBySession } from '../lib/noma-bungei-prize';
 import { groupNaokiPrizeBySession } from '../lib/naoki-prize';
 import { groupNaokiNomineeBySession } from '../lib/naoki-nominee';
 import { buildWebSiteJsonLd } from '../lib/structured-data';
@@ -49,6 +53,8 @@ const honyaTaishoSessions = groupHonyaTaishoPrizeBySession();
 const honyaTaishoNomineeSessions = groupHonyaTaishoNomineeBySession();
 const yoshikawaEijiSessions = groupYoshikawaEijiPrizeBySession();
 const yoshikawaEijiNomineeSessions = groupYoshikawaEijiNomineeBySession();
+const nomaBungeiSessions = groupNomaBungeiPrizeBySession();
+const nomaBungeiNomineeSessions = groupNomaBungeiNomineeBySession();
 const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
 ---
 
@@ -219,6 +225,28 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
                 </span>
                 <span class="award-link__desc">
                   吉川英治文学賞の候補作（受賞作を含む）を回別に一覧化
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={NOMA_BUNGEI_PRIZE_PATH} class="award-link">
+                <span class="award-link__title">野間文芸賞受賞作一覧</span>
+                <span class="award-link__meta">
+                  第{nomaBungeiSessions[nomaBungeiSessions.length - 1]?.session ?? '—'}回〜第{nomaBungeiSessions[0]?.session ?? '—'}回 · {nomaBungeiSessions.reduce((n, s) => n + s.winners.length, 0)}作品
+                </span>
+                <span class="award-link__desc">
+                  小説と評論に贈られる野間文芸賞の歴代受賞作
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={NOMA_BUNGEI_NOMINEE_PATH} class="award-link">
+                <span class="award-link__title">野間文芸賞候補作一覧</span>
+                <span class="award-link__meta">
+                  第{nomaBungeiNomineeSessions[nomaBungeiNomineeSessions.length - 1]?.session ?? '—'}回〜第{nomaBungeiNomineeSessions[0]?.session ?? '—'}回 · {nomaBungeiNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
+                </span>
+                <span class="award-link__desc">
+                  野間文芸賞の候補作（受賞作を含む）を回別に一覧化
                 </span>
               </a>
             </li>

@@ -45,6 +45,8 @@ const PRIZES = {
   'honya-taisho-nominee': resolve('src/data/honya-taisho-nominee.json'),
   'yoshikawa-eiji': resolve('src/data/yoshikawa-eiji-prize.json'),
   'yoshikawa-eiji-nominee': resolve('src/data/yoshikawa-eiji-nominee.json'),
+  'noma-bungei': resolve('src/data/noma-bungei-prize.json'),
+  'noma-bungei-nominee': resolve('src/data/noma-bungei-nominee.json'),
 } as const;
 
 function normalizePrizeKey(session: number, author: string, title: string): string {
@@ -162,7 +164,9 @@ function usesSearchFallback(key: keyof typeof PRIZES): boolean {
     key === 'akutagawa-nominee' ||
     key === 'honya-taisho-nominee' ||
     key === 'yoshikawa-eiji-nominee' ||
-    key === 'yoshikawa-eiji'
+    key === 'yoshikawa-eiji' ||
+    key === 'noma-bungei-nominee' ||
+    key === 'noma-bungei'
   );
 }
 
@@ -180,9 +184,11 @@ function parseArgs(argv: string[]): {
   if (argv.includes('--honya-taisho-nominee')) targets.push('honya-taisho-nominee');
   if (all || argv.includes('--yoshikawa-eiji')) targets.push('yoshikawa-eiji');
   if (argv.includes('--yoshikawa-eiji-nominee')) targets.push('yoshikawa-eiji-nominee');
+  if (all || argv.includes('--noma-bungei')) targets.push('noma-bungei');
+  if (argv.includes('--noma-bungei-nominee')) targets.push('noma-bungei-nominee');
   if (targets.length === 0) {
     throw new Error(
-      '使い方: npx tsx scripts/enrich-prize-amazon.ts --akutagawa|--naoki|--naoki-nominee|--akutagawa-nominee|--honya-taisho|--honya-taisho-nominee|--yoshikawa-eiji|--yoshikawa-eiji-nominee|--all [--upgrade-asin]'
+      '使い方: npx tsx scripts/enrich-prize-amazon.ts --akutagawa|--naoki|--naoki-nominee|--akutagawa-nominee|--honya-taisho|--honya-taisho-nominee|--yoshikawa-eiji|--yoshikawa-eiji-nominee|--noma-bungei|--noma-bungei-nominee|--all [--upgrade-asin]'
     );
   }
   return { targets, upgradeAsin: argv.includes('--upgrade-asin') };
@@ -294,6 +300,38 @@ async function enrichFile(
       }
       writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
       console.log(`\n=== yoshikawa-eiji: 候補作データから ${seeded}件をコピー ===`);
+    }
+  }
+
+  if (key === 'noma-bungei-nominee') {
+    const seeded = seedNomineeFromWinners(data, PRIZES['noma-bungei']);
+    if (seeded > 0) {
+      for (const entry of data.entries) {
+        if (!entry.amazonUrl) continue;
+        productByAuthorTitle.set(normalizeAuthorTitleKey(entry.author, entry.title), {
+          asin: entry.asin,
+          amazonUrl: entry.amazonUrl,
+          price: entry.price,
+        });
+      }
+      writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+      console.log(`\n=== noma-bungei-nominee: 受賞作データから ${seeded}件をコピー ===`);
+    }
+  }
+
+  if (key === 'noma-bungei') {
+    const seeded = seedPrizeFromNominee(data, PRIZES['noma-bungei-nominee']);
+    if (seeded > 0) {
+      for (const entry of data.entries) {
+        if (!entry.amazonUrl) continue;
+        productByAuthorTitle.set(normalizeAuthorTitleKey(entry.author, entry.title), {
+          asin: entry.asin,
+          amazonUrl: entry.amazonUrl,
+          price: entry.price,
+        });
+      }
+      writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+      console.log(`\n=== noma-bungei: 候補作データから ${seeded}件をコピー ===`);
     }
   }
 

@@ -62,6 +62,12 @@ export const YOSHIKAWA_EIJI_PRIZE_PATH = '/awards/yoshikawa-eiji/';
 /** 吉川英治文学賞候補作一覧 */
 export const YOSHIKAWA_EIJI_NOMINEE_PATH = '/awards/yoshikawa-eiji/nominees/';
 
+/** 野間文芸賞受賞作一覧 */
+export const NOMA_BUNGEI_PRIZE_PATH = '/awards/noma-bungei/';
+
+/** 野間文芸賞候補作一覧 */
+export const NOMA_BUNGEI_NOMINEE_PATH = '/awards/noma-bungei/nominees/';
+
 /** サイト情報ページ */
 export const ABOUT_PATH = '/about/';
 export const PRIVACY_PATH = '/privacy/';
