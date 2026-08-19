@@ -24,6 +24,7 @@ import {
   isExcludedBook,
   resolveCanonicalBookTitle,
 } from './book-extractor';
+import { isPlausibleBookTitle } from './book-title-filter';
 import type { AmazonEnrichOptions, AmazonProduct, BookMention } from './types';
 
 let apiClient: DefaultApi | null = null;
@@ -319,14 +320,23 @@ export async function enrichBooksWithAmazon(
   }
 
   const enriched: Array<BookMention & Partial<AmazonProduct>> = [];
-  const candidates = books.slice(0, AMAZON_ENRICH_CANDIDATE_LIMIT);
+  const tier1 = books.filter((book) => book.count >= 2);
+  const tier2 = books.filter((book) => book.count < 2);
+  const candidates = [...tier1, ...tier2].slice(0, AMAZON_ENRICH_CANDIDATE_LIMIT);
 
   for (const book of candidates) {
+    if (enriched.length >= limit) break;
+
     if (isExcludedBook(book.title)) continue;
     if (isLaterSeriesVolume(book.title)) continue;
     if (isAdultContent(book.title)) continue;
     if (authorName && isBookByOtherAuthor(book.title, authorName)) continue;
-    if (enriched.length >= limit) break;
+
+    const strictFilter = book.count < 2;
+    if (!isPlausibleBookTitle(book.title, { strict: strictFilter })) {
+      console.warn(`  スキップ（作品名らしくない）: ${book.title}`);
+      continue;
+    }
 
     const expectedAuthor = authorName ?? getKnownBookAuthor(book.title);
 

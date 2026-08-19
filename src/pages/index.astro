@@ -10,6 +10,10 @@ import {
   AKUTAGAWA_PRIZE_PATH,
   GENRE_LIST_PATH,
   MANGA_LIST_PATH,
+  HONYA_TAISHO_NOMINEE_PATH,
+  HONYA_TAISHO_PRIZE_PATH,
+  YOSHIKAWA_EIJI_NOMINEE_PATH,
+  YOSHIKAWA_EIJI_PRIZE_PATH,
   NAOKI_PRIZE_PATH,
   NAOKI_NOMINEE_PATH,
   SITE_DESCRIPTION,
@@ -23,6 +27,10 @@ import {
 } from '../lib/articles';
 import { groupAkutagawaNomineeBySession } from '../lib/akutagawa-nominee';
 import { groupAkutagawaPrizeBySession } from '../lib/akutagawa-prize';
+import { groupYoshikawaEijiNomineeBySession } from '../lib/yoshikawa-eiji-nominee';
+import { groupYoshikawaEijiPrizeBySession } from '../lib/yoshikawa-eiji-prize';
+import { groupHonyaTaishoNomineeBySession } from '../lib/honya-taisho-nominee';
+import { groupHonyaTaishoPrizeBySession } from '../lib/honya-taisho-prize';
 import { groupNaokiPrizeBySession } from '../lib/naoki-prize';
 import { groupNaokiNomineeBySession } from '../lib/naoki-nominee';
 import { buildWebSiteJsonLd } from '../lib/structured-data';
@@ -37,6 +45,10 @@ const akutagawaSessions = groupAkutagawaPrizeBySession();
 const akutagawaNomineeSessions = groupAkutagawaNomineeBySession();
 const naokiSessions = groupNaokiPrizeBySession();
 const naokiNomineeSessions = groupNaokiNomineeBySession();
+const honyaTaishoSessions = groupHonyaTaishoPrizeBySession();
+const honyaTaishoNomineeSessions = groupHonyaTaishoNomineeBySession();
+const yoshikawaEijiSessions = groupYoshikawaEijiPrizeBySession();
+const yoshikawaEijiNomineeSessions = groupYoshikawaEijiNomineeBySession();
 const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
 ---
 
@@ -163,6 +175,50 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
                 </span>
                 <span class="award-link__desc">
                   直木賞の最終候補作（受賞作を含む）を回別に一覧化
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={HONYA_TAISHO_PRIZE_PATH} class="award-link">
+                <span class="award-link__title">本屋大賞受賞作一覧</span>
+                <span class="award-link__meta">
+                  第{honyaTaishoSessions[honyaTaishoSessions.length - 1]?.session ?? '—'}回〜第{honyaTaishoSessions[0]?.session ?? '—'}回 · {honyaTaishoSessions.reduce((n, s) => n + s.winners.length, 0)}作品
+                </span>
+                <span class="award-link__desc">
+                  書店員が選ぶ「いま読みたい本」本屋大賞の歴代受賞作
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={HONYA_TAISHO_NOMINEE_PATH} class="award-link">
+                <span class="award-link__title">本屋大賞ノミネート作一覧</span>
+                <span class="award-link__meta">
+                  第{honyaTaishoNomineeSessions[honyaTaishoNomineeSessions.length - 1]?.session ?? '—'}回〜第{honyaTaishoNomineeSessions[0]?.session ?? '—'}回 · {honyaTaishoNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
+                </span>
+                <span class="award-link__desc">
+                  本屋大賞の最終候補作（受賞作を含む）を回別に一覧化
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={YOSHIKAWA_EIJI_PRIZE_PATH} class="award-link">
+                <span class="award-link__title">吉川英治文学賞受賞作一覧</span>
+                <span class="award-link__meta">
+                  第{yoshikawaEijiSessions[yoshikawaEijiSessions.length - 1]?.session ?? '—'}回〜第{yoshikawaEijiSessions[0]?.session ?? '—'}回 · {yoshikawaEijiSessions.reduce((n, s) => n + s.winners.length, 0)}作品
+                </span>
+                <span class="award-link__desc">
+                  大衆文学の優れた作家に贈られる吉川英治文学賞の受賞作
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={YOSHIKAWA_EIJI_NOMINEE_PATH} class="award-link">
+                <span class="award-link__title">吉川英治文学賞候補作一覧</span>
+                <span class="award-link__meta">
+                  第{yoshikawaEijiNomineeSessions[yoshikawaEijiNomineeSessions.length - 1]?.session ?? '—'}回〜第{yoshikawaEijiNomineeSessions[0]?.session ?? '—'}回 · {yoshikawaEijiNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
+                </span>
+                <span class="award-link__desc">
+                  吉川英治文学賞の候補作（受賞作を含む）を回別に一覧化
                 </span>
               </a>
             </li>

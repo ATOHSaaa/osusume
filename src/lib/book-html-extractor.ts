@@ -1,4 +1,5 @@
 import * as cheerio from 'cheerio';
+import { isPlausibleBookTitle } from './book-title-filter';
 import type { Element } from 'domhandler';
 
 const BOOK_STORE_PATTERN =
@@ -165,5 +166,5 @@ export function extractBookTitlesFromHtml(html: string): string[] {
   extractFromBookLinks($, root, found);
   extractFromTableRows($, root, found);
 
-  return [...found];
+  return [...found].filter((title) => isPlausibleBookTitle(title));
 }

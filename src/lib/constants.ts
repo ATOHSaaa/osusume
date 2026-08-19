@@ -50,6 +50,18 @@ export const NAOKI_PRIZE_PATH = '/awards/naoki/';
 /** 直木賞候補作一覧 */
 export const NAOKI_NOMINEE_PATH = '/awards/naoki/nominees/';
 
+/** 本屋大賞受賞作一覧 */
+export const HONYA_TAISHO_PRIZE_PATH = '/awards/honya-taisho/';
+
+/** 本屋大賞ノミネート作一覧 */
+export const HONYA_TAISHO_NOMINEE_PATH = '/awards/honya-taisho/nominees/';
+
+/** 吉川英治文学賞受賞作一覧 */
+export const YOSHIKAWA_EIJI_PRIZE_PATH = '/awards/yoshikawa-eiji/';
+
+/** 吉川英治文学賞候補作一覧 */
+export const YOSHIKAWA_EIJI_NOMINEE_PATH = '/awards/yoshikawa-eiji/nominees/';
+
 /** サイト情報ページ */
 export const ABOUT_PATH = '/about/';
 export const PRIVACY_PATH = '/privacy/';
@@ -65,7 +77,7 @@ export const AUTHOR_SEARCH_LIMIT = 10;
 export const GENRE_SEARCH_LIMIT = 30;
 
 /** Amazon 照合で試す候補の上限（言及順） */
-export const AMAZON_ENRICH_CANDIDATE_LIMIT = 80;
+export const AMAZON_ENRICH_CANDIDATE_LIMIT = 40;
 
 /** 記事 URL の末尾サフィックス（例: isaka-kotaro-recommended-books） */
 export const ARTICLE_SLUG_SUFFIX = 'recommended-books';
