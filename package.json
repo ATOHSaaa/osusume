@@ -4,7 +4,9 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "tsx scripts/write-indexnow-key.ts",
     "build": "astro build",
+    "submit:indexnow": "tsx scripts/submit-indexnow.ts",
     "preview": "astro preview",
     "fix:book-counts": "tsx scripts/fix-book-counts.ts",
     "fetch:akutagawa-prize": "tsx scripts/fetch-akutagawa-prize-data.ts",

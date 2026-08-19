@@ -16,6 +16,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# IndexNow キーファイル（CI / ローカルで生成）
+public/*.txt
+
 # macOS
 .DS_Store
 
