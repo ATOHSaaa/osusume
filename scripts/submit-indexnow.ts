@@ -72,6 +72,35 @@ async function submitToIndexNow(key: string, urlList: string[]): Promise<void> {
   throw new Error(`IndexNow API エラー (${res.status}): ${body || res.statusText}`);
 }
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isVerificationPendingError(message: string): boolean {
+  return message.includes('SiteVerificationNotCompleted');
+}
+
+async function submitWithRetry(key: string, urlList: string[]): Promise<void> {
+  const maxAttempts = 5;
+  const retryDelayMs = 30_000;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      await submitToIndexNow(key, urlList);
+      return;
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      if (!isVerificationPendingError(message) || attempt === maxAttempts) {
+        throw err;
+      }
+      console.log(
+        `サイト検証が完了していません — ${retryDelayMs / 1000}秒後に再試行 (${attempt}/${maxAttempts})...`
+      );
+      await sleep(retryDelayMs);
+    }
+  }
+}
+
 async function main(): Promise<void> {
   const key = process.env.INDEXNOW_KEY?.trim();
 
@@ -89,7 +118,7 @@ async function main(): Promise<void> {
   const urls = await fetchSitemapUrls();
   console.log(`サイトマップから ${urls.length} 件の URL を取得しました。`);
 
-  await submitToIndexNow(key, urls);
+  await submitWithRetry(key, urls);
   console.log(`IndexNow へ ${urls.length} 件を送信しました（${INDEXNOW_API_URL}）。`);
 }
 

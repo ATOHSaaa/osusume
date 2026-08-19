@@ -52,5 +52,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run submit:indexnow
+        continue-on-error: true
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
