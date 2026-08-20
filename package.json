@@ -25,7 +25,9 @@
     "generate:honya-taisho-authors": "tsx scripts/generate-honya-taisho-author-articles.ts",
     "fetch:yoshikawa-eiji": "tsx scripts/fetch-yoshikawa-eiji-data.ts",
     "fetch:noma-bungei": "tsx scripts/fetch-noma-bungei-data.ts",
+    "fetch:tanizaki-junichiro": "tsx scripts/fetch-tanizaki-junichiro-data.ts",
     "generate:noma-bungei-authors": "tsx scripts/generate-noma-bungei-author-articles.ts",
+    "generate:tanizaki-junichiro-authors": "tsx scripts/generate-tanizaki-junichiro-author-articles.ts",
     "astro": "astro"
   },
   "dependencies": {

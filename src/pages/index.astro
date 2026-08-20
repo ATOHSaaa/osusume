@@ -16,6 +16,8 @@ import {
   YOSHIKAWA_EIJI_PRIZE_PATH,
   NOMA_BUNGEI_NOMINEE_PATH,
   NOMA_BUNGEI_PRIZE_PATH,
+  TANIZAKI_JUNICHIRO_NOMINEE_PATH,
+  TANIZAKI_JUNICHIRO_PRIZE_PATH,
   NAOKI_PRIZE_PATH,
   NAOKI_NOMINEE_PATH,
   SITE_DESCRIPTION,
@@ -35,6 +37,8 @@ import { groupHonyaTaishoNomineeBySession } from '../lib/honya-taisho-nominee';
 import { groupHonyaTaishoPrizeBySession } from '../lib/honya-taisho-prize';
 import { groupNomaBungeiNomineeBySession } from '../lib/noma-bungei-nominee';
 import { groupNomaBungeiPrizeBySession } from '../lib/noma-bungei-prize';
+import { groupTanizakiJunichiroNomineeBySession } from '../lib/tanizaki-junichiro-nominee';
+import { groupTanizakiJunichiroPrizeBySession } from '../lib/tanizaki-junichiro-prize';
 import { groupNaokiPrizeBySession } from '../lib/naoki-prize';
 import { groupNaokiNomineeBySession } from '../lib/naoki-nominee';
 import { buildWebSiteJsonLd } from '../lib/structured-data';
@@ -55,6 +59,8 @@ const yoshikawaEijiSessions = groupYoshikawaEijiPrizeBySession();
 const yoshikawaEijiNomineeSessions = groupYoshikawaEijiNomineeBySession();
 const nomaBungeiSessions = groupNomaBungeiPrizeBySession();
 const nomaBungeiNomineeSessions = groupNomaBungeiNomineeBySession();
+const tanizakiJunichiroSessions = groupTanizakiJunichiroPrizeBySession();
+const tanizakiJunichiroNomineeSessions = groupTanizakiJunichiroNomineeBySession();
 const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
 ---
 
@@ -247,6 +253,28 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
                 </span>
                 <span class="award-link__desc">
                   野間文芸賞の候補作（受賞作を含む）を回別に一覧化
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={TANIZAKI_JUNICHIRO_PRIZE_PATH} class="award-link">
+                <span class="award-link__title">谷崎潤一郎賞受賞作一覧</span>
+                <span class="award-link__meta">
+                  第{tanizakiJunichiroSessions[tanizakiJunichiroSessions.length - 1]?.session ?? '—'}回〜第{tanizakiJunichiroSessions[0]?.session ?? '—'}回 · {tanizakiJunichiroSessions.reduce((n, s) => n + s.winners.length, 0)}作品
+                </span>
+                <span class="award-link__desc">
+                  谷崎潤一郎の遺志を継ぐ文学賞の歴代受賞作
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={TANIZAKI_JUNICHIRO_NOMINEE_PATH} class="award-link">
+                <span class="award-link__title">谷崎潤一郎賞候補作一覧</span>
+                <span class="award-link__meta">
+                  第{tanizakiJunichiroNomineeSessions[tanizakiJunichiroNomineeSessions.length - 1]?.session ?? '—'}回〜第{tanizakiJunichiroNomineeSessions[0]?.session ?? '—'}回 · {tanizakiJunichiroNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
+                </span>
+                <span class="award-link__desc">
+                  谷崎潤一郎賞の候補作（受賞作を含む）を回別に一覧化
                 </span>
               </a>
             </li>

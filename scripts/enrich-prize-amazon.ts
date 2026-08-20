@@ -47,6 +47,8 @@ const PRIZES = {
   'yoshikawa-eiji-nominee': resolve('src/data/yoshikawa-eiji-nominee.json'),
   'noma-bungei': resolve('src/data/noma-bungei-prize.json'),
   'noma-bungei-nominee': resolve('src/data/noma-bungei-nominee.json'),
+  'tanizaki-junichiro': resolve('src/data/tanizaki-junichiro-prize.json'),
+  'tanizaki-junichiro-nominee': resolve('src/data/tanizaki-junichiro-nominee.json'),
 } as const;
 
 function normalizePrizeKey(session: number, author: string, title: string): string {
@@ -166,7 +168,9 @@ function usesSearchFallback(key: keyof typeof PRIZES): boolean {
     key === 'yoshikawa-eiji-nominee' ||
     key === 'yoshikawa-eiji' ||
     key === 'noma-bungei-nominee' ||
-    key === 'noma-bungei'
+    key === 'noma-bungei' ||
+    key === 'tanizaki-junichiro-nominee' ||
+    key === 'tanizaki-junichiro'
   );
 }
 
@@ -186,9 +190,11 @@ function parseArgs(argv: string[]): {
   if (argv.includes('--yoshikawa-eiji-nominee')) targets.push('yoshikawa-eiji-nominee');
   if (all || argv.includes('--noma-bungei')) targets.push('noma-bungei');
   if (argv.includes('--noma-bungei-nominee')) targets.push('noma-bungei-nominee');
+  if (all || argv.includes('--tanizaki-junichiro')) targets.push('tanizaki-junichiro');
+  if (argv.includes('--tanizaki-junichiro-nominee')) targets.push('tanizaki-junichiro-nominee');
   if (targets.length === 0) {
     throw new Error(
-      '使い方: npx tsx scripts/enrich-prize-amazon.ts --akutagawa|--naoki|--naoki-nominee|--akutagawa-nominee|--honya-taisho|--honya-taisho-nominee|--yoshikawa-eiji|--yoshikawa-eiji-nominee|--noma-bungei|--noma-bungei-nominee|--all [--upgrade-asin]'
+      '使い方: npx tsx scripts/enrich-prize-amazon.ts --akutagawa|--naoki|--naoki-nominee|--akutagawa-nominee|--honya-taisho|--honya-taisho-nominee|--yoshikawa-eiji|--yoshikawa-eiji-nominee|--noma-bungei|--noma-bungei-nominee|--tanizaki-junichiro|--tanizaki-junichiro-nominee|--all [--upgrade-asin]'
     );
   }
   return { targets, upgradeAsin: argv.includes('--upgrade-asin') };
@@ -332,6 +338,38 @@ async function enrichFile(
       }
       writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
       console.log(`\n=== noma-bungei: 候補作データから ${seeded}件をコピー ===`);
+    }
+  }
+
+  if (key === 'tanizaki-junichiro-nominee') {
+    const seeded = seedNomineeFromWinners(data, PRIZES['tanizaki-junichiro']);
+    if (seeded > 0) {
+      for (const entry of data.entries) {
+        if (!entry.amazonUrl) continue;
+        productByAuthorTitle.set(normalizeAuthorTitleKey(entry.author, entry.title), {
+          asin: entry.asin,
+          amazonUrl: entry.amazonUrl,
+          price: entry.price,
+        });
+      }
+      writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+      console.log(`\n=== tanizaki-junichiro-nominee: 受賞作データから ${seeded}件をコピー ===`);
+    }
+  }
+
+  if (key === 'tanizaki-junichiro') {
+    const seeded = seedPrizeFromNominee(data, PRIZES['tanizaki-junichiro-nominee']);
+    if (seeded > 0) {
+      for (const entry of data.entries) {
+        if (!entry.amazonUrl) continue;
+        productByAuthorTitle.set(normalizeAuthorTitleKey(entry.author, entry.title), {
+          asin: entry.asin,
+          amazonUrl: entry.amazonUrl,
+          price: entry.price,
+        });
+      }
+      writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+      console.log(`\n=== tanizaki-junichiro: 候補作データから ${seeded}件をコピー ===`);
     }
   }
 

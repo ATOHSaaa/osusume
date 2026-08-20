@@ -8,6 +8,8 @@ import {
   YOSHIKAWA_EIJI_PRIZE_PATH,
   NOMA_BUNGEI_NOMINEE_PATH,
   NOMA_BUNGEI_PRIZE_PATH,
+  TANIZAKI_JUNICHIRO_NOMINEE_PATH,
+  TANIZAKI_JUNICHIRO_PRIZE_PATH,
   NAOKI_PRIZE_PATH,
   NAOKI_NOMINEE_PATH,
   AUTHOR_LIST_PATH,
@@ -52,6 +54,8 @@ export async function GET(context: APIContext) {
     { path: YOSHIKAWA_EIJI_NOMINEE_PATH, lastmod: latestUpdate },
     { path: NOMA_BUNGEI_PRIZE_PATH, lastmod: latestUpdate },
     { path: NOMA_BUNGEI_NOMINEE_PATH, lastmod: latestUpdate },
+    { path: TANIZAKI_JUNICHIRO_PRIZE_PATH, lastmod: latestUpdate },
+    { path: TANIZAKI_JUNICHIRO_NOMINEE_PATH, lastmod: latestUpdate },
   ];
 
   const urls = [

@@ -68,6 +68,12 @@ export const NOMA_BUNGEI_PRIZE_PATH = '/awards/noma-bungei/';
 /** 野間文芸賞候補作一覧 */
 export const NOMA_BUNGEI_NOMINEE_PATH = '/awards/noma-bungei/nominees/';
 
+/** 谷崎潤一郎賞受賞作一覧 */
+export const TANIZAKI_JUNICHIRO_PRIZE_PATH = '/awards/tanizaki-junichiro/';
+
+/** 谷崎潤一郎賞候補作一覧 */
+export const TANIZAKI_JUNICHIRO_NOMINEE_PATH = '/awards/tanizaki-junichiro/nominees/';
+
 /** サイト情報ページ */
 export const ABOUT_PATH = '/about/';
 export const PRIVACY_PATH = '/privacy/';
