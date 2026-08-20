@@ -3,6 +3,7 @@
 export function normalizeAuthorName(name: string): string {
   return name
     .replace(/\s+/g, '')
+    .replace(/瀧/g, '滝')
     .replace(/國/g, '国')
     .replace(/䡄/g, '軌')
     .replace(/Ｋ/g, 'K')

@@ -54,5 +54,5 @@ export function groupNomaBungeiPrizeBySession(
 
 /** 作家名の表記ゆれを吸収して記事 slug を引く */
 export function normalizeAuthorName(name: string): string {
-  return name.replace(/\s+/g, '').replace(/Ｋ/g, 'K');
+  return name.replace(/\s+/g, '').replace(/Ｋ/g, 'K').replace(/瀧/g, '滝');
 }
