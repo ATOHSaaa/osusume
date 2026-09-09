@@ -1,22 +1,12 @@
 import { getCollection } from 'astro:content';
 import {
-  AKUTAGAWA_NOMINEE_PATH,
-  AKUTAGAWA_PRIZE_PATH,
-  HONYA_TAISHO_NOMINEE_PATH,
-  HONYA_TAISHO_PRIZE_PATH,
-  YOSHIKAWA_EIJI_NOMINEE_PATH,
-  YOSHIKAWA_EIJI_PRIZE_PATH,
-  NOMA_BUNGEI_NOMINEE_PATH,
-  NOMA_BUNGEI_PRIZE_PATH,
-  TANIZAKI_JUNICHIRO_NOMINEE_PATH,
-  TANIZAKI_JUNICHIRO_PRIZE_PATH,
-  NAOKI_PRIZE_PATH,
-  NAOKI_NOMINEE_PATH,
   AUTHOR_LIST_PATH,
+  AWARDS_HUB_PATH,
   GENRE_LIST_PATH,
   MANGA_LIST_PATH,
   SITE_URL,
 } from '../lib/constants';
+import { AWARDS, getAwardAuthorsPath, getAwardNomineePath, getAwardPath } from '../lib/awards/registry';
 import { sortArticlesByUpdated } from '../lib/articles';
 import { absoluteUrl } from '../lib/site-url';
 import type { APIContext } from 'astro';
@@ -39,23 +29,24 @@ export async function GET(context: APIContext) {
   const articles = (await getCollection('articles')).sort(sortArticlesByUpdated);
   const latestUpdate = articles[0]?.data.updated_at ?? new Date();
 
+  const awardPages = AWARDS.flatMap((award) => {
+    const pages = [
+      { path: getAwardPath(award.slug), lastmod: latestUpdate },
+      { path: getAwardAuthorsPath(award.slug), lastmod: latestUpdate },
+    ];
+    if (award.hasNominees) {
+      pages.push({ path: getAwardNomineePath(award.slug), lastmod: latestUpdate });
+    }
+    return pages;
+  });
+
   const staticPages = [
     { path: '/', lastmod: latestUpdate },
     { path: AUTHOR_LIST_PATH, lastmod: latestUpdate },
     { path: GENRE_LIST_PATH, lastmod: latestUpdate },
     { path: MANGA_LIST_PATH, lastmod: latestUpdate },
-    { path: AKUTAGAWA_PRIZE_PATH, lastmod: latestUpdate },
-    { path: AKUTAGAWA_NOMINEE_PATH, lastmod: latestUpdate },
-    { path: NAOKI_PRIZE_PATH, lastmod: latestUpdate },
-    { path: NAOKI_NOMINEE_PATH, lastmod: latestUpdate },
-    { path: HONYA_TAISHO_PRIZE_PATH, lastmod: latestUpdate },
-    { path: HONYA_TAISHO_NOMINEE_PATH, lastmod: latestUpdate },
-    { path: YOSHIKAWA_EIJI_PRIZE_PATH, lastmod: latestUpdate },
-    { path: YOSHIKAWA_EIJI_NOMINEE_PATH, lastmod: latestUpdate },
-    { path: NOMA_BUNGEI_PRIZE_PATH, lastmod: latestUpdate },
-    { path: NOMA_BUNGEI_NOMINEE_PATH, lastmod: latestUpdate },
-    { path: TANIZAKI_JUNICHIRO_PRIZE_PATH, lastmod: latestUpdate },
-    { path: TANIZAKI_JUNICHIRO_NOMINEE_PATH, lastmod: latestUpdate },
+    { path: AWARDS_HUB_PATH, lastmod: latestUpdate },
+    ...awardPages,
   ];
 
   const urls = [
@@ -82,8 +73,6 @@ ${urls
 </urlset>`;
 
   return new Response(body, {
-    headers: {
-      'Content-Type': 'application/xml; charset=utf-8',
-    },
+    headers: { 'Content-Type': 'application/xml; charset=utf-8' },
   });
 }

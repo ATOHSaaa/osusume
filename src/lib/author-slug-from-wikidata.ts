@@ -1,5 +1,15 @@
 import { ARTICLE_SLUG_SUFFIX } from './constants';
 
+/** Wikidata に英語ラベルがない作家向けの手動 slug */
+const AUTHOR_SLUG_OVERRIDES: Record<string, string> = {
+  佐野広実: 'sano-hiromi',
+  神護かずみ: 'jingo-kazumi',
+  市塔承: 'shito-sho',
+  更地郊: 'sarachi-ko',
+  大田ステファニー歓人: 'ota-stephanie-kanto',
+  引間徹: 'hikima-tetsu',
+};
+
 function romanizeForSlug(text: string): string {
   return text
     .normalize('NFD')
@@ -92,6 +102,9 @@ async function getEnglishLabel(wikidataId: string): Promise<string | null> {
 
 /** 作家名から記事 slug ベース（recommended-books 除く）を推定 */
 export async function resolveAuthorSlugBase(authorName: string): Promise<string | null> {
+  const override = AUTHOR_SLUG_OVERRIDES[authorName];
+  if (override) return override;
+
   let wikidataId = await getWikidataIdFromTitle(authorName);
   if (!wikidataId) {
     const title = await searchWikipediaTitle(authorName);

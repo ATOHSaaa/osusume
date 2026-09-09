@@ -26,8 +26,14 @@
     "fetch:yoshikawa-eiji": "tsx scripts/fetch-yoshikawa-eiji-data.ts",
     "fetch:noma-bungei": "tsx scripts/fetch-noma-bungei-data.ts",
     "fetch:tanizaki-junichiro": "tsx scripts/fetch-tanizaki-junichiro-data.ts",
+    "fetch:new-awards": "tsx scripts/fetch-new-awards-data.ts",
+    "fetch:more-awards": "tsx scripts/fetch-more-awards-data.ts",
     "generate:noma-bungei-authors": "tsx scripts/generate-noma-bungei-author-articles.ts",
     "generate:tanizaki-junichiro-authors": "tsx scripts/generate-tanizaki-junichiro-author-articles.ts",
+    "generate:award-genre-articles": "tsx scripts/generate-award-genre-articles.ts",
+    "generate:prize-winner-articles": "tsx scripts/generate-prize-winner-articles.ts",
+    "enrich:new-awards-amazon": "tsx scripts/enrich-prize-amazon.ts --yomiuri --edogawa-ranpo --edogawa-ranpo-nominee --kawabata --kawabata-nominee --japan-sf --bungaku-kai --shincho --bungei --all-yomimono --subaru",
+    "enrich:more-awards-amazon": "tsx scripts/enrich-prize-amazon.ts --joryu-bungei --shibata-rentaro --yamamoto-shugoro --honkaku-mystery --mephisto --gunzo --dazai-osamu --kaiko-ken",
     "astro": "astro"
   },
   "dependencies": {

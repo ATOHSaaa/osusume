@@ -78,6 +78,7 @@ export function buildPrizeSearchTitles(title: string): string[] {
 
   push(cleaned.replace(/\s+他$/, '').trim());
   push(cleaned.replace(/[『「]|[』」]/g, '').replace(/\s+他$/, '').trim());
+  push(cleaned.replace(/、/g, '').replace(/\s+他$/, '').trim());
 
   appendSeriesVolumeVariants(candidates, cleaned);
 

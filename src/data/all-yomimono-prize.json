@@ -1,0 +1,640 @@
+{
+  "source": "https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%83%AB%E8%AE%80%E7%89%A9%E6%96%B0%E4%BA%BA%E8%B3%9E",
+  "fetchedAt": "2026-09-01",
+  "entries": [
+    {
+      "session": 1,
+      "period": "1952年",
+      "author": "南條範夫",
+      "title": "子守りの殿"
+    },
+    {
+      "session": 2,
+      "period": "1953年",
+      "author": "八坂龍一",
+      "title": "女郎部唄"
+    },
+    {
+      "session": 3,
+      "period": "1953年",
+      "author": "白藤茂",
+      "title": "亡命記"
+    },
+    {
+      "session": 4,
+      "period": "1954年",
+      "author": "松浦幸男",
+      "title": "宝くじ挽歌"
+    },
+    {
+      "session": 5,
+      "period": "1954年",
+      "author": "柳田知怒夫",
+      "title": "お小人騒動"
+    },
+    {
+      "session": 6,
+      "period": "1955年",
+      "author": "池田直彦",
+      "title": "二潡港（あるとんかん）"
+    },
+    {
+      "session": 7,
+      "period": "1955年",
+      "author": "胡桃沢耕史",
+      "title": "壮士再び帰らず"
+    },
+    {
+      "session": 8,
+      "period": "1956年",
+      "author": "寺内大吉",
+      "title": "黒い旅路"
+    },
+    {
+      "session": 9,
+      "period": "1956年",
+      "author": "福永令三",
+      "title": "赤い鴉"
+    },
+    {
+      "session": 10,
+      "period": "1957年",
+      "author": "来水明子",
+      "title": "寵臣"
+    },
+    {
+      "session": 11,
+      "period": "1957年",
+      "author": "小田武雄",
+      "title": "紙漉風土記"
+    },
+    {
+      "session": 12,
+      "period": "1958年",
+      "author": "田中敏樹",
+      "title": "切腹九人目"
+    },
+    {
+      "session": 13,
+      "period": "1958年",
+      "author": "酒井健亀",
+      "title": "窮鼠の眼"
+    },
+    {
+      "session": 14,
+      "period": "1959年",
+      "author": "高橋達三",
+      "title": "匙（ローシカ）"
+    },
+    {
+      "session": 15,
+      "period": "1959年",
+      "author": "滝口康彦",
+      "title": "綾尾内記覚書"
+    },
+    {
+      "session": 16,
+      "period": "1960年",
+      "author": "幸川牧生",
+      "title": "懸命の地"
+    },
+    {
+      "session": 17,
+      "period": "1960年",
+      "author": "中村光至",
+      "title": "白い紐"
+    },
+    {
+      "session": 19,
+      "period": "1961年",
+      "author": "野火鳥夫",
+      "title": "灌木（ブッシュ）の唄"
+    },
+    {
+      "session": 20,
+      "period": "1962年",
+      "author": "稲垣史生",
+      "title": "花の御所"
+    },
+    {
+      "session": 21,
+      "period": "1962年",
+      "author": "原田八束",
+      "title": "落暉伝"
+    },
+    {
+      "session": 22,
+      "period": "1963年",
+      "author": "武田八洲満",
+      "title": "大事"
+    },
+    {
+      "session": 24,
+      "period": "1964年",
+      "author": "明田鉄男",
+      "title": "月明に飛ぶ"
+    },
+    {
+      "session": 25,
+      "period": "1964年",
+      "author": "中川静子",
+      "title": "幽囚転転"
+    },
+    {
+      "session": 26,
+      "period": "1965年",
+      "author": "今村了介",
+      "title": "蒼天"
+    },
+    {
+      "session": 27,
+      "period": "1965年",
+      "author": "富永滋人",
+      "title": "ぼてこ陣屋"
+    },
+    {
+      "session": 28,
+      "period": "1966年",
+      "author": "菅野照代",
+      "title": "ふくさ"
+    },
+    {
+      "session": 29,
+      "period": "1966年",
+      "author": "山村直樹",
+      "title": "破門の記"
+    },
+    {
+      "session": 30,
+      "period": "1967年",
+      "author": "土井稔",
+      "title": "隣家の律儀者"
+    },
+    {
+      "session": 32,
+      "period": "1968年",
+      "author": "豊田行二",
+      "title": "示談書"
+    },
+    {
+      "session": 33,
+      "period": "1968年",
+      "author": "川崎敬一",
+      "title": "麦の虫"
+    },
+    {
+      "session": 34,
+      "period": "1969年",
+      "author": "黒岩竜太",
+      "title": "裏通りの炎"
+    },
+    {
+      "session": 35,
+      "period": "1969年",
+      "author": "前田豊",
+      "title": "川の終り"
+    },
+    {
+      "session": 36,
+      "period": "1970年",
+      "author": "古屋甚一",
+      "title": "潮の齢"
+    },
+    {
+      "session": 37,
+      "period": "1970年",
+      "author": "稲村格",
+      "title": "はしか犬"
+    },
+    {
+      "session": 38,
+      "period": "1971年",
+      "author": "藤沢周平",
+      "title": "溟い海"
+    },
+    {
+      "session": 39,
+      "period": "1971年",
+      "author": "石井博",
+      "title": "老人と猫"
+    },
+    {
+      "session": 40,
+      "period": "1972年",
+      "author": "平忠夫",
+      "title": "真夜中の少年"
+    },
+    {
+      "session": 41,
+      "period": "1972年",
+      "author": "川村久志",
+      "title": "土曜の夜の狼たち"
+    },
+    {
+      "session": 43,
+      "period": "1973年",
+      "author": "中林亮介",
+      "title": "梔子の草湯"
+    },
+    {
+      "session": 44,
+      "period": "1974年",
+      "author": "榊原直人",
+      "title": "仏の城"
+    },
+    {
+      "session": 45,
+      "period": "1974年",
+      "author": "醍醐麻沙夫",
+      "title": "銀座」と南十字星"
+    },
+    {
+      "session": 46,
+      "period": "1975年",
+      "author": "楢山芙二夫",
+      "title": "ニューヨークのサムライ",
+      "asin": "4167439018",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4167439018?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥220"
+    },
+    {
+      "session": 47,
+      "period": "1975年",
+      "author": "加野厚志",
+      "title": "天国の番人"
+    },
+    {
+      "session": 48,
+      "period": "1976年",
+      "author": "小野紀美子",
+      "title": "喪服のノンナ"
+    },
+    {
+      "session": 49,
+      "period": "1976年",
+      "author": "桐部次郎",
+      "title": "横須賀線にて"
+    },
+    {
+      "session": 50,
+      "period": "1977年",
+      "author": "軒上泊",
+      "title": "九月の町"
+    },
+    {
+      "session": 51,
+      "period": "1977年",
+      "author": "堀和久",
+      "title": "享保貢象始末",
+      "asin": "416749504X",
+      "amazonUrl": "https://www.amazon.co.jp/dp/416749504X?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥1,440"
+    },
+    {
+      "session": 52,
+      "period": "1978年",
+      "author": "小堀新吉",
+      "title": "兄ちゃんを見た"
+    },
+    {
+      "session": 53,
+      "period": "1978年",
+      "author": "原田太朗",
+      "title": "鶏と女と土方"
+    },
+    {
+      "session": 54,
+      "period": "1979年",
+      "author": "澤哲也",
+      "title": "船霊(ぶなだま)"
+    },
+    {
+      "session": 55,
+      "period": "1979年",
+      "author": "佐々木譲",
+      "title": "鉄騎兵、跳んだ",
+      "asin": "B00HQZ80MM",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00HQZ80MM?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥565"
+    },
+    {
+      "session": 56,
+      "period": "1980年",
+      "author": "大久保智曠",
+      "title": "百合野通りから"
+    },
+    {
+      "session": 57,
+      "period": "1980年",
+      "author": "寺林峻",
+      "title": "幕切れ"
+    },
+    {
+      "session": 58,
+      "period": "1981年",
+      "author": "吉村正一郎",
+      "title": "石上草心の生涯"
+    },
+    {
+      "session": 59,
+      "period": "1981年",
+      "author": "海庭良和",
+      "title": "ハーレムのサムライ"
+    },
+    {
+      "session": 60,
+      "period": "1982年",
+      "author": "佐野寿人",
+      "title": "タイアップ屋さん"
+    },
+    {
+      "session": 61,
+      "period": "1982年",
+      "author": "竹田真砂子",
+      "title": "十六夜に"
+    },
+    {
+      "session": 62,
+      "period": "1983年",
+      "author": "城島明彦",
+      "title": "けさらんぱさらん",
+      "asin": "B006ZL19Q2",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B006ZL19Q2?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥330"
+    },
+    {
+      "session": 64,
+      "period": "1984年",
+      "author": "三宅孝太郎",
+      "title": "夕映え河岸"
+    },
+    {
+      "session": 65,
+      "period": "1985年",
+      "author": "桐生悠三",
+      "title": "チェストかわら版"
+    },
+    {
+      "session": 66,
+      "period": "1986年",
+      "author": "渡辺真理子",
+      "title": "鬼灯市"
+    },
+    {
+      "session": 67,
+      "period": "1987年",
+      "author": "味尾長太",
+      "title": "ジャパゆき梅子"
+    },
+    {
+      "session": 68,
+      "period": "1988年",
+      "author": "崎村亮介",
+      "title": "軟弱なからし明太子"
+    },
+    {
+      "session": 69,
+      "period": "1989年",
+      "author": "高橋和島",
+      "title": "十三姫子が菅を刈る"
+    },
+    {
+      "session": 70,
+      "period": "1990年",
+      "author": "大江いくの",
+      "title": "制服"
+    },
+    {
+      "session": 71,
+      "period": "1991年",
+      "author": "大内曜子",
+      "title": "光の戦士たち"
+    },
+    {
+      "session": 72,
+      "period": "1992年",
+      "author": "高橋直樹",
+      "title": "尼子悲話"
+    },
+    {
+      "session": 73,
+      "period": "1993年",
+      "author": "高木功",
+      "title": "6000フィートの夏"
+    },
+    {
+      "session": 74,
+      "period": "1994年",
+      "author": "片野喜章",
+      "title": "寛政見立番付"
+    },
+    {
+      "session": 75,
+      "period": "1995年",
+      "author": "宇江佐真理",
+      "title": "幻の声",
+      "asin": "4167640015",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4167640015?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥737"
+    },
+    {
+      "session": 76,
+      "period": "1996年",
+      "author": "乙川優三郎",
+      "title": "藪燕"
+    },
+    {
+      "session": 77,
+      "period": "1997年",
+      "author": "山本一力",
+      "title": "蒼龍",
+      "asin": "B00E7IM8S8",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00E7IM8S8?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥641"
+    },
+    {
+      "session": 78,
+      "period": "1998年",
+      "author": "三咲光郎",
+      "title": "大正四年の狙撃手（スナイパー）"
+    },
+    {
+      "session": 79,
+      "period": "1999年",
+      "author": "平安寿子",
+      "title": "素晴らしい一日",
+      "asin": "4163199608",
+      "amazonUrl": "https://www.amazon.co.jp/dp/4163199608?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥200"
+    },
+    {
+      "session": 80,
+      "period": "2000年",
+      "author": "大西幸",
+      "title": "相思花"
+    },
+    {
+      "session": 81,
+      "period": "2001年",
+      "author": "山本恵子",
+      "title": "夫婦（めおと）鯉"
+    },
+    {
+      "session": 82,
+      "period": "2002年",
+      "author": "桜木紫乃",
+      "title": "雪虫"
+    },
+    {
+      "session": 83,
+      "period": "2003年",
+      "author": "志川節子",
+      "title": "七転び"
+    },
+    {
+      "session": 84,
+      "period": "2004年",
+      "author": "永田俊也",
+      "title": "ええから加減"
+    },
+    {
+      "session": 85,
+      "period": "2005年",
+      "author": "野田栄二",
+      "title": "黄砂吹く"
+    },
+    {
+      "session": 86,
+      "period": "2006年",
+      "author": "乾ルカ",
+      "title": "夏光",
+      "asin": "B009DEDQ7S",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B009DEDQ7S?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥631"
+    },
+    {
+      "session": 87,
+      "period": "2007年",
+      "author": "奥山景布子",
+      "title": "平家蟹異聞"
+    },
+    {
+      "session": 88,
+      "period": "2008年",
+      "author": "坂井希久子",
+      "title": "虫のいどころ"
+    },
+    {
+      "session": 89,
+      "period": "2009年",
+      "author": "緒川莉々子",
+      "title": "モモタン"
+    },
+    {
+      "session": 90,
+      "period": "2010年",
+      "author": "立花水馬",
+      "title": "虫封じ〼（マス）",
+      "asin": "B017W1U2G6",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B017W1U2G6?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥763"
+    },
+    {
+      "session": 91,
+      "period": "2011年",
+      "author": "佐藤巖太郎",
+      "title": "夢幻の扉",
+      "asin": "B073VLFFHK",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B073VLFFHK?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥306"
+    },
+    {
+      "session": 92,
+      "period": "2012年",
+      "author": "木下昌輝",
+      "title": "宇喜多の捨て嫁",
+      "asin": "B06ZXW5Y7N",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B06ZXW5Y7N?tag=osusume-tadeku-22&linkCode=osi&th=1&psc=1",
+      "price": "￥804"
+    },
+    {
+      "session": 93,
+      "period": "2013年",
+      "author": "香月夕花",
+      "title": "水に立つ人"
+    },
+    {
+      "session": 94,
+      "period": "2014年",
+      "author": "榛野文美",
+      "title": "花村凜子の傘"
+    },
+    {
+      "session": 95,
+      "period": "2015年",
+      "author": "松田幸緒",
+      "title": "中庭に面した席"
+    },
+    {
+      "session": 96,
+      "period": "2016年",
+      "author": "佐々木愛",
+      "title": "ひどい句点"
+    },
+    {
+      "session": 97,
+      "period": "2017年",
+      "author": "三本雅彦",
+      "title": "新芽"
+    },
+    {
+      "session": 98,
+      "period": "2018年",
+      "author": "榛原浩",
+      "title": "母喰鳥"
+    },
+    {
+      "session": 99,
+      "period": "2019年",
+      "author": "由原かのん",
+      "title": "首侍（くびざむらい）"
+    },
+    {
+      "session": 100,
+      "period": "2020年",
+      "author": "高瀬乃一",
+      "title": "をりをり よみ耽（ふけ）り"
+    },
+    {
+      "session": 101,
+      "period": "2021年",
+      "author": "出崎哲弥",
+      "title": "装束（しょうぞく）ゑの木（き）"
+    },
+    {
+      "session": 102,
+      "period": "2022年",
+      "author": "米原信",
+      "title": "盟（かみかけて）信（しん）が大切"
+    },
+    {
+      "session": 103,
+      "period": "2023年",
+      "author": "小林尋",
+      "title": "かはゆき、道賢（どうけん）"
+    },
+    {
+      "session": 104,
+      "period": "2024年",
+      "author": "和泉久史",
+      "title": "佐吉の秩序"
+    },
+    {
+      "session": 105,
+      "period": "2025年",
+      "author": "宮籐千聖",
+      "title": "弁柄通りの影屋敷"
+    }
+  ],
+  "amazonEnrichedAt": "2026-09-01"
+}

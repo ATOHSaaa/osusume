@@ -3,16 +3,7 @@ import Analytics from '../components/Analytics.astro';
 import JsonLd from '../components/JsonLd.astro';
 import {
   ABOUT_PATH,
-  AKUTAGAWA_NOMINEE_PATH,
-  AKUTAGAWA_PRIZE_PATH,
-  HONYA_TAISHO_NOMINEE_PATH,
-  HONYA_TAISHO_PRIZE_PATH,
-  YOSHIKAWA_EIJI_NOMINEE_PATH,
-  YOSHIKAWA_EIJI_PRIZE_PATH,
-  NOMA_BUNGEI_NOMINEE_PATH,
-  NOMA_BUNGEI_PRIZE_PATH,
-  NAOKI_PRIZE_PATH,
-  NAOKI_NOMINEE_PATH,
+  AWARDS_HUB_PATH,
   AUTHOR_LIST_PATH,
   CONTACT_PATH,
   GENRE_LIST_PATH,
@@ -80,6 +71,11 @@ const navItems = [
     label: '漫画',
     match: (path: string) => path.startsWith(MANGA_LIST_PATH),
   },
+  {
+    href: AWARDS_HUB_PATH,
+    label: '文学賞',
+    match: (path: string) => path.startsWith(AWARDS_HUB_PATH),
+  },
 ];
 
 const footerLinks = [
@@ -87,16 +83,7 @@ const footerLinks = [
   { href: AUTHOR_LIST_PATH, label: '作家別のおすすめ' },
   { href: GENRE_LIST_PATH, label: 'ジャンル別のおすすめ' },
   { href: MANGA_LIST_PATH, label: '漫画のおすすめ' },
-  { href: AKUTAGAWA_PRIZE_PATH, label: '芥川賞受賞作一覧' },
-  { href: AKUTAGAWA_NOMINEE_PATH, label: '芥川賞候補作一覧' },
-  { href: NAOKI_PRIZE_PATH, label: '直木賞受賞作一覧' },
-  { href: NAOKI_NOMINEE_PATH, label: '直木賞候補作一覧' },
-  { href: HONYA_TAISHO_PRIZE_PATH, label: '本屋大賞受賞作一覧' },
-  { href: HONYA_TAISHO_NOMINEE_PATH, label: '本屋大賞ノミネート作一覧' },
-  { href: YOSHIKAWA_EIJI_PRIZE_PATH, label: '吉川英治文学賞受賞作一覧' },
-  { href: YOSHIKAWA_EIJI_NOMINEE_PATH, label: '吉川英治文学賞候補作一覧' },
-  { href: NOMA_BUNGEI_PRIZE_PATH, label: '野間文芸賞受賞作一覧' },
-  { href: NOMA_BUNGEI_NOMINEE_PATH, label: '野間文芸賞候補作一覧' },
+  { href: AWARDS_HUB_PATH, label: '文学賞・新人賞のまとめ' },
   { href: RSS_PATH, label: 'RSS' },
   { href: ABOUT_PATH, label: 'このサイトについて' },
   { href: PRIVACY_PATH, label: 'プライバシーポリシー' },

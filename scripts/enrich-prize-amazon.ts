@@ -17,6 +17,9 @@ import {
   buildPrizeSearchTitles,
 } from '../src/lib/prize-amazon.ts';
 import { findYoshikawaEijiPrizeOverride } from '../src/lib/yoshikawa-eiji-amazon-overrides.ts';
+import { findYomiuriPrizeOverride } from '../src/lib/yomiuri-prize-amazon-overrides.ts';
+import { findKawabataPrizeOverride } from '../src/lib/kawabata-prize-amazon-overrides.ts';
+import { findEdogawaRanpoPrizeOverride } from '../src/lib/edogawa-ranpo-prize-amazon-overrides.ts';
 
 interface PrizeEntry {
   session: number;
@@ -49,6 +52,25 @@ const PRIZES = {
   'noma-bungei-nominee': resolve('src/data/noma-bungei-nominee.json'),
   'tanizaki-junichiro': resolve('src/data/tanizaki-junichiro-prize.json'),
   'tanizaki-junichiro-nominee': resolve('src/data/tanizaki-junichiro-nominee.json'),
+  yomiuri: resolve('src/data/yomiuri-prize.json'),
+  'edogawa-ranpo': resolve('src/data/edogawa-ranpo-prize.json'),
+  'edogawa-ranpo-nominee': resolve('src/data/edogawa-ranpo-nominee.json'),
+  kawabata: resolve('src/data/kawabata-prize.json'),
+  'kawabata-nominee': resolve('src/data/kawabata-nominee.json'),
+  'japan-sf': resolve('src/data/japan-sf-prize.json'),
+  'bungaku-kai': resolve('src/data/bungaku-kai-prize.json'),
+  shincho: resolve('src/data/shincho-prize.json'),
+  bungei: resolve('src/data/bungei-prize.json'),
+  'all-yomimono': resolve('src/data/all-yomimono-prize.json'),
+  subaru: resolve('src/data/subaru-prize.json'),
+  'joryu-bungei': resolve('src/data/joryu-bungei-prize.json'),
+  'shibata-rentaro': resolve('src/data/shibata-rentaro-prize.json'),
+  'yamamoto-shugoro': resolve('src/data/yamamoto-shugoro-prize.json'),
+  'honkaku-mystery': resolve('src/data/honkaku-mystery-prize.json'),
+  mephisto: resolve('src/data/mephisto-prize.json'),
+  gunzo: resolve('src/data/gunzo-prize.json'),
+  'dazai-osamu': resolve('src/data/dazai-osamu-prize.json'),
+  'kaiko-ken': resolve('src/data/kaiko-ken-prize.json'),
 } as const;
 
 function normalizePrizeKey(session: number, author: string, title: string): string {
@@ -146,18 +168,43 @@ async function searchAmazonBookWithRetry(
   return null;
 }
 
-function buildEntrySearchTitles(entry: PrizeEntry): string[] {
+function buildEntrySearchTitles(entry: PrizeEntry, key?: keyof typeof PRIZES): string[] {
   const titles = buildPrizeSearchTitles(entry.title);
   const override =
-    entry.session !== undefined
-      ? findYoshikawaEijiPrizeOverride(entry.session, entry.author, entry.title)
-      : undefined;
+    key === 'yomiuri'
+      ? findYomiuriPrizeOverride(entry.session, entry.author, entry.title)
+      : key === 'kawabata'
+        ? findKawabataPrizeOverride(entry.session, entry.author, entry.title)
+        : key === 'edogawa-ranpo'
+          ? findEdogawaRanpoPrizeOverride(entry.session, entry.author, entry.title)
+          : entry.session !== undefined
+            ? findYoshikawaEijiPrizeOverride(entry.session, entry.author, entry.title)
+            : undefined;
   if (override?.searchTitles) {
     for (const t of override.searchTitles) {
       if (!titles.includes(t)) titles.push(t);
     }
   }
   return titles;
+}
+
+function findPrizeOverride(
+  key: keyof typeof PRIZES,
+  entry: PrizeEntry
+): ReturnType<typeof findYoshikawaEijiPrizeOverride> {
+  if (key === 'yomiuri') {
+    return findYomiuriPrizeOverride(entry.session, entry.author, entry.title);
+  }
+  if (key === 'kawabata') {
+    return findKawabataPrizeOverride(entry.session, entry.author, entry.title);
+  }
+  if (key === 'edogawa-ranpo') {
+    return findEdogawaRanpoPrizeOverride(entry.session, entry.author, entry.title);
+  }
+  if (key === 'yoshikawa-eiji') {
+    return findYoshikawaEijiPrizeOverride(entry.session, entry.author, entry.title);
+  }
+  return undefined;
 }
 
 function usesSearchFallback(key: keyof typeof PRIZES): boolean {
@@ -170,7 +217,12 @@ function usesSearchFallback(key: keyof typeof PRIZES): boolean {
     key === 'noma-bungei-nominee' ||
     key === 'noma-bungei' ||
     key === 'tanizaki-junichiro-nominee' ||
-    key === 'tanizaki-junichiro'
+    key === 'tanizaki-junichiro' ||
+    key === 'yomiuri' ||
+    key === 'joryu-bungei' ||
+    key === 'kawabata' ||
+    key === 'edogawa-ranpo' ||
+    key === 'edogawa-ranpo-nominee'
   );
 }
 
@@ -192,6 +244,25 @@ function parseArgs(argv: string[]): {
   if (argv.includes('--noma-bungei-nominee')) targets.push('noma-bungei-nominee');
   if (all || argv.includes('--tanizaki-junichiro')) targets.push('tanizaki-junichiro');
   if (argv.includes('--tanizaki-junichiro-nominee')) targets.push('tanizaki-junichiro-nominee');
+  if (all || argv.includes('--yomiuri')) targets.push('yomiuri');
+  if (all || argv.includes('--edogawa-ranpo')) targets.push('edogawa-ranpo');
+  if (argv.includes('--edogawa-ranpo-nominee')) targets.push('edogawa-ranpo-nominee');
+  if (all || argv.includes('--kawabata')) targets.push('kawabata');
+  if (argv.includes('--kawabata-nominee')) targets.push('kawabata-nominee');
+  if (all || argv.includes('--japan-sf')) targets.push('japan-sf');
+  if (all || argv.includes('--bungaku-kai')) targets.push('bungaku-kai');
+  if (all || argv.includes('--shincho')) targets.push('shincho');
+  if (all || argv.includes('--bungei')) targets.push('bungei');
+  if (all || argv.includes('--all-yomimono')) targets.push('all-yomimono');
+  if (all || argv.includes('--subaru')) targets.push('subaru');
+  if (all || argv.includes('--joryu-bungei')) targets.push('joryu-bungei');
+  if (all || argv.includes('--shibata-rentaro')) targets.push('shibata-rentaro');
+  if (all || argv.includes('--yamamoto-shugoro')) targets.push('yamamoto-shugoro');
+  if (all || argv.includes('--honkaku-mystery')) targets.push('honkaku-mystery');
+  if (all || argv.includes('--mephisto')) targets.push('mephisto');
+  if (all || argv.includes('--gunzo')) targets.push('gunzo');
+  if (all || argv.includes('--dazai-osamu')) targets.push('dazai-osamu');
+  if (all || argv.includes('--kaiko-ken')) targets.push('kaiko-ken');
   if (targets.length === 0) {
     throw new Error(
       '使い方: npx tsx scripts/enrich-prize-amazon.ts --akutagawa|--naoki|--naoki-nominee|--akutagawa-nominee|--honya-taisho|--honya-taisho-nominee|--yoshikawa-eiji|--yoshikawa-eiji-nominee|--noma-bungei|--noma-bungei-nominee|--tanizaki-junichiro|--tanizaki-junichiro-nominee|--all [--upgrade-asin]'
@@ -373,6 +444,38 @@ async function enrichFile(
     }
   }
 
+  if (key === 'edogawa-ranpo-nominee') {
+    const seeded = seedNomineeFromWinners(data, PRIZES['edogawa-ranpo']);
+    if (seeded > 0) {
+      for (const entry of data.entries) {
+        if (!entry.amazonUrl) continue;
+        productByAuthorTitle.set(normalizeAuthorTitleKey(entry.author, entry.title), {
+          asin: entry.asin,
+          amazonUrl: entry.amazonUrl,
+          price: entry.price,
+        });
+      }
+      writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+      console.log(`\n=== edogawa-ranpo-nominee: 受賞作データから ${seeded}件をコピー ===`);
+    }
+  }
+
+  if (key === 'kawabata-nominee') {
+    const seeded = seedNomineeFromWinners(data, PRIZES.kawabata);
+    if (seeded > 0) {
+      for (const entry of data.entries) {
+        if (!entry.amazonUrl) continue;
+        productByAuthorTitle.set(normalizeAuthorTitleKey(entry.author, entry.title), {
+          asin: entry.asin,
+          amazonUrl: entry.amazonUrl,
+          price: entry.price,
+        });
+      }
+      writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+      console.log(`\n=== kawabata-nominee: 受賞作データから ${seeded}件をコピー ===`);
+    }
+  }
+
   const missing = data.entries.filter((e) => !e.amazonUrl || !e.asin);
   console.log(`\n=== ${key}: 未リンク ${missing.length}件 / 全${data.entries.length}件 ===\n`);
 
@@ -406,12 +509,8 @@ async function enrichFile(
     const labelLine = `第${entry.session}回 ${entry.author}『${entry.title}』`;
     process.stdout.write(`[${i + 1}/${data.entries.length}] ${labelLine}\n`);
 
-    const override = findYoshikawaEijiPrizeOverride(
-      entry.session,
-      entry.author,
-      entry.title
-    );
-    if (override?.asin && key === 'yoshikawa-eiji') {
+    const override = findPrizeOverride(key, entry);
+    if (override?.asin && (key === 'yoshikawa-eiji' || key === 'yomiuri' || key === 'kawabata' || key === 'edogawa-ranpo')) {
       entry.asin = override.asin;
       entry.amazonUrl = buildAsinAffiliateUrl(override.asin, partnerTag);
       delete entry.price;
@@ -427,7 +526,7 @@ async function enrichFile(
       continue;
     }
 
-    const titles = buildEntrySearchTitles(entry);
+    const titles = buildEntrySearchTitles(entry, key);
     let product = null;
 
     for (const title of titles) {

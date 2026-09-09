@@ -74,6 +74,9 @@ export const TANIZAKI_JUNICHIRO_PRIZE_PATH = '/awards/tanizaki-junichiro/';
 /** 谷崎潤一郎賞候補作一覧 */
 export const TANIZAKI_JUNICHIRO_NOMINEE_PATH = '/awards/tanizaki-junichiro/nominees/';
 
+/** 文学賞・新人賞ハブ */
+export const AWARDS_HUB_PATH = '/awards/';
+
 /** サイト情報ページ */
 export const ABOUT_PATH = '/about/';
 export const PRIVACY_PATH = '/privacy/';

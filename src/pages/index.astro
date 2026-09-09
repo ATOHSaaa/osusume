@@ -3,23 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CategoryMoreLink from '../components/CategoryMoreLink.astro';
 import HomeSearch from '../components/HomeSearch.astro';
+import PrizePageStyles from '../components/award/PrizePageStyles.astro';
 import {
   ARTICLE_LIST_LIMIT,
   AUTHOR_LIST_PATH,
-  AKUTAGAWA_NOMINEE_PATH,
-  AKUTAGAWA_PRIZE_PATH,
+  AWARDS_HUB_PATH,
   GENRE_LIST_PATH,
   MANGA_LIST_PATH,
-  HONYA_TAISHO_NOMINEE_PATH,
-  HONYA_TAISHO_PRIZE_PATH,
-  YOSHIKAWA_EIJI_NOMINEE_PATH,
-  YOSHIKAWA_EIJI_PRIZE_PATH,
-  NOMA_BUNGEI_NOMINEE_PATH,
-  NOMA_BUNGEI_PRIZE_PATH,
-  TANIZAKI_JUNICHIRO_NOMINEE_PATH,
-  TANIZAKI_JUNICHIRO_PRIZE_PATH,
-  NAOKI_PRIZE_PATH,
-  NAOKI_NOMINEE_PATH,
   SITE_DESCRIPTION,
   SITE_NAME,
 } from '../lib/constants';
@@ -29,18 +19,9 @@ import {
   getMangaArticles,
   sortArticlesByUpdated,
 } from '../lib/articles';
-import { groupAkutagawaNomineeBySession } from '../lib/akutagawa-nominee';
-import { groupAkutagawaPrizeBySession } from '../lib/akutagawa-prize';
-import { groupYoshikawaEijiNomineeBySession } from '../lib/yoshikawa-eiji-nominee';
-import { groupYoshikawaEijiPrizeBySession } from '../lib/yoshikawa-eiji-prize';
-import { groupHonyaTaishoNomineeBySession } from '../lib/honya-taisho-nominee';
-import { groupHonyaTaishoPrizeBySession } from '../lib/honya-taisho-prize';
-import { groupNomaBungeiNomineeBySession } from '../lib/noma-bungei-nominee';
-import { groupNomaBungeiPrizeBySession } from '../lib/noma-bungei-prize';
-import { groupTanizakiJunichiroNomineeBySession } from '../lib/tanizaki-junichiro-nominee';
-import { groupTanizakiJunichiroPrizeBySession } from '../lib/tanizaki-junichiro-prize';
-import { groupNaokiPrizeBySession } from '../lib/naoki-prize';
-import { groupNaokiNomineeBySession } from '../lib/naoki-nominee';
+import { AWARDS, getAwardPath } from '../lib/awards/registry';
+import { groupPrizeBySession } from '../lib/awards/group';
+import { loadPrizeData } from '../lib/awards/data';
 import { buildWebSiteJsonLd } from '../lib/structured-data';
 import { getCollection } from 'astro:content';
 
@@ -49,18 +30,21 @@ const authorArticles = getAuthorArticles(articles);
 const genreArticles = getGenreArticles(articles);
 const mangaArticles = getMangaArticles(articles);
 const allArticles = [...articles].sort(sortArticlesByUpdated);
-const akutagawaSessions = groupAkutagawaPrizeBySession();
-const akutagawaNomineeSessions = groupAkutagawaNomineeBySession();
-const naokiSessions = groupNaokiPrizeBySession();
-const naokiNomineeSessions = groupNaokiNomineeBySession();
-const honyaTaishoSessions = groupHonyaTaishoPrizeBySession();
-const honyaTaishoNomineeSessions = groupHonyaTaishoNomineeBySession();
-const yoshikawaEijiSessions = groupYoshikawaEijiPrizeBySession();
-const yoshikawaEijiNomineeSessions = groupYoshikawaEijiNomineeBySession();
-const nomaBungeiSessions = groupNomaBungeiPrizeBySession();
-const nomaBungeiNomineeSessions = groupNomaBungeiNomineeBySession();
-const tanizakiJunichiroSessions = groupTanizakiJunichiroPrizeBySession();
-const tanizakiJunichiroNomineeSessions = groupTanizakiJunichiroNomineeBySession();
+
+const featuredAwardSlugs = [
+  'akutagawa',
+  'naoki',
+  'honya-taisho',
+  'yomiuri',
+  'joryu-bungei',
+  'edogawa-ranpo',
+  'gunzo',
+  'shincho',
+];
+const featuredAwards = featuredAwardSlugs
+  .map((slug) => AWARDS.find((a) => a.slug === slug))
+  .filter((a): a is NonNullable<typeof a> => Boolean(a));
+
 const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
 ---
 
@@ -142,143 +126,30 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
           )
         }
         <section class="home-section" aria-labelledby="awards-heading">
+          <PrizePageStyles />
           <h2 id="awards-heading" class="home-section__heading">
             文学賞のまとめ
           </h2>
           <ul class="award-links">
-            <li>
-              <a href={AKUTAGAWA_PRIZE_PATH} class="award-link">
-                <span class="award-link__title">芥川賞受賞作一覧</span>
-                <span class="award-link__meta">
-                  第{akutagawaSessions[akutagawaSessions.length - 1]?.session ?? '—'}回〜第{akutagawaSessions[0]?.session ?? '—'}回 · {akutagawaSessions.reduce((n, s) => n + s.winners.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  純文学の新人・無名作家に贈られる芥川賞の歴代受賞作
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={AKUTAGAWA_NOMINEE_PATH} class="award-link">
-                <span class="award-link__title">芥川賞候補作一覧</span>
-                <span class="award-link__meta">
-                  第{akutagawaNomineeSessions[akutagawaNomineeSessions.length - 1]?.session ?? '—'}回〜第{akutagawaNomineeSessions[0]?.session ?? '—'}回 · {akutagawaNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  芥川賞の最終候補作（受賞作を含む）を回別に一覧化
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={NAOKI_PRIZE_PATH} class="award-link">
-                <span class="award-link__title">直木賞受賞作一覧</span>
-                <span class="award-link__meta">
-                  第{naokiSessions[naokiSessions.length - 1]?.session ?? '—'}回〜第{naokiSessions[0]?.session ?? '—'}回 · {naokiSessions.reduce((n, s) => n + s.winners.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  大衆文学の優れた作品に贈られる直木三十五賞の歴代受賞作
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={NAOKI_NOMINEE_PATH} class="award-link">
-                <span class="award-link__title">直木賞候補作一覧</span>
-                <span class="award-link__meta">
-                  第{naokiNomineeSessions[naokiNomineeSessions.length - 1]?.session ?? '—'}回〜第{naokiNomineeSessions[0]?.session ?? '—'}回 · {naokiNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  直木賞の最終候補作（受賞作を含む）を回別に一覧化
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={HONYA_TAISHO_PRIZE_PATH} class="award-link">
-                <span class="award-link__title">本屋大賞受賞作一覧</span>
-                <span class="award-link__meta">
-                  第{honyaTaishoSessions[honyaTaishoSessions.length - 1]?.session ?? '—'}回〜第{honyaTaishoSessions[0]?.session ?? '—'}回 · {honyaTaishoSessions.reduce((n, s) => n + s.winners.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  書店員が選ぶ「いま読みたい本」本屋大賞の歴代受賞作
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={HONYA_TAISHO_NOMINEE_PATH} class="award-link">
-                <span class="award-link__title">本屋大賞ノミネート作一覧</span>
-                <span class="award-link__meta">
-                  第{honyaTaishoNomineeSessions[honyaTaishoNomineeSessions.length - 1]?.session ?? '—'}回〜第{honyaTaishoNomineeSessions[0]?.session ?? '—'}回 · {honyaTaishoNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  本屋大賞の最終候補作（受賞作を含む）を回別に一覧化
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={YOSHIKAWA_EIJI_PRIZE_PATH} class="award-link">
-                <span class="award-link__title">吉川英治文学賞受賞作一覧</span>
-                <span class="award-link__meta">
-                  第{yoshikawaEijiSessions[yoshikawaEijiSessions.length - 1]?.session ?? '—'}回〜第{yoshikawaEijiSessions[0]?.session ?? '—'}回 · {yoshikawaEijiSessions.reduce((n, s) => n + s.winners.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  大衆文学の優れた作家に贈られる吉川英治文学賞の受賞作
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={YOSHIKAWA_EIJI_NOMINEE_PATH} class="award-link">
-                <span class="award-link__title">吉川英治文学賞候補作一覧</span>
-                <span class="award-link__meta">
-                  第{yoshikawaEijiNomineeSessions[yoshikawaEijiNomineeSessions.length - 1]?.session ?? '—'}回〜第{yoshikawaEijiNomineeSessions[0]?.session ?? '—'}回 · {yoshikawaEijiNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  吉川英治文学賞の候補作（受賞作を含む）を回別に一覧化
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={NOMA_BUNGEI_PRIZE_PATH} class="award-link">
-                <span class="award-link__title">野間文芸賞受賞作一覧</span>
-                <span class="award-link__meta">
-                  第{nomaBungeiSessions[nomaBungeiSessions.length - 1]?.session ?? '—'}回〜第{nomaBungeiSessions[0]?.session ?? '—'}回 · {nomaBungeiSessions.reduce((n, s) => n + s.winners.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  小説と評論に贈られる野間文芸賞の歴代受賞作
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={NOMA_BUNGEI_NOMINEE_PATH} class="award-link">
-                <span class="award-link__title">野間文芸賞候補作一覧</span>
-                <span class="award-link__meta">
-                  第{nomaBungeiNomineeSessions[nomaBungeiNomineeSessions.length - 1]?.session ?? '—'}回〜第{nomaBungeiNomineeSessions[0]?.session ?? '—'}回 · {nomaBungeiNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  野間文芸賞の候補作（受賞作を含む）を回別に一覧化
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={TANIZAKI_JUNICHIRO_PRIZE_PATH} class="award-link">
-                <span class="award-link__title">谷崎潤一郎賞受賞作一覧</span>
-                <span class="award-link__meta">
-                  第{tanizakiJunichiroSessions[tanizakiJunichiroSessions.length - 1]?.session ?? '—'}回〜第{tanizakiJunichiroSessions[0]?.session ?? '—'}回 · {tanizakiJunichiroSessions.reduce((n, s) => n + s.winners.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  谷崎潤一郎の遺志を継ぐ文学賞の歴代受賞作
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={TANIZAKI_JUNICHIRO_NOMINEE_PATH} class="award-link">
-                <span class="award-link__title">谷崎潤一郎賞候補作一覧</span>
-                <span class="award-link__meta">
-                  第{tanizakiJunichiroNomineeSessions[tanizakiJunichiroNomineeSessions.length - 1]?.session ?? '—'}回〜第{tanizakiJunichiroNomineeSessions[0]?.session ?? '—'}回 · {tanizakiJunichiroNomineeSessions.reduce((n, s) => n + s.nominees.length, 0)}作品
-                </span>
-                <span class="award-link__desc">
-                  谷崎潤一郎賞の候補作（受賞作を含む）を回別に一覧化
-                </span>
-              </a>
-            </li>
+            {
+              featuredAwards.map((award) => {
+                const sessions = groupPrizeBySession(loadPrizeData(award.slug).entries);
+                const workCount = sessions.reduce((n, s) => n + s.winners.length, 0);
+                return (
+                  <li>
+                    <a href={getAwardPath(award.slug)} class="award-link">
+                      <span class="award-link__title">{award.name}受賞作一覧</span>
+                      <span class="award-link__meta">
+                        第{sessions[sessions.length - 1]?.session ?? '—'}回〜第{sessions[0]?.session ?? '—'}回 · {workCount}作品
+                      </span>
+                      <span class="award-link__desc">{award.description}</span>
+                    </a>
+                  </li>
+                );
+              })
+            }
           </ul>
+          <CategoryMoreLink href={AWARDS_HUB_PATH} label="すべての文学賞・新人賞を見る" />
         </section>
       </div>
       <section class="home-search-results" hidden data-search-results aria-live="polite">
@@ -351,42 +222,5 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
       grid-template-columns: repeat(2, 1fr);
       gap: 1.25rem;
     }
-  }
-
-  .award-link {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-    height: 100%;
-    padding: 1.25rem 1.5rem;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: var(--color-surface);
-    color: inherit;
-    text-decoration: none;
-    transition: border-color 0.15s, background-color 0.15s;
-  }
-
-  .award-link:hover {
-    border-color: var(--color-accent);
-    background: rgba(194, 65, 12, 0.04);
-  }
-
-  .award-link__title {
-    font-size: 1.0625rem;
-    font-weight: 700;
-    color: var(--color-accent);
-  }
-
-  .award-link__meta {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--color-muted);
-  }
-
-  .award-link__desc {
-    font-size: 0.875rem;
-    line-height: 1.5;
-    color: var(--color-muted);
   }
 </style>

@@ -2,12 +2,13 @@
 interface Props {
   href: string;
   class?: string;
+  label?: string;
 }
 
-const { href, class: className } = Astro.props;
+const { href, class: className, label = 'すべて見る' } = Astro.props;
 ---
 
-<a href={href} class:list={['category-more', className]}>すべて見る</a>
+<a href={href} class:list={['category-more', className]}>{label}</a>
 
 <style>
   .category-more {

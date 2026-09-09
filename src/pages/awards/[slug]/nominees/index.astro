@@ -1,0 +1,127 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import PrizePageStyles from '../../../../components/award/PrizePageStyles.astro';
+import { AWARD_BY_SLUG } from '../../../../lib/awards/registry';
+import {
+  getAwardAuthorsPath,
+  getAwardNomineePath,
+  getAwardPath,
+} from '../../../../lib/awards/registry';
+import { groupNomineeBySession } from '../../../../lib/awards/group';
+import { loadNomineeData } from '../../../../lib/awards/data';
+import { normalizeAuthorName } from '../../../../lib/awards/normalize';
+import { SITE_NAME } from '../../../../lib/constants';
+import { buildCategoryPageJsonLd } from '../../../../lib/structured-data';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  return [...AWARD_BY_SLUG.values()]
+    .filter((award) => award.hasNominees)
+    .map((award) => ({ params: { slug: award.slug } }));
+}
+
+const { slug } = Astro.params;
+const award = AWARD_BY_SLUG.get(slug!);
+if (!award || !award.hasNominees) throw new Error(`Award has no nominees: ${slug}`);
+
+const pageTitle = `${award.name}候補作一覧`;
+const pageDescription = `${award.name}の歴代候補作を回別に一覧化。受賞作を含む最終候補作品を新しい回から掲載しています。`;
+const nomineeData = loadNomineeData(award.slug);
+if (!nomineeData) throw new Error(`Nominee data not found: ${slug}`);
+const sessions = groupNomineeBySession(nomineeData.entries);
+
+const articles = await getCollection('articles');
+const authorSlugByName = new Map<string, string>();
+for (const article of articles) {
+  if (article.data.kind !== 'author') continue;
+  authorSlugByName.set(normalizeAuthorName(article.data.author), article.slug);
+}
+
+const jsonLd = buildCategoryPageJsonLd({
+  site: Astro.site,
+  title: pageTitle,
+  description: pageDescription,
+  path: getAwardNomineePath(award.slug),
+});
+---
+
+<Layout title={`${pageTitle} — ${SITE_NAME}`} description={pageDescription} wide jsonLd={jsonLd}>
+  <PrizePageStyles />
+  <div class="prize-page">
+    <header class="prize-page__header">
+      <h1 class="prize-page__heading">{pageTitle}</h1>
+      <p class="prize-page__lead">
+        {award.nomineeLead ?? `${award.name}の候補作を回別に一覧化しました。`}
+        第{sessions[0]?.session ?? '—'}回から第{sessions[sessions.length - 1]?.session ?? '—'}回まで掲載しています。
+      </p>
+      <nav class="prize-page__nav" aria-label="関連ページ">
+        <a href={getAwardPath(award.slug)}>受賞作一覧</a>
+        <a href={getAwardAuthorsPath(award.slug)}>受賞作家一覧</a>
+      </nav>
+    </header>
+
+    <div class="prize-table-wrap">
+      <table class="prize-table">
+        <thead>
+          <tr>
+            <th scope="col">回</th>
+            {!award.hidePeriodColumn && <th scope="col">対象期間</th>}
+            <th scope="col">候補者</th>
+            <th scope="col">候補作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            sessions.map((session) =>
+              session.nominees.map((nominee, index) => {
+                const authorKey = normalizeAuthorName(nominee.author);
+                const authorSlug = authorSlugByName.get(authorKey);
+                const authorHref = authorSlug ? `/articles/${authorSlug}/` : undefined;
+
+                return (
+                  <tr class:list={{ 'prize-table__row--winner': nominee.won }}>
+                    {
+                      index === 0 && (
+                        <>
+                          <th scope="row" rowspan={session.nominees.length} class="prize-table__session">
+                            第{session.session}回
+                          </th>
+                          {
+                            !award.hidePeriodColumn && (
+                              <td rowspan={session.nominees.length} class="prize-table__period">
+                                {session.period || '—'}
+                              </td>
+                            )
+                          }
+                        </>
+                      )
+                    }
+                    <td class="prize-table__author">
+                      {authorHref ? <a href={authorHref}>{nominee.author}</a> : nominee.author}
+                      {nominee.won && <span class="prize-table__badge">受賞</span>}
+                    </td>
+                    <td class="prize-table__title">
+                      {
+                        nominee.amazonUrl ? (
+                          <a
+                            href={nominee.amazonUrl}
+                            rel="noopener noreferrer sponsored"
+                            target="_blank"
+                          >
+                            『{nominee.title}』
+                          </a>
+                        ) : (
+                          <>『{nominee.title}』</>
+                        )
+                      }
+                    </td>
+                  </tr>
+                );
+              })
+            )
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Layout>
