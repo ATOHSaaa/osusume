@@ -9,6 +9,7 @@ import {
 } from '../../../../lib/awards/registry';
 import { groupNomineeBySession } from '../../../../lib/awards/group';
 import { loadNomineeData } from '../../../../lib/awards/data';
+import { buildAuthorSlugByName } from '../../../../lib/article-author-slug';
 import { normalizeAuthorName } from '../../../../lib/awards/normalize';
 import { SITE_NAME } from '../../../../lib/constants';
 import { buildCategoryPageJsonLd } from '../../../../lib/structured-data';
@@ -31,11 +32,7 @@ if (!nomineeData) throw new Error(`Nominee data not found: ${slug}`);
 const sessions = groupNomineeBySession(nomineeData.entries);
 
 const articles = await getCollection('articles');
-const authorSlugByName = new Map<string, string>();
-for (const article of articles) {
-  if (article.data.kind !== 'author') continue;
-  authorSlugByName.set(normalizeAuthorName(article.data.author), article.slug);
-}
+const authorSlugByName = buildAuthorSlugByName(articles);
 
 const jsonLd = buildCategoryPageJsonLd({
   site: Astro.site,

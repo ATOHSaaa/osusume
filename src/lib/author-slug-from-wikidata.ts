@@ -1,7 +1,7 @@
 import { ARTICLE_SLUG_SUFFIX } from './constants';
 
 /** Wikidata に英語ラベルがない作家向けの手動 slug */
-const AUTHOR_SLUG_OVERRIDES: Record<string, string> = {
+export const AUTHOR_SLUG_OVERRIDES: Record<string, string> = {
   佐野広実: 'sano-hiromi',
   神護かずみ: 'jingo-kazumi',
   市塔承: 'shito-sho',
@@ -11,7 +11,20 @@ const AUTHOR_SLUG_OVERRIDES: Record<string, string> = {
   大内曜子: 'ouchi-yoko',
   海庭良和: 'kaiba-yoshikazu',
   遠藤淳子: 'endo-junko',
+  菅野照代: 'kanno-teruyo',
+  原田八束: 'harada-yasutaba',
+  中林亮介: 'nakabayashi-ryosuke',
+  桐生悠三: 'kiryu-yuzo',
+  酒井健亀: 'sakai-kenkame',
+  城島明彦: 'joshima-akihiko',
+  上林暁: 'kanbayashi-satoru',
+  平野純: 'hirano-jun',
 };
+
+export function getAuthorSlugOverride(authorName: string): string | undefined {
+  const normalized = authorName.replace(/\[注\s*\d+\]/g, '').trim();
+  return AUTHOR_SLUG_OVERRIDES[normalized] ?? AUTHOR_SLUG_OVERRIDES[authorName];
+}
 
 function romanizeForSlug(text: string): string {
   return text
@@ -105,7 +118,7 @@ async function getEnglishLabel(wikidataId: string): Promise<string | null> {
 
 /** 作家名から記事 slug ベース（recommended-books 除く）を推定 */
 export async function resolveAuthorSlugBase(authorName: string): Promise<string | null> {
-  const override = AUTHOR_SLUG_OVERRIDES[authorName];
+  const override = getAuthorSlugOverride(authorName);
   if (override) return override;
 
   let wikidataId = await getWikidataIdFromTitle(authorName);

@@ -20,4 +20,34 @@ export const ARTICLE_REDIRECTS: Record<string, string> = {
     '/articles/kaiba-yoshikazu-recommended-books/',
   '/articles/sakurai-atsuko-recommended-books/':
     '/articles/endo-junko-recommended-books/',
+  '/articles/life-theater-of-recommended-books/':
+    '/articles/kanno-teruyo-recommended-books/',
+  '/articles/485-japan-national-route-recommended-books/':
+    '/articles/harada-yasutaba-recommended-books/',
+  '/articles/ikeoka-ryosuke-recommended-books/':
+    '/articles/nakabayashi-ryosuke-recommended-books/',
+  '/articles/line-ryomo-recommended-books/':
+    '/articles/kiryu-yuzo-recommended-books/',
+  '/articles/tadatsugu-sakai-recommended-books/':
+    '/articles/sakai-kenkame-recommended-books/',
+  '/articles/jojima-akihiko-recommended-books/':
+    '/articles/joshima-akihiko-recommended-books/',
+  '/articles/kambayashi-akatsuki-recommended-books/':
+    '/articles/kanbayashi-satoru-recommended-books/',
+  '/articles/fc-vancouver-whitecaps-recommended-books/':
+    '/articles/hirano-jun-recommended-books/',
+  '/articles/carp-hiroshima-toyo-recommended-books/':
+    '/articles/go-seong-ho-recommended-books/',
+  '/articles/egami-kaoru-recommended-books/':
+    '/articles/ekuni-kaori-recommended-books/',
+  '/articles/imamura-ry-suke-recommended-books/':
+    '/articles/imamura-ryosuke-recommended-books/',
+  '/articles/toyoda-k-ji-recommended-books/':
+    '/articles/toyoda-koji-recommended-books/',
+  '/articles/fukunaga-reiz--recommended-books/':
+    '/articles/fukunaga-reizo-recommended-books/',
+  '/articles/kanahara-hitomi-recommended-books/':
+    '/articles/kanehara-hitomi-recommended-books/',
+  '/articles/kenj--haku-recommended-books/':
+    '/articles/kenjo-haku-recommended-books/',
 };
