@@ -8,6 +8,9 @@ const AUTHOR_SLUG_OVERRIDES: Record<string, string> = {
   更地郊: 'sarachi-ko',
   大田ステファニー歓人: 'ota-stephanie-kanto',
   引間徹: 'hikima-tetsu',
+  大内曜子: 'ouchi-yoko',
+  海庭良和: 'kaiba-yoshikazu',
+  遠藤淳子: 'endo-junko',
 };
 
 function romanizeForSlug(text: string): string {

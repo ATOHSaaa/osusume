@@ -14,4 +14,10 @@ export const ARTICLE_REDIRECTS: Record<string, string> = {
     '/articles/shimamoto-rio-recommended-books/',
   '/articles/awatake-tsutomu-recommended-books/':
     '/articles/awasaka-tsumao-recommended-books/',
+  '/articles/hironobu-nozawa-recommended-books/':
+    '/articles/ouchi-yoko-recommended-books/',
+  '/articles/yoshihara-tadao-recommended-books/':
+    '/articles/kaiba-yoshikazu-recommended-books/',
+  '/articles/sakurai-atsuko-recommended-books/':
+    '/articles/endo-junko-recommended-books/',
 };
