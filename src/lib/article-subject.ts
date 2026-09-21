@@ -83,8 +83,8 @@ function buildGenreSearchQuery(genreInput: string): string {
 }
 
 export function getArticleTitle(subject: ArticleSubject): string {
-  if (subject.kind === 'genre') {
-    return `${subject.label}のおすすめ作品ランキング`;
+  if (subject.kind === 'author') {
+    return `${subject.label}のおすすめ作品・代表作ランキング`;
   }
   return `${subject.label}のおすすめ作品ランキング`;
 }
@@ -96,7 +96,7 @@ export function getArticleDescription(subject: ArticleSubject): string {
   if (subject.kind === 'genre') {
     return `${genreProseLabel(subject.label)}の人気作品をWeb記事から集計。言及頻度の高いおすすめをランキング形式で紹介します。`;
   }
-  return `${subject.label}の人気作品をWeb記事から集計。言及頻度の高いおすすめ本をランキング形式で紹介します。`;
+  return `${subject.label}のおすすめ作品・代表作をWeb記事から集計。言及頻度の高い本をランキング形式で紹介します。`;
 }
 
 export function getArticleBody(subject: ArticleSubject, sourceCount: number): string {
