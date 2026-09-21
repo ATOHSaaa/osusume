@@ -5,7 +5,6 @@ import { SITE_URL } from './src/lib/constants.ts';
 
 export default defineConfig({
   site: SITE_URL,
-  trailingSlash: 'always',
   integrations: [mdx()],
   redirects: ARTICLE_REDIRECTS,
 });

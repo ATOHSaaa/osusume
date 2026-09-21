@@ -107,7 +107,12 @@ async function fetchImageAsDataUrl(url: string | undefined): Promise<string | un
     if (!contentType.startsWith('image/')) return undefined;
 
     const buffer = Buffer.from(await response.arrayBuffer());
-    return `data:${contentType};base64,${buffer.toString('base64')}`;
+    const png = await sharp(buffer)
+      .rotate()
+      .resize(560, 840, { fit: 'inside', withoutEnlargement: true })
+      .png()
+      .toBuffer();
+    return `data:image/png;base64,${png.toString('base64')}`;
   } catch {
     return undefined;
   }
@@ -321,16 +326,24 @@ export async function generateArticleOgImage(options: {
   coverImageUrl?: string;
 }): Promise<Buffer> {
   const coverDataUrl = await fetchImageAsDataUrl(options.coverImageUrl);
+  const layout = {
+    title: options.title,
+    subtitle: truncateText(options.description, 72),
+    badge: options.author,
+    footer: new URL(SITE_URL).host,
+  };
 
-  return renderOgPng(
-    buildBaseLayout({
-      title: options.title,
-      subtitle: truncateText(options.description, 72),
-      badge: options.author,
-      coverDataUrl,
-      footer: new URL(SITE_URL).host,
-    })
-  );
+  try {
+    return await renderOgPng(
+      buildBaseLayout({
+        ...layout,
+        coverDataUrl,
+      })
+    );
+  } catch (error) {
+    if (!coverDataUrl) throw error;
+    return renderOgPng(buildBaseLayout(layout));
+  }
 }
 
 export async function generatePageOgImage(options: {
