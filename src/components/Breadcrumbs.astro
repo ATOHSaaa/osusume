@@ -1,0 +1,74 @@
+---
+import type { BreadcrumbItem } from '../lib/structured-data';
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <nav class="breadcrumbs" aria-label="パンくずリスト">
+      <ol class="breadcrumbs__list">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li class="breadcrumbs__item">
+              {isLast ? (
+                <span aria-current="page">{item.name}</span>
+              ) : (
+                <a href={item.path}>{item.name}</a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  )
+}
+
+<style>
+  .breadcrumbs {
+    margin: 0 0 1.25rem;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .breadcrumbs__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0;
+  }
+
+  .breadcrumbs__item {
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumbs__item:not(:last-child)::after {
+    content: '/';
+    margin: 0 0.5rem;
+    color: var(--color-border);
+  }
+
+  .breadcrumbs a {
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--color-text);
+  }
+</style>

@@ -1,11 +1,24 @@
 ---
 import InfoPageLayout from '../../layouts/InfoPageLayout.astro';
-import { CONTACT_EMAIL, SITE_NAME, SITE_URL } from '../../lib/constants';
+import { CONTACT_EMAIL, PRIVACY_PATH, SITE_NAME, SITE_URL } from '../../lib/constants';
+import { buildCategoryPageJsonLd } from '../../lib/structured-data';
+
+const pageTitle = 'プライバシーポリシー';
+const pageDescription = `${SITE_NAME}における個人情報の取り扱いについて`;
+const jsonLd = buildCategoryPageJsonLd({
+  site: Astro.site,
+  title: pageTitle,
+  description: pageDescription,
+  path: PRIVACY_PATH,
+  pageType: 'WebPage',
+});
 ---
 
 <InfoPageLayout
-  title="プライバシーポリシー"
-  description={`${SITE_NAME}における個人情報の取り扱いについて`}
+  title={pageTitle}
+  description={pageDescription}
+  path={PRIVACY_PATH}
+  jsonLd={jsonLd}
 >
   <p>
     {SITE_NAME}（{SITE_URL}、以下「当サイト」）は、利用者のプライバシーを尊重し、個人情報の保護に努めます。

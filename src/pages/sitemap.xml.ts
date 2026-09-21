@@ -1,9 +1,12 @@
 import { getCollection } from 'astro:content';
 import {
+  ABOUT_PATH,
   AUTHOR_LIST_PATH,
   AWARDS_HUB_PATH,
+  CONTACT_PATH,
   GENRE_LIST_PATH,
   MANGA_LIST_PATH,
+  PRIVACY_PATH,
   SITE_URL,
 } from '../lib/constants';
 import { AWARDS, getAwardAuthorsPath, getAwardNomineePath, getAwardPath } from '../lib/awards/registry';
@@ -46,6 +49,9 @@ export async function GET(context: APIContext) {
     { path: GENRE_LIST_PATH, lastmod: latestUpdate },
     { path: MANGA_LIST_PATH, lastmod: latestUpdate },
     { path: AWARDS_HUB_PATH, lastmod: latestUpdate },
+    { path: ABOUT_PATH, lastmod: latestUpdate },
+    { path: PRIVACY_PATH, lastmod: latestUpdate },
+    { path: CONTACT_PATH, lastmod: latestUpdate },
     ...awardPages,
   ];
 

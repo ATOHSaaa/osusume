@@ -1,16 +1,22 @@
 import {
   AUTHOR_LIST_PATH,
+  AWARDS_HUB_PATH,
   GENRE_LIST_PATH,
   MANGA_LIST_PATH,
   MAX_BOOKS,
   SITE_NAME,
 } from './constants';
 import { absoluteUrl } from './site-url';
-import { getArticleOgImagePath } from './og-image';
+import {
+  getArticleOgImagePath,
+  SITE_LOGO_HEIGHT,
+  SITE_LOGO_PATH,
+  SITE_LOGO_WIDTH,
+} from './og-image';
 
 type JsonLd = Record<string, unknown>;
 
-interface BreadcrumbItem {
+export interface BreadcrumbItem {
   name: string;
   path: string;
 }
@@ -20,6 +26,27 @@ interface ArticleBook {
   author?: string;
   amazonUrl?: string;
   imageUrl?: string;
+}
+
+function buildPublisher(site: URL | string | undefined): JsonLd {
+  return {
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: absoluteUrl('/', site),
+    logo: {
+      '@type': 'ImageObject',
+      url: absoluteUrl(SITE_LOGO_PATH, site),
+      width: SITE_LOGO_WIDTH,
+      height: SITE_LOGO_HEIGHT,
+    },
+  };
+}
+
+export function buildOrganizationJsonLd(site: URL | string | undefined): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    ...buildPublisher(site),
+  };
 }
 
 export function buildWebSiteJsonLd(
@@ -35,6 +62,7 @@ export function buildWebSiteJsonLd(
     url: origin,
     description,
     inLanguage: 'ja-JP',
+    publisher: buildPublisher(site),
     potentialAction: {
       '@type': 'SearchAction',
       target: {
@@ -71,6 +99,8 @@ export function buildArticleJsonLd(options: {
   publishedAt: Date;
   updatedAt: Date;
   imageUrl?: string;
+  keywords?: string[];
+  articleSection?: string;
 }): JsonLd {
   const pageUrl = absoluteUrl(options.path, options.site);
 
@@ -85,10 +115,7 @@ export function buildArticleJsonLd(options: {
       '@type': 'Person',
       name: options.author,
     },
-    publisher: {
-      '@type': 'Organization',
-      name: SITE_NAME,
-    },
+    publisher: buildPublisher(options.site),
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': pageUrl,
@@ -96,6 +123,8 @@ export function buildArticleJsonLd(options: {
     url: pageUrl,
     inLanguage: 'ja-JP',
     ...(options.imageUrl && { image: [options.imageUrl] }),
+    ...(options.keywords?.length && { keywords: options.keywords.join(',') }),
+    ...(options.articleSection && { articleSection: options.articleSection }),
   };
 }
 
@@ -104,8 +133,12 @@ export function buildItemListJsonLd(options: {
   title: string;
   path: string;
   books: ArticleBook[];
+  limit?: number;
 }): JsonLd {
-  const rankedBooks = options.books.slice(0, MAX_BOOKS);
+  const rankedBooks =
+    options.limit === undefined
+      ? options.books.slice(0, MAX_BOOKS)
+      : options.books.slice(0, options.limit);
 
   return {
     '@context': 'https://schema.org',
@@ -133,6 +166,19 @@ export function buildItemListJsonLd(options: {
   };
 }
 
+export function articleCategoryMeta(kind: 'author' | 'genre' | 'manga'): {
+  path: string;
+  name: string;
+} {
+  if (kind === 'genre') {
+    return { path: GENRE_LIST_PATH, name: 'ジャンル別のおすすめ' };
+  }
+  if (kind === 'manga') {
+    return { path: MANGA_LIST_PATH, name: '漫画のおすすめ' };
+  }
+  return { path: AUTHOR_LIST_PATH, name: '作家別のおすすめ' };
+}
+
 export function buildArticlePageJsonLd(options: {
   site: URL | string | undefined;
   title: string;
@@ -143,26 +189,16 @@ export function buildArticlePageJsonLd(options: {
   updatedAt: Date;
   kind: 'author' | 'genre' | 'manga';
   books: ArticleBook[];
+  keywords?: string[];
 }): JsonLd[] {
-  const categoryPath =
-    options.kind === 'genre'
-      ? GENRE_LIST_PATH
-      : options.kind === 'manga'
-        ? MANGA_LIST_PATH
-        : AUTHOR_LIST_PATH;
-  const categoryName =
-    options.kind === 'genre'
-      ? 'ジャンル別のおすすめ'
-      : options.kind === 'manga'
-        ? '漫画のおすすめ'
-        : '作家別のおすすめ';
+  const category = articleCategoryMeta(options.kind);
   const slug = options.path.replace(/^\/articles\//, '').replace(/\/$/, '');
   const ogImageUrl = absoluteUrl(getArticleOgImagePath(slug), options.site);
 
   return [
     buildBreadcrumbJsonLd(options.site, [
       { name: 'ホーム', path: '/' },
-      { name: categoryName, path: categoryPath },
+      { name: category.name, path: category.path },
       { name: options.title, path: options.path },
     ]),
     buildArticleJsonLd({
@@ -174,6 +210,8 @@ export function buildArticlePageJsonLd(options: {
       publishedAt: options.publishedAt,
       updatedAt: options.updatedAt,
       imageUrl: ogImageUrl,
+      keywords: options.keywords,
+      articleSection: category.name,
     }),
     buildItemListJsonLd({
       site: options.site,
@@ -189,15 +227,22 @@ export function buildCategoryPageJsonLd(options: {
   title: string;
   description: string;
   path: string;
+  parents?: BreadcrumbItem[];
+  pageType?: 'CollectionPage' | 'AboutPage' | 'ContactPage' | 'WebPage';
+  awardName?: string;
+  books?: ArticleBook[];
 }): JsonLd[] {
-  return [
-    buildBreadcrumbJsonLd(options.site, [
-      { name: 'ホーム', path: '/' },
-      { name: options.title, path: options.path },
-    ]),
+  const crumbs: BreadcrumbItem[] = [
+    { name: 'ホーム', path: '/' },
+    ...(options.parents ?? []),
+    { name: options.title, path: options.path },
+  ];
+
+  const schemas: JsonLd[] = [
+    buildBreadcrumbJsonLd(options.site, crumbs),
     {
       '@context': 'https://schema.org',
-      '@type': 'CollectionPage',
+      '@type': options.pageType ?? 'CollectionPage',
       name: options.title,
       description: options.description,
       url: absoluteUrl(options.path, options.site),
@@ -207,6 +252,30 @@ export function buildCategoryPageJsonLd(options: {
         name: SITE_NAME,
         url: absoluteUrl('/', options.site),
       },
+      ...(options.awardName && {
+        about: {
+          '@type': 'Award',
+          name: options.awardName,
+        },
+      }),
     },
   ];
+
+  if (options.books?.length) {
+    schemas.push(
+      buildItemListJsonLd({
+        site: options.site,
+        title: options.title,
+        path: options.path,
+        books: options.books,
+        limit: options.books.length,
+      })
+    );
+  }
+
+  return schemas;
+}
+
+export function awardHubBreadcrumb(): BreadcrumbItem {
+  return { name: '文学賞・新人賞のまとめ', path: AWARDS_HUB_PATH };
 }

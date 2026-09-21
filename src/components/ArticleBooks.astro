@@ -39,6 +39,7 @@ const rankedBooks = books.slice(0, MAX_BOOKS);
           price={book.price}
           author={book.author}
           showAuthor={showBookAuthor}
+          priority={i === 0}
         />
       ))
     }

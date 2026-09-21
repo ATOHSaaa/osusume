@@ -3,10 +3,11 @@ import Layout from './Layout.astro';
 import ArticleBooks from '../components/ArticleBooks.astro';
 import ArticleNavSidebar from '../components/ArticleNavSidebar.astro';
 import ArticleShareBar from '../components/ArticleShareBar.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import { buildArticlePageJsonLd } from '../lib/structured-data';
+import { articleCategoryMeta, buildArticlePageJsonLd } from '../lib/structured-data';
 import { getArticleOgImagePath } from '../lib/og-image';
 import {
   getAuthorArticles,
@@ -41,7 +42,14 @@ const jsonLd = buildArticlePageJsonLd({
   updatedAt: updated_at,
   kind,
   books,
+  keywords: article.data.tags,
 });
+const category = articleCategoryMeta(kind);
+const breadcrumbs = [
+  { name: 'ホーム', path: '/' },
+  { name: category.name, path: category.path },
+  { name: title, path: articlePath },
+];
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -60,9 +68,12 @@ const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', dateOptions)
   ogImage={ogImagePath}
   ogImageAlt={title}
   jsonLd={jsonLd}
+  publishedAt={published_at}
+  updatedAt={updated_at}
 >
   <div class="article-layout">
     <article class="article">
+      <Breadcrumbs items={breadcrumbs} />
       <header class="article__header">
         <h1>{title}</h1>
         <div class="article__dates">

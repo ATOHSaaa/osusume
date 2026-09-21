@@ -49,7 +49,7 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
 ---
 
 <Layout
-  title={`${SITE_NAME} — 本のおすすめランキング`}
+  title={`${SITE_NAME} — おすすめ小説・漫画のランキング`}
   description={SITE_DESCRIPTION}
   wide
   home
@@ -72,8 +72,8 @@ const jsonLd = [buildWebSiteJsonLd(Astro.site, SITE_DESCRIPTION)];
                 作家別のおすすめ
               </h2>
               <ul class="article-list" data-random-list data-random-limit={ARTICLE_LIST_LIMIT}>
-                {authorArticles.map((article) => (
-                  <ArticleCard article={article} />
+                {authorArticles.map((article, index) => (
+                  <ArticleCard article={article} priority={index === 0} />
                 ))}
               </ul>
               {

@@ -4,9 +4,10 @@ import type { CollectionEntry } from 'astro:content';
 interface Props {
   article: CollectionEntry<'articles'>;
   searchable?: boolean;
+  priority?: boolean;
 }
 
-const { article, searchable = false } = Astro.props;
+const { article, searchable = false, priority = false } = Astro.props;
 const topBook = article.data.books[0];
 const thumbnailUrl = topBook?.imageUrl;
 const thumbnailAlt = topBook
@@ -24,7 +25,9 @@ const thumbnailAlt = topBook
           <img
             src={thumbnailUrl}
             alt={thumbnailAlt}
-            loading="lazy"
+            loading={priority ? 'eager' : 'lazy'}
+            decoding="async"
+            fetchpriority={priority ? 'high' : undefined}
             width="200"
             height="300"
           />

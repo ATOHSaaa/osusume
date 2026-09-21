@@ -9,10 +9,21 @@ interface Props {
   author?: string;
   /** ジャンル記事など、著者名を常に表示する */
   showAuthor?: boolean;
+  /** 記事先頭の書影（LCP）は eager 読み込みにする */
+  priority?: boolean;
 }
 
-const { rank, title, count, amazonUrl, imageUrl, price, author, showAuthor = false } =
-  Astro.props;
+const {
+  rank,
+  title,
+  count,
+  amazonUrl,
+  imageUrl,
+  price,
+  author,
+  showAuthor = false,
+  priority = false,
+} = Astro.props;
 ---
 
 <a
@@ -24,7 +35,15 @@ const { rank, title, count, amazonUrl, imageUrl, price, author, showAuthor = fal
   <div class="book-card__rank">{rank}</div>
   {imageUrl && (
     <div class="book-card__image">
-      <img src={imageUrl} alt={title} loading="lazy" width="120" height="180" />
+      <img
+        src={imageUrl}
+        alt={`『${title}』の書影`}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchpriority={priority ? 'high' : undefined}
+        width="120"
+        height="180"
+      />
     </div>
   )}
   <div class="book-card__body">

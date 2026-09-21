@@ -1,16 +1,25 @@
 ---
 import Layout from './Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import type { BreadcrumbItem } from '../lib/structured-data';
 
 interface Props {
   title: string;
   description: string;
+  path: string;
+  jsonLd?: Record<string, unknown>[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, path, jsonLd = [] } = Astro.props;
+const breadcrumbs: BreadcrumbItem[] = [
+  { name: 'ホーム', path: '/' },
+  { name: title, path },
+];
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} jsonLd={jsonLd}>
   <article class="info-page">
+    <Breadcrumbs items={breadcrumbs} />
     <h1 class="info-page__title">{title}</h1>
     <div class="info-page__content">
       <slot />

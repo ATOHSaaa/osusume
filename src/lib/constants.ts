@@ -6,7 +6,7 @@ export const SITE_URL = 'https://first-books.tadeku.net';
 
 /** サイト説明（meta・構造化データ・RSS） */
 export const SITE_DESCRIPTION =
-  'Web上のおすすめ記事を分析し、言及頻度の高い本をランキング形式で紹介するサイト';
+  'おすすめ小説・漫画をランキング形式で紹介するサイト。Web上の紹介記事での言及頻度をもとに、作家別・ジャンル別の人気本と文学賞の受賞作をまとめています。';
 
 /** Google Analytics 4 測定 ID */
 export const GA4_MEASUREMENT_ID = 'G-XMEE7RT3CE';
