@@ -8,7 +8,7 @@
     "build": "astro build",
     "submit:indexnow": "tsx scripts/submit-indexnow.ts",
     "preview": "astro preview",
-    "test": "tsx --test src/lib/*.test.ts",
+    "test": "tsx --test src/lib/site-url.test.ts src/lib/awards/session.test.ts",
     "fix:book-counts": "tsx scripts/fix-book-counts.ts",
     "fetch:akutagawa-prize": "tsx scripts/fetch-akutagawa-prize-data.ts",
     "fetch:akutagawa-nominee": "tsx scripts/fetch-akutagawa-nominee-data.ts",

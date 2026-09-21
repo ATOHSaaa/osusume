@@ -326,4 +326,6 @@ export function getAwardAuthorsPath(slug: string): string {
   return `/awards/${slug}/authors/`;
 }
 
+export { getAwardSessionPath } from './session';
+
 export const AWARDS_HUB_PATH = '/awards/';

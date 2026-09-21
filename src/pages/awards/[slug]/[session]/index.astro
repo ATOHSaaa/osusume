@@ -1,0 +1,379 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import PrizePageStyles from '../../../../components/award/PrizePageStyles.astro';
+import type { AwardDefinition } from '../../../../lib/awards/types';
+import { AWARD_BY_SLUG } from '../../../../lib/awards/registry';
+import {
+  getAwardAuthorsPath,
+  getAwardNomineePath,
+  getAwardPath,
+  getAwardSessionPath,
+} from '../../../../lib/awards/registry';
+import { loadPrizeData } from '../../../../lib/awards/data';
+import { buildAuthorSlugByName } from '../../../../lib/article-author-slug';
+import { normalizeAuthorName } from '../../../../lib/awards/normalize';
+import {
+  buildAwardSessionPageDescription,
+  buildAwardSessionPageTitle,
+  getAdjacentPrizeSessions,
+  getNomineeSession,
+  getPrizeSession,
+  getPrizeSessions,
+  parseAwardSessionParam,
+} from '../../../../lib/awards/session';
+import { awardHubBreadcrumb, buildCategoryPageJsonLd } from '../../../../lib/structured-data';
+import { getAwardOgImagePath } from '../../../../lib/og-image';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  return [...AWARD_BY_SLUG.values()].flatMap((award) => {
+    const sessions = getPrizeSessions(award);
+    return sessions.map((session) => ({
+      params: { slug: award.slug, session: String(session.session) },
+      props: { award, sessionNumber: session.session },
+    }));
+  });
+}
+
+const { slug, session: sessionParam } = Astro.params;
+const { award, sessionNumber } = Astro.props as {
+  award: AwardDefinition;
+  sessionNumber: number;
+};
+
+const parsedSession = parseAwardSessionParam(sessionParam ?? '');
+if (!parsedSession || parsedSession !== sessionNumber) {
+  throw new Error(`Invalid session param: ${sessionParam}`);
+}
+
+const prizeSession = getPrizeSession(award, sessionNumber);
+if (!prizeSession) throw new Error(`Prize session not found: ${award.slug} ${sessionNumber}`);
+
+const nomineeSession = getNomineeSession(award, sessionNumber);
+const { previous, next } = getAdjacentPrizeSessions(award, sessionNumber);
+
+const articles = await getCollection('articles');
+const authorSlugByName = buildAuthorSlugByName(articles);
+
+const awardPath = getAwardPath(award.slug);
+const sessionPath = getAwardSessionPath(award.slug, sessionNumber);
+const pageTitle = buildAwardSessionPageTitle(award.name, sessionNumber);
+const pageDescription = buildAwardSessionPageDescription(
+  award.name,
+  sessionNumber,
+  prizeSession.period,
+  prizeSession.winners.length,
+  Boolean(nomineeSession)
+);
+
+const sessionBooks = prizeSession.winners.map((winner) => ({
+  title: winner.title,
+  author: winner.author,
+  amazonUrl: winner.amazonUrl,
+}));
+
+const jsonLd = buildCategoryPageJsonLd({
+  site: Astro.site,
+  title: pageTitle,
+  description: pageDescription,
+  path: sessionPath,
+  parents: [
+    awardHubBreadcrumb(),
+    { name: `${award.name}受賞作一覧`, path: awardPath },
+  ],
+  awardName: award.name,
+  books: sessionBooks,
+});
+
+const breadcrumbs = [
+  { name: 'ホーム', path: '/' },
+  awardHubBreadcrumb(),
+  { name: `${award.name}受賞作一覧`, path: awardPath },
+  { name: pageTitle, path: sessionPath },
+];
+
+const ogImagePath = getAwardOgImagePath(award.slug);
+const prizeData = loadPrizeData(award.slug);
+const prizeFetchedAt = prizeData.fetchedAt ? new Date(prizeData.fetchedAt) : new Date();
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  wide
+  jsonLd={jsonLd}
+  ogImage={ogImagePath}
+  ogImageAlt={pageTitle}
+>
+  <PrizePageStyles />
+  <div class="prize-page">
+    <header class="prize-page__header">
+      <Breadcrumbs items={breadcrumbs} />
+      <h1 class="prize-page__heading">{pageTitle}</h1>
+      {
+        prizeSession.period && (
+          <p class="prize-session__period">対象期間: {prizeSession.period}</p>
+        )
+      }
+      <p class="prize-page__lead">
+        {award.name}第{sessionNumber}回の
+        {prizeSession.winners.length > 0
+          ? `受賞作${prizeSession.winners.length}作品`
+          : '受賞作はありません'}
+        {nomineeSession ? `、候補作${nomineeSession.nominees.length}作品` : ''}
+        を掲載しています。
+      </p>
+      <nav class="prize-page__nav" aria-label="関連ページ">
+        <a href={awardPath}>受賞作一覧</a>
+        <a href={getAwardAuthorsPath(award.slug)}>受賞作家一覧</a>
+        {award.hasNominees && <a href={getAwardNomineePath(award.slug)}>候補作一覧</a>}
+      </nav>
+    </header>
+
+    {
+      prizeSession.winners.length > 0 && (
+        <section class="prize-session__section" aria-labelledby="winners-heading">
+          <h2 id="winners-heading" class="prize-session__heading">受賞作</h2>
+          <ul class="prize-session__works">
+            {
+              prizeSession.winners.map((winner) => {
+                const authorKey = normalizeAuthorName(winner.author);
+                const authorSlug = authorSlugByName.get(authorKey);
+                const authorHref = authorSlug ? `/articles/${authorSlug}/` : undefined;
+
+                return (
+                  <li class="prize-session__work">
+                    <div class="prize-session__work-title">
+                      {
+                        winner.amazonUrl ? (
+                          <a
+                            href={winner.amazonUrl}
+                            rel="noopener noreferrer sponsored"
+                            target="_blank"
+                          >
+                            『{winner.title}』
+                          </a>
+                        ) : (
+                          <>『{winner.title}』</>
+                        )
+                      }
+                    </div>
+                    <div class="prize-session__work-meta">
+                      受賞者:{' '}
+                      {winner.author ? (
+                        authorHref ? <a href={authorHref}>{winner.author}</a> : winner.author
+                      ) : (
+                        '—'
+                      )}
+                      {winner.price && <span class="prize-session__price">{winner.price}</span>}
+                    </div>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      nomineeSession && (
+        <section class="prize-session__section" aria-labelledby="nominees-heading">
+          <h2 id="nominees-heading" class="prize-session__heading">候補作</h2>
+          <ul class="prize-session__works">
+            {
+              nomineeSession.nominees.map((nominee) => {
+                const authorKey = normalizeAuthorName(nominee.author);
+                const authorSlug = authorSlugByName.get(authorKey);
+                const authorHref = authorSlug ? `/articles/${authorSlug}/` : undefined;
+
+                return (
+                  <li
+                    class:list={[
+                      'prize-session__work',
+                      nominee.won && 'prize-session__work--winner',
+                    ]}
+                  >
+                    <div class="prize-session__work-title">
+                      {
+                        nominee.amazonUrl ? (
+                          <a
+                            href={nominee.amazonUrl}
+                            rel="noopener noreferrer sponsored"
+                            target="_blank"
+                          >
+                            『{nominee.title}』
+                          </a>
+                        ) : (
+                          <>『{nominee.title}』</>
+                        )
+                      }
+                      {nominee.won && <span class="prize-table__badge">受賞</span>}
+                    </div>
+                    <div class="prize-session__work-meta">
+                      候補者:{' '}
+                      {authorHref ? <a href={authorHref}>{nominee.author}</a> : nominee.author}
+                      {nominee.price && <span class="prize-session__price">{nominee.price}</span>}
+                    </div>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </section>
+      )
+    }
+
+    <nav class="prize-session__pager" aria-label="前後の回">
+      {
+        previous ? (
+          <a href={getAwardSessionPath(award.slug, previous.session)} class="prize-session__pager-link">
+            ← 第{previous.session}回
+          </a>
+        ) : (
+          <span class="prize-session__pager-placeholder" aria-hidden="true" />
+        )
+      }
+      <a href={awardPath} class="prize-session__pager-center">一覧へ</a>
+      {
+        next ? (
+          <a href={getAwardSessionPath(award.slug, next.session)} class="prize-session__pager-link">
+            第{next.session}回 →
+          </a>
+        ) : (
+          <span class="prize-session__pager-placeholder" aria-hidden="true" />
+        )
+      }
+    </nav>
+
+    <p class="prize-session__updated">
+      データ更新: {prizeFetchedAt.toLocaleDateString('ja-JP')}
+    </p>
+  </div>
+</Layout>
+
+<style>
+  .prize-session__period {
+    margin: -0.25rem 0 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+  }
+
+  .prize-session__section + .prize-session__section {
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .prize-session__heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+  }
+
+  .prize-session__works {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.875rem;
+  }
+
+  .prize-session__work {
+    padding: 1rem 1.125rem;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+  }
+
+  .prize-session__work--winner {
+    background: color-mix(in srgb, var(--color-accent) 6%, var(--color-surface));
+    border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-border));
+  }
+
+  .prize-session__work-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .prize-session__work-title a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+    text-underline-offset: 0.15em;
+  }
+
+  .prize-session__work-title a:hover {
+    color: var(--color-accent);
+    text-decoration-color: var(--color-accent);
+  }
+
+  .prize-session__work-meta {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  .prize-session__work-meta a {
+    color: var(--color-accent);
+  }
+
+  .prize-session__price {
+    margin-left: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .prize-session__pager {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .prize-session__pager-link {
+    color: var(--color-accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .prize-session__pager-link:first-child {
+    justify-self: start;
+  }
+
+  .prize-session__pager-link:last-child {
+    justify-self: end;
+  }
+
+  .prize-session__pager-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .prize-session__pager-center {
+    justify-self: center;
+    color: var(--color-muted);
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+
+  .prize-session__pager-center:hover {
+    color: var(--color-accent);
+  }
+
+  .prize-session__pager-placeholder {
+    display: block;
+  }
+
+  .prize-session__updated {
+    margin: 1.5rem 0 0;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    text-align: right;
+  }
+</style>

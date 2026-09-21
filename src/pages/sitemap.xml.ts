@@ -9,7 +9,14 @@ import {
   PRIVACY_PATH,
   SITE_URL,
 } from '../lib/constants';
-import { AWARDS, getAwardAuthorsPath, getAwardNomineePath, getAwardPath } from '../lib/awards/registry';
+import {
+  AWARDS,
+  getAwardAuthorsPath,
+  getAwardNomineePath,
+  getAwardPath,
+  getAwardSessionPath,
+} from '../lib/awards/registry';
+import { getPrizeSessions } from '../lib/awards/session';
 import { sortArticlesByUpdated } from '../lib/articles';
 import { absoluteUrl } from '../lib/site-url';
 import type { APIContext } from 'astro';
@@ -36,6 +43,10 @@ export async function GET(context: APIContext) {
     const pages = [
       { path: getAwardPath(award.slug), lastmod: latestUpdate },
       { path: getAwardAuthorsPath(award.slug), lastmod: latestUpdate },
+      ...getPrizeSessions(award).map((session) => ({
+        path: getAwardSessionPath(award.slug, session.session),
+        lastmod: latestUpdate,
+      })),
     ];
     if (award.hasNominees) {
       pages.push({ path: getAwardNomineePath(award.slug), lastmod: latestUpdate });

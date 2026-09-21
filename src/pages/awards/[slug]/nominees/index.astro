@@ -7,6 +7,7 @@ import {
   getAwardAuthorsPath,
   getAwardNomineePath,
   getAwardPath,
+  getAwardSessionPath,
 } from '../../../../lib/awards/registry';
 import { groupNomineeBySession } from '../../../../lib/awards/group';
 import { loadNomineeData } from '../../../../lib/awards/data';
@@ -101,7 +102,9 @@ const ogImagePath = getAwardOgImagePath(award.slug);
                       index === 0 && (
                         <>
                           <th scope="row" rowspan={session.nominees.length} class="prize-table__session">
-                            第{session.session}回
+                            <a href={getAwardSessionPath(award.slug, session.session)}>
+                              第{session.session}回
+                            </a>
                           </th>
                           {
                             !award.hidePeriodColumn && (
