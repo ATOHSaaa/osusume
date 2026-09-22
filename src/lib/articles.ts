@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+import { MAX_BOOKS } from './constants';
 
 export type ArticleEntry = CollectionEntry<'articles'>;
 
@@ -10,6 +11,11 @@ export const sortArticlesByAuthor = (a: ArticleEntry, b: ArticleEntry) =>
 
 export function getAuthorArticles(articles: ArticleEntry[]) {
   return articles.filter((a) => a.data.kind === 'author').sort(sortArticlesByUpdated);
+}
+
+/** ランキングが MAX_BOOKS 件そろっている作家記事（トップページ掲載用） */
+export function getAuthorArticlesWithFullRanking(articles: ArticleEntry[]) {
+  return getAuthorArticles(articles).filter((a) => a.data.books.length === MAX_BOOKS);
 }
 
 export function getGenreArticles(articles: ArticleEntry[]) {
