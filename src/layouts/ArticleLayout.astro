@@ -4,6 +4,7 @@ import ArticleBooks from '../components/ArticleBooks.astro';
 import ArticleNavSidebar from '../components/ArticleNavSidebar.astro';
 import ArticleShareBar from '../components/ArticleShareBar.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AuthorAwards from '../components/AuthorAwards.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
@@ -91,6 +92,8 @@ const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', dateOptions)
       <div class="article__content">
         <slot />
       </div>
+
+      {kind === 'author' && <AuthorAwards authorName={article.data.author} />}
 
       <ArticleBooks books={books} sources={sources} kind={kind} />
 

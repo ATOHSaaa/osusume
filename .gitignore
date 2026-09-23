@@ -20,6 +20,8 @@ pnpm-debug.log*
 credentials/client_secret.json
 credentials/token.json
 .venv-gsc/
+__pycache__/
+*.pyc
 research/output/gsc-weekly/data/*.json
 research/output/gsc-weekly/reports/*.html
 

@@ -1,0 +1,171 @@
+---
+import {
+  getAuthorAwardLinks,
+  getAuthorAwards,
+} from '../lib/awards/author-awards';
+
+interface Props {
+  authorName: string;
+}
+
+const { authorName } = Astro.props;
+const wins = getAuthorAwards(authorName);
+const awardLinks = getAuthorAwardLinks(wins);
+---
+
+{
+  wins.length > 0 && (
+    <section class="author-awards" aria-labelledby="author-awards-heading">
+      <h2 id="author-awards-heading" class="author-awards__heading">
+        主な受賞歴
+      </h2>
+      <table class="author-awards__table">
+        <thead>
+          <tr>
+            <th scope="col">文学賞</th>
+            <th scope="col">受賞作</th>
+            <th scope="col">回</th>
+          </tr>
+        </thead>
+        <tbody>
+          {wins.map((win) => (
+            <tr>
+              <td>
+                <a href={win.awardPath}>{win.awardName}</a>
+              </td>
+              <td>
+                <a href={win.sessionPath}>『{win.workTitle}』</a>
+              </td>
+              <td class="author-awards__session">
+                <a href={win.sessionPath}>第{win.session}回</a>
+                {win.period && (
+                  <span class="author-awards__period">（{win.period}）</span>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {awardLinks.length > 0 && (
+        <nav class="author-awards__nav" aria-label="文学賞ページ">
+          <p class="author-awards__nav-label">文学賞の一覧ページ</p>
+          <ul class="author-awards__nav-list">
+            {awardLinks.map((link) => (
+              <li>
+                <a href={link.awardPath}>{link.awardName} 受賞作一覧</a>
+                <span class="author-awards__nav-sep" aria-hidden="true">·</span>
+                <a href={link.authorsPath}>{link.awardName} 受賞作家一覧</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .author-awards {
+    margin: 2rem 0 0;
+  }
+
+  .author-awards__heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+    line-height: 1.3;
+    letter-spacing: var(--heading-letter-spacing);
+  }
+
+  .author-awards__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .author-awards__table th,
+  .author-awards__table td {
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border, #e5e7eb);
+    vertical-align: top;
+  }
+
+  .author-awards__table th {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+
+  .author-awards__table a {
+    color: var(--color-link, #2563eb);
+    text-decoration: none;
+  }
+
+  .author-awards__table a:hover {
+    text-decoration: underline;
+  }
+
+  .author-awards__session {
+    white-space: nowrap;
+  }
+
+  .author-awards__period {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--color-muted);
+    white-space: normal;
+  }
+
+  .author-awards__nav {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border, #e5e7eb);
+  }
+
+  .author-awards__nav-label {
+    margin: 0 0 0.5rem;
+    font-size: 0.82rem;
+    color: var(--color-muted);
+  }
+
+  .author-awards__nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  .author-awards__nav-list li {
+    margin-bottom: 0.35rem;
+  }
+
+  .author-awards__nav-list a {
+    color: var(--color-link, #2563eb);
+    text-decoration: none;
+  }
+
+  .author-awards__nav-list a:hover {
+    text-decoration: underline;
+  }
+
+  .author-awards__nav-sep {
+    margin: 0 0.35rem;
+    color: var(--color-muted);
+  }
+
+  @media (max-width: 640px) {
+    .author-awards__table {
+      font-size: 0.82rem;
+    }
+
+    .author-awards__table th,
+    .author-awards__table td {
+      padding: 0.5rem 0.4rem;
+    }
+
+    .author-awards__session {
+      white-space: normal;
+    }
+  }
+</style>
