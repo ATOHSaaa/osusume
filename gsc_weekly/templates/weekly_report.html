@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <style>
+    :root {
+      --bg: #0f1419; --surface: #1a2332; --surface2: #243044; --border: #2d3f56;
+      --text: #e8edf4; --muted: #8b9cb3; --accent: #4f9cf9; --accent2: #34d399;
+      --warn: #fbbf24; --danger: #f87171; --purple: #a78bfa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 2rem 1rem 4rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    header { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; }
+    header h1 { font-size: 1.6rem; margin-bottom: 0.5rem; }
+    .meta { color: var(--muted); font-size: 0.9rem; }
+    .meta span { margin-right: 1.25rem; }
+    .nav-top { margin-bottom: 1rem; }
+    .nav-top a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .nav-top a:hover { text-decoration: underline; }
+    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+    .metric-card .label { color: var(--muted); font-size: 0.85rem; }
+    .metric-card .value { font-size: 1.6rem; font-weight: 700; margin-top: 0.25rem; }
+    .metric-card .sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+    section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 1.75rem; margin-bottom: 1.25rem; }
+    section h2 { font-size: 1.15rem; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+    section h3 { font-size: 0.95rem; color: var(--accent); margin: 1rem 0 0.5rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 0.75rem 0; }
+    th, td { padding: 0.55rem 0.65rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); font-weight: 600; font-size: 0.78rem; }
+    tr:hover td { background: var(--surface2); }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .up { color: var(--accent2); }
+    .down { color: var(--danger); }
+    .neutral { color: var(--muted); }
+    .bar-cell { min-width: 120px; }
+    .bar-track { height: 18px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--accent); border-radius: 4px; }
+    .bar-fill.impr { background: var(--purple); }
+    code, .url-cell { font-size: 0.8rem; word-break: break-all; }
+    footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 2rem; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+    .priority {
+      display: inline-block; font-size: 0.7rem; font-weight: 700;
+      padding: 0.15rem 0.5rem; border-radius: 4px; margin-right: 0.4rem;
+    }
+    .p-high { background: #7f1d1d; color: #fca5a5; }
+    .p-mid { background: #78350f; color: #fde68a; }
+    .p-low { background: #1e3a5f; color: #93c5fd; }
+    .action-list { list-style: none; padding: 0; }
+    .action-list li {
+      background: var(--surface2); border-left: 3px solid var(--accent);
+      padding: 1rem 1.25rem; margin-bottom: 0.75rem; border-radius: 0 8px 8px 0;
+    }
+    .action-list li strong { color: var(--text); display: block; margin-bottom: 0.35rem; }
+    .action-list .evidence { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+    .action-list li.p-high-item { border-left-color: var(--danger); }
+    .action-list li.p-mid-item { border-left-color: var(--warn); }
+    .action-list li.p-low-item { border-left-color: var(--accent); }
+    .page-action-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.1rem 1.3rem; margin-bottom: 1rem;
+    }
+    .page-action-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+    .page-action-head .rank {
+      flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--accent); color: #fff; font-size: 0.85rem; font-weight: 700;
+      display: grid; place-items: center;
+    }
+    .page-action-head code { font-size: 0.95rem; color: var(--text); font-weight: 600; }
+    .page-action-metrics { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.82rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .page-action-metrics strong { color: var(--text); }
+    .page-action-queries { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .page-action-issues { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem; }
+    .issue-tag {
+      font-size: 0.76rem; background: #78350f55; color: #fde68a;
+      border: 1px solid #78350f; border-radius: 4px; padding: 0.12rem 0.5rem;
+    }
+    .page-action-list { padding-left: 1.3rem; margin: 0; }
+    .page-action-list li { font-size: 0.88rem; margin-bottom: 0.3rem; color: #c8d4e3; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <p class="nav-top"><a href="/">← ダッシュボード</a></p>
+
+  <header>
+    <h1>{{ title }}</h1>
+    <div class="meta">
+      <span>📅 生成: {{ generated_at }}</span>
+      <span>🔗 {{ property_url }}</span>
+      <span>📊 直近 {{ period.weeks_shown }} 週（データ確定〜{{ period.data_end }}）</span>
+    </div>
+  </header>
+
+  <div class="summary-grid">
+    <div class="metric-card">
+      <div class="label">期間合計クリック</div>
+      <div class="value">{{ "{:,}".format(summary.clicks) }}</div>
+      <div class="sub">{{ summary.week_count }}週間</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">期間合計表示</div>
+      <div class="value">{{ "{:,}".format(summary.impressions) }}</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">平均CTR</div>
+      <div class="value">{{ summary.ctr }}%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">平均掲載順位</div>
+      <div class="value">{{ summary.position }}</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>📈 週次推移（月曜始まり）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>週</th>
+          <th class="num">クリック</th>
+          <th>推移</th>
+          <th class="num">前週比</th>
+          <th class="num">表示</th>
+          <th class="num">CTR</th>
+          <th class="num">順位</th>
+          <th class="num">順位Δ</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for w in weekly %}
+        <tr>
+          <td>{{ w.week_label }}</td>
+          <td class="num">{{ "{:,}".format(w.clicks) }}</td>
+          <td class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:{{ w.clicks_bar_pct }}%"></div></div></td>
+          <td class="num {% if w.wow_clicks is not none %}{% if w.wow_clicks > 0 %}up{% elif w.wow_clicks < 0 %}down{% else %}neutral{% endif %}{% endif %}">
+            {% if w.wow_clicks is none %}—{% else %}{{ "%+.1f"|format(w.wow_clicks) }}%{% endif %}
+          </td>
+          <td class="num">{{ "{:,}".format(w.impressions) }}</td>
+          <td class="num">{{ w.ctr }}%</td>
+          <td class="num">{{ w.position }}</td>
+          <td class="num {% if w.wow_position is not none %}{% if w.wow_position < 0 %}up{% elif w.wow_position > 0 %}down{% endif %}{% endif %}">
+            {% if w.wow_position is none %}—{% else %}{{ "%+.2f"|format(w.wow_position) }}{% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p style="color:var(--muted);font-size:0.85rem;margin-top:0.5rem;">順位Δ: マイナスは改善（上位化）。GSCは確定に2〜3日の遅延があります。</p>
+  </section>
+
+  <section>
+    <h2>🔍 直近完了週: {{ period.latest_week.label }}</h2>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem;">前週（{{ period.previous_week.label }}）との比較</p>
+
+    <div class="two-col">
+      <div>
+        <h3>クリック増加クエリ TOP</h3>
+        <table>
+          <thead><tr><th>クエリ</th><th class="num">今週</th><th class="num">増減</th></tr></thead>
+          <tbody>
+            {% for r in query_movers.gainers[:10] %}
+            <tr><td>{{ r.query }}</td><td class="num">{{ r.clicks }}</td><td class="num up">+{{ r.delta }}</td></tr>
+            {% else %}<tr><td colspan="3">—</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3>クリック減少クエリ TOP</h3>
+        <table>
+          <thead><tr><th>クエリ</th><th class="num">今週</th><th class="num">増減</th></tr></thead>
+          <tbody>
+            {% for r in query_movers.losers[:10] %}
+            <tr><td>{{ r.query }}</td><td class="num">{{ r.clicks }}</td><td class="num down">{{ r.delta }}</td></tr>
+            {% else %}<tr><td colspan="3">—</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>🏷️ 今週のTOPクエリ</h2>
+    <table>
+      <thead>
+        <tr><th>クエリ</th><th class="num">クリック</th><th class="num">表示</th><th class="num">CTR</th><th class="num">順位</th></tr>
+      </thead>
+      <tbody>
+        {% for r in top_queries_latest_week %}
+        <tr>
+          <td>{{ r.query }}</td>
+          <td class="num">{{ r.clicks }}</td>
+          <td class="num">{{ r.impressions }}</td>
+          <td class="num">{{ "%.2f"|format(r.ctr * 100) }}%</td>
+          <td class="num">{{ "%.2f"|format(r.position) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>📄 今週のTOPページ</h2>
+    <table>
+      <thead>
+        <tr><th>ページ</th><th class="num">クリック</th><th class="num">表示</th><th class="num">CTR</th><th class="num">順位</th></tr>
+      </thead>
+      <tbody>
+        {% for r in top_pages_latest_week %}
+        <tr>
+          <td class="url-cell"><code>{{ r.page }}</code></td>
+          <td class="num">{{ r.clicks }}</td>
+          <td class="num">{{ r.impressions }}</td>
+          <td class="num">{{ "%.2f"|format(r.ctr * 100) }}%</td>
+          <td class="num">{{ "%.2f"|format(r.position) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h3>ページ別クリック増減</h3>
+    <div class="two-col">
+      <table>
+        <thead><tr><th>増加</th><th class="num">Δ</th></tr></thead>
+        <tbody>
+          {% for r in page_movers.gainers[:8] %}
+          <tr><td class="url-cell"><code>{{ r.page }}</code></td><td class="num up">+{{ r.delta }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <table>
+        <thead><tr><th>減少</th><th class="num">Δ</th></tr></thead>
+        <tbody>
+          {% for r in page_movers.losers[:8] %}
+          <tr><td class="url-cell"><code>{{ r.page }}</code></td><td class="num down">{{ r.delta }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="page-actions">
+    <h2>📝 改善すべき記事と施策候補</h2>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem;">
+      直近完了週のデータから、改善インパクトが大きい順に記事を抽出しています。
+    </p>
+    {% if page_actions %}
+    {% for pa in page_actions %}
+    <div class="page-action-card">
+      <div class="page-action-head">
+        <span class="rank">{{ loop.index }}</span>
+        <code class="url-cell">{{ pa.path }}</code>
+      </div>
+      <div class="page-action-metrics">
+        <span>クリック <strong>{{ pa.clicks }}</strong></span>
+        <span>表示 <strong>{{ "{:,}".format(pa.impressions) }}</strong></span>
+        <span>CTR <strong>{{ pa.ctr }}%</strong></span>
+        <span>順位 <strong>{{ pa.position }}</strong></span>
+        {% if pa.delta is not none %}<span class="down">前週比 {{ pa.delta }} クリック</span>{% endif %}
+      </div>
+      {% if pa.top_queries %}
+      <div class="page-action-queries">主要クエリ: {{ pa.top_queries }}</div>
+      {% endif %}
+      <div class="page-action-issues">
+        {% for issue in pa.issues %}
+        <span class="issue-tag">⚠ {{ issue }}</span>
+        {% endfor %}
+      </div>
+      <ul class="page-action-list">
+        {% for action in pa.actions %}
+        <li>{{ action }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>今週は重点改善対象となる記事は検出されませんでした。</p>
+    {% endif %}
+  </section>
+
+  <section id="recommendations">
+    <h2>💡 改善施策案（自動生成）</h2>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem;">
+      直近週のGSCデータ（順位・CTR・クエリ／ページ増減）からルールベースで抽出しています。
+      優先度の高いものから着手してください。
+    </p>
+    <ul class="action-list">
+      {% for rec in recommendations %}
+      <li class="p-{{ rec.priority }}-item">
+        {% if rec.priority == 'high' %}
+        <span class="priority p-high">最優先</span>
+        {% elif rec.priority == 'mid' %}
+        <span class="priority p-mid">重要</span>
+        {% else %}
+        <span class="priority p-low">推奨</span>
+        {% endif %}
+        <strong>{{ rec.title }}</strong>
+        {{ rec.body }}
+        {% if rec.evidence %}
+        <div class="evidence">📊 根拠: {{ rec.evidence }}</div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <footer>
+    Google Search Console API | 週次レポート {{ generated_at }}
+  </footer>
+</div>
+</body>
+</html>

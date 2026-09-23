@@ -16,6 +16,13 @@ pnpm-debug.log*
 .env
 .env.production
 
+# GSC OAuth（Search Console API）
+credentials/client_secret.json
+credentials/token.json
+.venv-gsc/
+research/output/gsc-weekly/data/*.json
+research/output/gsc-weekly/reports/*.html
+
 # IndexNow キーファイル（CI / ローカルで生成）
 public/*.txt
 

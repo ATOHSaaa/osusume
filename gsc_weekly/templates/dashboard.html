@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSC 週次レポート</title>
+  <style>
+    :root {
+      --bg: #0f1419; --surface: #1a2332; --border: #2d3f56;
+      --text: #e8edf4; --muted: #8b9cb3; --accent: #4f9cf9; --accent2: #34d399;
+      --danger: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; background: var(--bg); color: var(--text); padding: 2rem 1rem; line-height: 1.6; }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    p { color: #c8d4e3; margin-bottom: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+    .status { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+    .status.ok { color: var(--accent2); }
+    .status.err { color: var(--danger); }
+    .btn { display: inline-block; background: var(--accent); color: #fff; border: none; padding: 0.65rem 1.25rem; border-radius: 8px; font-size: 0.95rem; cursor: pointer; text-decoration: none; }
+    .btn:hover { opacity: 0.9; }
+    .btn:disabled { opacity: 0.5; cursor: wait; }
+    .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); margin-left: 0.5rem; }
+    ul { list-style: none; }
+    li { padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+    li a { color: var(--accent); text-decoration: none; }
+    li a:hover { text-decoration: underline; }
+    li .date { color: var(--muted); font-size: 0.8rem; margin-left: 0.5rem; }
+    #message { margin-top: 1rem; padding: 0.75rem; border-radius: 8px; display: none; }
+    #message.success { display: block; background: #14532d44; color: var(--accent2); }
+    #message.error { display: block; background: #7f1d1d44; color: var(--danger); }
+    code { background: #243044; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>GSC 週次レポート</h1>
+  <p>Search Console API からデータを取得し、週ごとの推移レポートをブラウザで表示します。</p>
+
+  <div class="card">
+    <div class="status {% if auth_ok %}ok{% else %}err{% endif %}">
+      {% if auth_ok %}✓ 認証済み（{{ token_file }}）{% else %}✗ 未認証 — 下記の手順で <code>python -m gsc_weekly auth</code> を実行{% endif %}
+    </div>
+    <div class="status {% if property_url %}ok{% else %}err{% endif %}">
+      {% if property_url %}プロパティ: <code>{{ property_url }}</code>{% else %}GSC_PROPERTY_URL 未設定（.env）{% endif %}
+    </div>
+    <button type="button" class="btn" id="refreshBtn" {% if not auth_ok or not property_url %}disabled{% endif %}>最新レポートを生成</button>
+    {% if has_latest %}
+    <a class="btn btn-secondary" href="/reports/latest.html">最新レポートを開く</a>
+    {% endif %}
+    <div id="message"></div>
+  </div>
+
+  <div class="card">
+    <h2 style="font-size:1rem;margin-bottom:0.75rem;">保存済みレポート</h2>
+    <ul>
+      {% for r in reports %}
+      <li>
+        <a href="/reports/{{ r.filename }}">{{ r.filename }}</a>
+        <span class="date">{{ r.modified }}</span>
+      </li>
+      {% else %}
+      <li style="color:var(--muted)">まだレポートがありません。「最新レポートを生成」を押してください。</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card" style="font-size:0.85rem;color:var(--muted);">
+    <strong style="color:var(--text);">初回セットアップ</strong>
+    <ol style="margin:0.75rem 0 0 1.25rem;color:#c8d4e3;">
+      <li>Google Cloud で Search Console API を有効化</li>
+      <li>OAuthクライアント（デスクトップ）JSON → <code>credentials/client_secret.json</code></li>
+      <li><code>.env</code> に <code>GSC_PROPERTY_URL=https://example.com/</code></li>
+      <li><code>python -m gsc_weekly auth</code></li>
+      <li>このページで「最新レポートを生成」</li>
+    </ol>
+  </div>
+</div>
+<script>
+  const btn = document.getElementById('refreshBtn');
+  const msg = document.getElementById('message');
+  if (btn) {
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      msg.className = '';
+      msg.style.display = 'none';
+      try {
+        const res = await fetch('/api/generate', { method: 'POST' });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '生成に失敗しました');
+        msg.textContent = '生成完了: ' + data.html;
+        msg.className = 'success';
+        setTimeout(() => location.reload(), 1200);
+      } catch (e) {
+        msg.textContent = e.message;
+        msg.className = 'error';
+        btn.disabled = false;
+      }
+    });
+  }
+</script>
+</body>
+</html>
