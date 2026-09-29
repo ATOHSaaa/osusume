@@ -1,7 +1,7 @@
 import { normalizeBookTitleForMatch } from './book-format';
 import type { ArticleEntry } from './articles';
 
-export const RELATED_ARTICLES_LIMIT = 4;
+export const RELATED_ARTICLES_LIMIT = 12;
 
 interface ScoredArticle {
   article: ArticleEntry;

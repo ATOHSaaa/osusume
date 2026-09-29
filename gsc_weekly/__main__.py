@@ -22,6 +22,10 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("check", help="セットアップ状態を確認")
     sub.add_parser("sites", help="アクセス可能なプロパティ一覧")
     sub.add_parser("generate", help="レポートを生成してHTML保存")
+    sub.add_parser(
+        "sync-sidebar",
+        help="latest.json からサイドバー用 gsc-top-authors.json を更新",
+    )
     p_serve = sub.add_parser("serve", help="ブラウザ用ローカルサーバー起動")
     p_serve.add_argument("--port", type=int, default=None, help="ポート番号")
 
@@ -58,6 +62,13 @@ def main(argv: list[str] | None = None) -> int:
         html_path, json_path = save_report()
         print(f"HTML: {html_path}")
         print(f"JSON: {json_path}")
+        return 0
+
+    if args.command == "sync-sidebar":
+        from gsc_weekly.sidebar import sync_sidebar_from_latest_json
+
+        path = sync_sidebar_from_latest_json()
+        print(f"Sidebar JSON: {path}")
         return 0
 
     if args.command == "serve":

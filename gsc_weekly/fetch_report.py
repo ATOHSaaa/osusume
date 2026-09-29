@@ -36,14 +36,21 @@ def build_report_data(weeks: int | None = None) -> dict[str, Any]:
         )
     )
 
+    period_start, period_end = aggregate.week_start(
+        date.today() - timedelta(days=GSC_DATA_LAG_DAYS)
+    ), date.today() - timedelta(days=GSC_DATA_LAG_DAYS)
+    period_start = aggregate.week_start(period_end) - timedelta(days=(weeks - 1) * 7)
+
     lm_start, lm_end, pm_start, pm_end = _latest_complete_week()
     latest_queries = fetch_period_metrics(lm_start, lm_end, "query", row_limit=500)
     prev_queries = fetch_period_metrics(pm_start, pm_end, "query", row_limit=500)
     latest_pages = fetch_period_metrics(lm_start, lm_end, "page", row_limit=200)
     prev_pages = fetch_period_metrics(pm_start, pm_end, "page", row_limit=200)
+    period_pages = fetch_period_metrics(period_start, period_end, "page", row_limit=1000)
 
     latest_queries.sort(key=lambda r: r.get("clicks", 0), reverse=True)
     latest_pages.sort(key=lambda r: r.get("clicks", 0), reverse=True)
+    period_pages.sort(key=lambda r: r.get("clicks", 0), reverse=True)
 
     # ページ×クエリ（記事別の改善施策生成に使用）
     page_query_rows = query_search_analytics(
@@ -92,6 +99,7 @@ def build_report_data(weeks: int | None = None) -> dict[str, Any]:
         "weekly": weekly,
         "top_queries_latest_week": latest_queries[:25],
         "top_pages_latest_week": latest_pages[:25],
+        "top_pages_period": period_pages[:100],
         "page_queries_latest_week": page_queries,
         "query_movers": aggregate.top_movers(
             latest_queries, prev_queries, key="query", label_key="query"

@@ -11,6 +11,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from gsc_weekly.config import DATA_DIR, REPORTS_DIR
 from gsc_weekly.fetch_report import build_report_data
 from gsc_weekly.recommendations import generate_page_actions, generate_recommendations
+from gsc_weekly.sidebar import write_sidebar_json
 
 _TEMPLATE_DIR = Path(__file__).parent / "templates"
 
@@ -44,6 +45,9 @@ def save_report(data: dict | None = None) -> tuple[Path, Path]:
     latest_html = REPORTS_DIR / "latest.html"
     latest_json.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     latest_html.write_text(html, encoding="utf-8")
+
+    sidebar_path = write_sidebar_json(data)
+    print(f"Sidebar JSON: {sidebar_path}")
 
     return html_path, json_path
 

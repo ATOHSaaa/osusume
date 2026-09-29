@@ -223,7 +223,10 @@ export async function generateArticle(subject: ArticleSubject, slugBase?: string
     kind: subject.kind,
     author: subject.label,
     title: getArticleTitle(subject),
-    description: getArticleDescription(subject),
+    description: getArticleDescription(
+      subject,
+      enrichedBooks.map((book) => book.title)
+    ),
     tags: getArticleTags(subject),
     sources: searchResults,
     books: enrichedBooks,

@@ -32,7 +32,11 @@ python -m gsc_weekly generate
 | `python -m gsc_weekly check` | セットアップ確認 |
 | `python -m gsc_weekly auth` | OAuth 認証（初回・再認証） |
 | `python -m gsc_weekly sites` | アクセス可能なプロパティ一覧 |
-| `python -m gsc_weekly generate` | 最新データ取得 → JSON/HTML 保存 |
+| `python -m gsc_weekly generate` | 最新データ取得 → JSON/HTML 保存（サイドバー JSON も更新） |
+| `python -m gsc_weekly sync-sidebar` | `latest.json` から `src/data/gsc-top-authors.json` を再生成 |
+| `npm run sync:gsc-sidebar` | 上記と同じ（npm 経由） |
 | `python -m gsc_weekly serve` | ローカルビューア（既定: http://127.0.0.1:8766/） |
+
+記事サイドバーの「アクセス数の多い作家」は `src/data/gsc-top-authors.json` を参照します。GSC 更新後は `generate` または `sync-sidebar` を実行し、この JSON をコミットしてください。
 
 認証の詳細は [credentials/README.md](../credentials/README.md)。

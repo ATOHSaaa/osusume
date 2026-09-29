@@ -1,3 +1,5 @@
+import { buildAuthorMetaDescription } from './author-meta-description';
+
 export type ArticleKind = 'author' | 'genre' | 'manga';
 
 export interface ArticleSubject {
@@ -89,14 +91,17 @@ export function getArticleTitle(subject: ArticleSubject): string {
   return `${subject.label}のおすすめ作品ランキング`;
 }
 
-export function getArticleDescription(subject: ArticleSubject): string {
+export function getArticleDescription(
+  subject: ArticleSubject,
+  bookTitles: string[] = []
+): string {
   if (subject.kind === 'manga') {
     return `${subject.label}の人気作品をWeb記事から集計。言及頻度の高いおすすめ漫画をランキング形式で紹介します。`;
   }
   if (subject.kind === 'genre') {
     return `${genreProseLabel(subject.label)}の人気作品をWeb記事から集計。言及頻度の高いおすすめをランキング形式で紹介します。`;
   }
-  return `${subject.label}のおすすめ作品・代表作をWeb記事から集計。言及頻度の高い本をランキング形式で紹介します。`;
+  return buildAuthorMetaDescription(subject.label, bookTitles);
 }
 
 export function getArticleBody(subject: ArticleSubject, sourceCount: number): string {

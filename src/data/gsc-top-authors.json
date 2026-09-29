@@ -1,0 +1,155 @@
+{
+  "generated_at": "2026-09-23T21:39:07",
+  "period": {
+    "start": "2026-09-14",
+    "end": "2026-09-20",
+    "weeks": 1,
+    "source": "top_pages_latest_week"
+  },
+  "authors": [
+    {
+      "slug": "akagawa-jiro-recommended-books",
+      "path": "/articles/akagawa-jiro-recommended-books/",
+      "clicks": 14,
+      "impressions": 865
+    },
+    {
+      "slug": "terachi-haruna-recommended-books",
+      "path": "/articles/terachi-haruna-recommended-books/",
+      "clicks": 12,
+      "impressions": 307
+    },
+    {
+      "slug": "shimamoto-rio-recommended-books",
+      "path": "/articles/shimamoto-rio-recommended-books/",
+      "clicks": 11,
+      "impressions": 716
+    },
+    {
+      "slug": "aosaki-argo-recommended-books",
+      "path": "/articles/aosaki-argo-recommended-books/",
+      "clicks": 6,
+      "impressions": 96
+    },
+    {
+      "slug": "nonami-asa-recommended-books",
+      "path": "/articles/nonami-asa-recommended-books/",
+      "clicks": 6,
+      "impressions": 254
+    },
+    {
+      "slug": "sakai-kikuko-recommended-books",
+      "path": "/articles/sakai-kikuko-recommended-books/",
+      "clicks": 6,
+      "impressions": 65
+    },
+    {
+      "slug": "dark-fantasy-recommended-books",
+      "path": "/articles/dark-fantasy-recommended-books/",
+      "clicks": 5,
+      "impressions": 66
+    },
+    {
+      "slug": "fujino-chiya-recommended-books",
+      "path": "/articles/fujino-chiya-recommended-books/",
+      "clicks": 5,
+      "impressions": 103
+    },
+    {
+      "slug": "himeno-kaoruko-recommended-books",
+      "path": "/articles/himeno-kaoruko-recommended-books/",
+      "clicks": 5,
+      "impressions": 114
+    },
+    {
+      "slug": "kakine-ryosuke-recommended-books",
+      "path": "/articles/kakine-ryosuke-recommended-books/",
+      "clicks": 5,
+      "impressions": 135
+    },
+    {
+      "slug": "kirino-natsuo-recommended-books",
+      "path": "/articles/kirino-natsuo-recommended-books/",
+      "clicks": 5,
+      "impressions": 140
+    },
+    {
+      "slug": "makime-manabu-recommended-books",
+      "path": "/articles/makime-manabu-recommended-books/",
+      "clicks": 5,
+      "impressions": 153
+    },
+    {
+      "slug": "overseas-childrens-literature-recommended-books",
+      "path": "/articles/overseas-childrens-literature-recommended-books/",
+      "clicks": 5,
+      "impressions": 36
+    },
+    {
+      "slug": "absurd-literature-recommended-books",
+      "path": "/articles/absurd-literature-recommended-books/",
+      "clicks": 4,
+      "impressions": 53
+    },
+    {
+      "slug": "chihaya-akane-recommended-books",
+      "path": "/articles/chihaya-akane-recommended-books/",
+      "clicks": 4,
+      "impressions": 204
+    },
+    {
+      "slug": "hayashi-mariko-recommended-books",
+      "path": "/articles/hayashi-mariko-recommended-books/",
+      "clicks": 4,
+      "impressions": 124
+    },
+    {
+      "slug": "miyao-tomiko-recommended-books",
+      "path": "/articles/miyao-tomiko-recommended-books/",
+      "clicks": 4,
+      "impressions": 94
+    },
+    {
+      "slug": "mori-eto-recommended-books",
+      "path": "/articles/mori-eto-recommended-books/",
+      "clicks": 4,
+      "impressions": 189
+    },
+    {
+      "slug": "nakayama-shichiri-recommended-books",
+      "path": "/articles/nakayama-shichiri-recommended-books/",
+      "clicks": 4,
+      "impressions": 109
+    },
+    {
+      "slug": "niki-etsuko-recommended-books",
+      "path": "/articles/niki-etsuko-recommended-books/",
+      "clicks": 4,
+      "impressions": 22
+    },
+    {
+      "slug": "nishimura-kyotaro-recommended-books",
+      "path": "/articles/nishimura-kyotaro-recommended-books/",
+      "clicks": 4,
+      "impressions": 140
+    },
+    {
+      "slug": "shishosetsu-recommended-books",
+      "path": "/articles/shishosetsu-recommended-books/",
+      "clicks": 4,
+      "impressions": 88
+    },
+    {
+      "slug": "yuikawa-kei-recommended-books",
+      "path": "/articles/yuikawa-kei-recommended-books/",
+      "clicks": 4,
+      "impressions": 153
+    },
+    {
+      "slug": "ando-jose-recommended-books",
+      "path": "/articles/ando-jose-recommended-books/",
+      "clicks": 3,
+      "impressions": 29
+    }
+  ]
+}
