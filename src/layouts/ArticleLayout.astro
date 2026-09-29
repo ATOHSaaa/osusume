@@ -93,9 +93,9 @@ const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', dateOptions)
         <slot />
       </div>
 
-      {kind === 'author' && <AuthorAwards authorName={article.data.author} />}
-
       <ArticleBooks books={books} sources={sources} kind={kind} />
+
+      {kind === 'author' && <AuthorAwards authorName={article.data.author} />}
 
       <ArticleShareBar url={shareUrl} title={title} position="bottom" />
 

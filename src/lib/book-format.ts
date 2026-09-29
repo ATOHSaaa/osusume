@@ -36,7 +36,10 @@ export function isGuideOrCommentaryProduct(source: FormatSource): boolean {
 
 export function isForeignEditionProduct(source: FormatSource): boolean {
   const title = source.title ?? '';
-  return /\[韓国語版\]|\[中国語版\]|\[英語版\]|韓国語版|中国語版/.test(title);
+  return (
+    /\[韓国語版\]|\[中国語版\]|\[英語版\]|韓国語版|中国語版/.test(title) ||
+    /一頁文庫|一页文库|一頁文库/.test(title)
+  );
 }
 
 export function isYouthAbridgedProduct(source: FormatSource): boolean {
